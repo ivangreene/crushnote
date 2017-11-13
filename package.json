@@ -1,0 +1,26 @@
+{
+  "name": "crushnote",
+  "version": "0.0.1",
+  "description": "Implementation of Love Letter as a web app.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivangreene/crushnote.git"
+  },
+  "author": "Ivan Greene, Hillary Spratt, Josh Lehne, Julian French",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivangreene/crushnote/issues"
+  },
+  "homepage": "https://github.com/ivangreene/crushnote#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.1",
+    "react": "^16.1.0"
+  }
+}
