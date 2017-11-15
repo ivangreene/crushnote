@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import './App.css';
 //import Card from "./components/Card/Card";
-//import PlayedCards from "./components/PlayedCards/PlayedCards";
-        //<PlayedCards cards={data} />
+  //  <PlayedCards cards={data} />
 import CardList from "./components/CardList/CardList";
+import PlayedCards from "./components/PlayedCards/PlayedCards";
 
-const data = require('./cards.json');
+let data = require('./cards.json');
 
 class App extends Component {
   render() {

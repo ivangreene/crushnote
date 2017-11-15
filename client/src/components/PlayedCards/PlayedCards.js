@@ -3,9 +3,10 @@ import "./PlayedCards.css";
 import PlayedCardsListItem from "./PlayedCards"
 
 const PlayedCards = (props) => {
-  console.log(props);
+ console.log(props);
 
-  const cardItems = props.cards.map((card)=>{
+ props.cards.map((card)=>{
+    console.log(card);
     return(
       <PlayedCardsListItem
         key={card.id}
@@ -14,7 +15,7 @@ const PlayedCards = (props) => {
 
       return(
         <ul>
-          {cardItems}
+          <PlayedCardsListItem />
         </ul>
       );
     };
