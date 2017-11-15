@@ -15,6 +15,10 @@ class GameView extends Component {
         <h3>Game Nav? what info/components to go here?</h3>
       </div>
 
+      <div className ="opponent_stats">
+        <p>Opponent Name /  Rounds Won / Tokens Won</p>
+      </div>
+
       <div id="card_view">
         <div id="oppenent1_hand">
           <p>Oppenent hand</p>
@@ -34,8 +38,9 @@ class GameView extends Component {
       </div>
 
       <div className="hud">
-        <h3>Player buttons/interaction which components for here??</h3>
+        <h3>Player buttons / Rounds Won /interaction which components for here??</h3>
       </div>
+
       <h2>Bottom of GameView - CardList Ref below</h2>
     </div>);
   }
