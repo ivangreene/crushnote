@@ -2,28 +2,34 @@ import React, {Component} from "react";
 //import {CardContainer} from "../CardContainer/CardContainer";
 import "./Card.css";
 
-//const Card =(props)=>{
 
-class Card extends Component {
-  render() {
+const data = require('../../cards.json');
+
+const Card =({card})=>{
+//class Card extends Component {
+
+if(!card){
+  return<div>Loading...</div>
+};
+
     return (
-      <div className="container" id="CardContainer">
+      <div id="CardContainer">
         <div className="card_top">
-          <h3 className="card_value">C Value(Int)</h3>
-          <h3 className="card_name">Character</h3>
+          <h3 className="card_value">{card.id}</h3>
+          <h3 className="card_name">{card.name}</h3>
         </div>
         <div className="card_image">
           Image placeholder
           <img src="" alt=""/></div>
         <div className="card_action">
           <h4>
-            Card Description/Action is where we tell you what the card Actions are
+            {card.action}
           </h4>
         </div>
       </div>
     );
   };
 
-}
+
 
 export default Card;

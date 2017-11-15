@@ -1,9 +1,11 @@
 #CardContainer{
   background-color: #c8c7a1;
   width:300px;
-  height:450px;
+  height:500px;
   border:1px solid #021a40;
   padding:10px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .card_image{
@@ -28,7 +30,7 @@ height: 90px;
 border: 1px solid #021a40;
 border-radius: 50px;
 display: inline-block;
-line-height: 1.5;
+line-height: 4.5;
 }
 
 .card_action{

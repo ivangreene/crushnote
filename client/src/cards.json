@@ -15,13 +15,13 @@
     "name": "Baron",
     "id": 3,
     "count": 2,
-    "action":"When this card is played, its player will choose another player and privately compare hands. The player with the lower-strength hand is eliminated from the round.",
+    "action":"When this card is played, its player will choose another player and privately compare hands. The player with the lower-strength hand is eliminated from the round."
   },
   {
     "name": "Handmaiden",
     "id": 4,
     "count": 2,
-    "action":"When this card is played, the player cannot be affected by any other player's card until the next turn.",
+    "action":"When this card is played, the player cannot be affected by any other player's card until the next turn."
   },
   {
     "name":"Prince",
@@ -33,13 +33,13 @@
     "name":"King",
     "id": 6,
     "count": 1,
-    "action": "When this card is played, its player trades hands with any other player.",
+    "action": "When this card is played, its player trades hands with any other player."
   },
   {
     "name":"Countess",
     "id":7,
     "count": 1,
-    "action": "If a player holds both this card and either the King or Prince card, this card must be played immediately.",
+    "action": "If a player holds both this card and either the King or Prince card, this card must be played immediately."
   },
   {
     "name":"Princess",
