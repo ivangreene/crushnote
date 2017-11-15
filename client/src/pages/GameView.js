@@ -28,7 +28,8 @@ class GameView extends Component {
 
         <div id="cards_in_play">
           <p>Cards in play</p>
-          <Card card="card" ={data[2]}/>
+          <Card card ={data[7]}/>
+          <Card card ={data[6]}/>
         </div>
       </div>
 
