@@ -1,24 +1,22 @@
 import React from "react";
 import "./PlayedCards.css";
+import PlayedCardsListItem from "./PlayedCards"
 
-const PlayedCards = () => {
+const PlayedCards = (props) => {
+  console.log(props);
 
-    return (
-      <div className="container">
-      <ul>
-        <li>generated card</li>
-        <li>generated card</li>
-        <li>generated card</li>
-        <li>generated card</li>
-        <li>generated card</li>
+  const cardItems = props.cards.map((card)=>{
+    return(
+      <PlayedCardsListItem
+        key={card.id}
+        card={card}/>);
+      });
 
-        <li>generated card</li>
-        <li>generated card</li>
-        <li>generated card</li>
-
-      </ul>
-    </div>
-    );
-}
+      return(
+        <ul>
+          {cardItems}
+        </ul>
+      );
+    };
 
 export default PlayedCards;

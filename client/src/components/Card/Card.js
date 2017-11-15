@@ -1,10 +1,8 @@
-import React, {Component} from "react";
-//import {CardContainer} from "../CardContainer/CardContainer";
+//import React, {Component} from "react";
+import React from "react";
 import "./Card.css";
 
-
-const data = require('../../cards.json');
-
+//const data = require('../../cards.json');
 const Card =({card})=>{
 //class Card extends Component {
 
@@ -13,18 +11,18 @@ if(!card){
 };
 
     return (
-      <div id="CardContainer">
+      <div id="CardContainer" className="card">
         <div className="card_top">
-          <h3 className="card_value">{card.id}</h3>
-          <h3 className="card_name">{card.name}</h3>
+          <p className="card_value">{card.id}</p>
+          <p className="card_name">{card.name}</p>
         </div>
         <div className="card_image">
           Image placeholder
           <img src="" alt=""/></div>
         <div className="card_action">
-          <h4>
+          <p className="action_text">
             {card.action}
-          </h4>
+          </p>
         </div>
       </div>
     );
