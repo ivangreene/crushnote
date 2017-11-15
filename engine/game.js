@@ -17,24 +17,27 @@ const PRINCESS = 8,
          GUARD = 1;
 
 function gameEngine(state, move) {
-  // Reject the move if it isn't the player's turn
-  if (!state.players[move.player].active) return state;
+  // Reject the move if it isn't the player's turn, or if this player has been eliminated
+  if (!state.players[move.player].active || state.players[move.player].eliminated)
+    return false;
 
   // If the card attempting to be played is not in the player's hand or the next card
-  // in the deck (the "drawn" card), reject this move by returning the current state.
+  // in the deck (the "drawn" card), reject this move.
   if (move.card !== state.cards.deck[0] && move.card !== state.players[move.player].hand)
-    return state;
+    return false;
   
   // Reject the move if the originating player has already been eliminated.
-  if (state.players[move.player].eliminated) return state;
+  if (state.players[move.player].eliminated) return false;
 
-  // Reject the move if the selected player is protected by the Handmaid.
-  if (move.chosenPlayer && state.players[move.chosenPlayer].discarded[0] === HANDMAID)
-    return state;
+  // Reject the move if the selected player is protected by the Handmaid,
+  // or if the selected player has been eliminated.
+  if (move.chosenPlayer &&
+    (state.players[move.chosenPlayer].discarded[0] === HANDMAID
+      || state.players[move.chosenPlayer].eliminated)) return false;
 
   // Reject if attempting to play King or Prince and the other card in hand is a Countess
   if ((move.card === KING || move.card === PRINCE) && (state.cards.deck[0] === COUNTESS || state.players[move.player].hand === COUNTESS))
-    return state;
+    return false;
   
   let newState = Object.assign({}, state); // Copy our state so we can safely mutate it.
 
@@ -82,13 +85,13 @@ function gameEngine(state, move) {
       break;     // of the selected player
     case GUARD: // If the guessed card is correct, the chosen player is eliminated.
       // Reject if the guessed card is > 8 or < 2
-      if (move.guessedCard > 8 || move.guessedCard < 2) return state;
+      if (move.guessedCard > 8 || move.guessedCard < 2) return false;
       if (newState.players[move.chosenPlayer].hand === move.guessedCard) {
         newState.players[move.chosenPlayer].eliminated = true;
       } // No effect if incorrect.
       break;
     default: // Reject if the card is not valid
-      return state;
+      return false;
   }
 
   // Logic that will happen once we pass through the switch and everything is good.
@@ -104,11 +107,15 @@ function gameEngine(state, move) {
     // in their discarded array)
     : newState.cards.deck.shift();
   
-  newState.success = true; // We won't bother sending this to the client,
+  // newState.success = true; // We won't bother sending this to the client,
                            // but it lets us check if the move was successful
                            // to determine if we should take the other actions
                            // associated with the move (e.g. showing the player
                            // the card of another player, etc.)
+  // Much easier and probably more efficient: check if the return value of
+  // this function is not false.
   return newState;
 
 }
+
+module.exports = gameEngine;
