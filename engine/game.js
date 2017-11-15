@@ -16,6 +16,9 @@ const PRINCESS = 8,
         PRIEST = 2,
          GUARD = 1;
 
+const requiresTarget = [KING, PRINCE, BARON, PRIEST, GUARD];
+const requiresGuess = [GUARD];
+
 function gameEngine(state, move) {
   return new Promise((resolve, reject) => {
     // Reject the move if it isn't the player's turn, or if this player has been eliminated
@@ -38,7 +41,15 @@ function gameEngine(state, move) {
     if ((move.card === KING || move.card === PRINCE) && (state.cards.deck[0] === COUNTESS || state.players[move.player].hand === COUNTESS))
       return reject('If you have a Countess, it must be played if your other card is a King or Prince.');
     
-    let newState = Object.assign({}, state); // Copy our state so we can safely mutate it.
+    // Reject if the card requires a target and none is chosen
+    if (requiresTarget.indexOf(move.card) > -1 && !move.chosenPlayer)
+        return reject('No player chosen as target.');
+
+    // Reject if the card requires a guessed card (only Guard)
+    if (requiresGuess.indexOf(move.card) > -1 && !move.guessedCard)
+      return reject('No card guessed.');
+    
+    let newState = JSON.parse(JSON.stringify(state)); // Copy our state so we can safely mutate it.
 
     switch (move.card) {
       case PRINCESS: // Princess eliminates the player from the round
