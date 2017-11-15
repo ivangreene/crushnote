@@ -4,7 +4,13 @@
   "description": "Implementation of Love Letter as a web app.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "client": "node scripts/start-client.js",
+    "build": "react-scripts build",
+    "seed": "node scripts/seedDB.js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -18,9 +24,14 @@
   "homepage": "https://github.com/ivangreene/crushnote#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "mongoose": "^4.13.1",
+    "mongoose-unique-validator": "^1.0.6",
     "react": "^16.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.11.0"
   }
 }
