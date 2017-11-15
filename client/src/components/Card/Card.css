@@ -5,7 +5,7 @@
   border: 1px solid #021a40;
   padding: 10px;
   display: inline-block;
-  vertical-align: top;
+  text-align:center;
 }
 
 .card_image {
@@ -27,6 +27,7 @@
 }
 
 .card_value {
+  text-align: center;
   width: 45px;
   height: 45px;
   border: 1px solid #021a40;
