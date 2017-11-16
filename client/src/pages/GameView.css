@@ -25,17 +25,13 @@
   height:100%;
 }
 
-.hud, .opponent_stats{
+.opponent_stats{
   height:50px;
   width:100%;
   clear:both;
   background-color: #c8c7a1;
 }
 
-.hud{
-  margin-top: 50px;
-  text-align: right;
-}
 
 .opponent_stats{
   margin-bottom: 50px;

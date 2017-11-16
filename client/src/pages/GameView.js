@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PlayerHud from "../components/PlayerHud/PlayerHud";
 //import CardList from "../components/CardList/CardList";
 import Card from "../components/Card/Card";
 //import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -13,6 +14,8 @@ class GameView extends Component {
     return (<div>
       <div className="navbar">
         <h3>Game Nav? what info/components to go here?</h3>
+
+<i className="material-icons">&#xE87C;</i>
       </div>
 
       <div className ="opponent_stats">
@@ -37,9 +40,7 @@ class GameView extends Component {
         </div>
       </div>
 
-      <div className="hud">
-        <h3>Player buttons / Rounds Won /interaction which components for here??</h3>
-      </div>
+        <PlayerHud />
 
       <h2>Bottom of GameView - CardList Ref below</h2>
     </div>);

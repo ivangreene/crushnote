@@ -1,0 +1,26 @@
+.hud{
+  margin-top: 50px;
+  text-align: right;
+  height:100px;
+  width:100%;
+  clear:both;
+  background-color: #c8c7a1;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+#user_round_tokens{
+  padding:7px;
+  width:250px;
+  border-style: outset;
+  border-width: 3px;
+  float:right;
+}
+
+#round_score{
+  float:left;
+  margin:0 auto;
+}
+
+.no-point, .round-won{
+  color:red;
+}
