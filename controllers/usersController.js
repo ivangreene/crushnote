@@ -1,35 +1,30 @@
-const db = require("../models");
+const callDb = require("../lib/usersDbCalls");
 
 module.exports = {
   findAll: function(req, res) {
-    db.User.find(req.query)
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
+    callDb.findAll(req.query)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    db.User
-      .findById(req.params.id)
+    callDb.findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    db.User
-      .create(req.body)
+    callDb.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    db.User
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+    callDb.update(req.params.id, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
-    db.User
-      .findById({ _id: req.params.id })
-      .then(dbModel => {
-        dbModel.remove();
-      }).then(() => res.json({success: true}))
+    callDb.remove(req.params.id)
+      .then(() => res.json({success: true}))
       .catch(err => res.status(422).json(err));
   }
 };
+
