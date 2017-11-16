@@ -1,0 +1,42 @@
+
+
+#oppenent1_hand{
+  float:left;
+  display:inline-block;
+}
+
+#cards_in_play{
+  margin-left: auto;
+  margin-right: auto;
+  display:inline-block;
+}
+
+#player_hand{
+  float:right;
+  display:inline-block;
+}
+
+#card_view{
+  text-align: center;
+}
+
+.navbar{
+  background-color: #c8c7a1;
+  height:100%;
+}
+
+.hud, .opponent_stats{
+  height:50px;
+  width:100%;
+  clear:both;
+  background-color: #c8c7a1;
+}
+
+.hud{
+  margin-top: 50px;
+  text-align: right;
+}
+
+.opponent_stats{
+  margin-bottom: 50px;
+}

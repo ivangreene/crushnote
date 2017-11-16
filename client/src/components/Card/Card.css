@@ -1,0 +1,54 @@
+#CardContainer {
+  background-color: #c8c7a1;
+  width: 150px;
+  height: 100%;
+  border: 1px solid #021a40;
+  padding: 10px;
+  display: inline-block;
+  text-align:center;
+}
+
+.card_image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  clear: both;
+  height: 100px;
+  width: 100px;
+  border: 1px solid #021a40;
+  background-color: #fff;
+}
+
+.card_name {
+  display: inline-block;
+  text-align: center;
+  margin-left: 12px;
+}
+
+.card_value {
+  text-align: center;
+  width: 45px;
+  height: 45px;
+  border: 1px solid #021a40;
+  border-radius: 50px;
+  display: inline-block;
+  line-height: 2.5;
+}
+
+.card_action {
+  border-style: inset;
+}
+
+.action_text {
+  margin-top: 10px;
+  font-size: 10px;
+}
+
+.card {
+  transition: all .4s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.5);
+}
