@@ -9,7 +9,7 @@ module.exports = io => {
       // game, send the move + state to the engine
       // and write/transmit the new game state
       // or emit an error.
-
+      move.player = socket.request.session.userID;
       Game.findById(gameID)
         .then(game => moveEngine(game, move))
         .then(newState => {
