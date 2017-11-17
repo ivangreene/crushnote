@@ -58,6 +58,8 @@ typings/
 # dotenv environment variables file
 .env
 
+notes.txt
+
 # DS.Store files
 .DS_Store
 */.DS_Store
