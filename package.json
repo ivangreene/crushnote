@@ -25,9 +25,12 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "http": "0.0.0",
     "mongoose": "^4.13.1",
     "mongoose-unique-validator": "^1.0.6",
-    "react": "^16.1.0"
+    "react": "^16.1.0",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",

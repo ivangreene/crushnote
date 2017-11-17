@@ -4,6 +4,7 @@ import PlayerHud from "../components/PlayerHud/PlayerHud";
 import Card from "../components/Card/Card";
 import CardBack from "../components/Card/CardBack";
 import TopNav from "../components/TopNav/TopNav";
+import Chat from "../components/Chat/Chat";
 import "./GameView.css";
 
 let data = require('../gamejson/cards.json');
@@ -35,6 +36,7 @@ class GameView extends Component {
       </div>
 
         <PlayerHud />
+        <Chat />
     </div>);
   }
 

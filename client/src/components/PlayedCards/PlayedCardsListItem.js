@@ -1,8 +1,12 @@
 import React from "react";
+let carddata = require("../../gamejson/cards.json");
 
-const PlayedCardsListItem = ({card}) => {
+//const PlayedCardsListItem = ({card}) => {
+  const PlayedCardsListItem = (carddata) => {
 
-    return ( <li>
+    return (
+      carddata.map((card)=>{
+        <li key={card.id} card={card}>
               <div className = "card_name">
                 <p>{card.name}</p>
                 </div>
@@ -10,7 +14,7 @@ const PlayedCardsListItem = ({card}) => {
                   <p>{card.count}</p>
                 </div>
       </li>
-    );
+    });
 }
 
 export default PlayedCardsListItem;
