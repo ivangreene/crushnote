@@ -1,0 +1,3 @@
+{
+  "presets": ["env", "import-export", "react"]
+}

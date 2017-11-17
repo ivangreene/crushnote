@@ -2,7 +2,12 @@ const mongoose = { Schema } = require('mongoose');
 const uniqueValidator = require("mongoose-unique-validator");
 
 const gameSchema = new Schema({
-  players: Array,
+  players: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ],
   moves: Array,
   cards: {
     remaining: Array,
@@ -10,7 +15,7 @@ const gameSchema = new Schema({
   }
 });
 
-const Game = mongoose.model("Article", gameSchema);
+const Game = mongoose.model("Game", gameSchema);
 
 gameSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
