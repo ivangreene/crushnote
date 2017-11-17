@@ -1,37 +1,13 @@
-import React, {Component} from "react";
+import React from "react";
 import "./PlayerHud.css";
-
+import CheatSheet from "./CheatSheet";
+import DropDown from "../TopNav/DropDown";
 //let data = require('../cards.json');
-
-
-// toggleTable=()=> {
-//     let Table = document.getElementById("cheat_table");
-//     Table.style.display = (Table.style.display == "table") ? "none" : "table";
-// }
 
 const PlayerHud = () => {
 
   return (<div className="hud">
-    <h3>Player buttons / Rounds Won /interaction which components for here??</h3>
-
-    <div id="cheat_sheet">
-      <i className="material-icons" onClick={this.toggleTable}>view_list</i>
-      <table id="cheat_table">
-        <tr>
-          <th>Card</th>
-          <th>Action</th>
-          <th>Number in Deck</th>
-        </tr>
-        <tr>
-          <td>Guard</td>
-          <td>This be what it do</td>
-          <td>
-            5
-          </td>
-        </tr>
-      </table>
-    </div>
-
+    <h3><i className="material-icons">person</i> Player name</h3>
     <div id="user_round_tokens">
       <h4 id="round_score">Rounds Won:
       </h4>
@@ -40,6 +16,9 @@ const PlayerHud = () => {
       <i className="material-icons round-won">favorite_border</i>
       <i className="material-icons round-won">favorite_border</i>
     </div>
+
+      <CheatSheet />cheat sheet
+        <DropDown />
 
   </div>)
 }

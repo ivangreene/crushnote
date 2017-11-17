@@ -1,26 +1,46 @@
-.hud{
-  margin-top: 50px;
-  text-align: right;
-  height:100px;
-  width:100%;
-  clear:both;
+.hud {
+  margin-top: 20px;
+  height: 135px;
+  width: 100%;
   background-color: #c8c7a1;
+  -webkit-box-shadow: 10px 10px 5px #888888;
   box-shadow: 10px 10px 5px #888888;
+  padding-left: 25px;
+  padding-top: 5px;
 }
 
-#user_round_tokens{
-  padding:7px;
-  width:250px;
+#user_round_tokens {
+  padding: 7px;
+  width: 210px;
   border-style: outset;
   border-width: 3px;
-  float:right;
+  float: right;
+  margin-right: 50px;
 }
 
-#round_score{
-  float:left;
-  margin:0 auto;
+#round_score {
+  float: left;
+  margin: 0 auto;
 }
 
-.no-point, .round-won{
-  color:red;
+.no-point, .round-won {
+  color: red;
+}
+
+.table-button {
+  font-size: 50px;
+  float: left;
+}
+
+#cheat_table_div {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 50%;
+  top: 20%;
+  height:250px;
+  width:450px;
+  background-color: white;
+  border-style: inset;
 }

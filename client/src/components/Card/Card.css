@@ -1,11 +1,22 @@
 #CardContainer {
   background-color: #c8c7a1;
-  width: 150px;
-  height: 100%;
+  width: 175px;
+  height: 320px;
   border: 1px solid #021a40;
   padding: 10px;
   display: inline-block;
   text-align:center;
+  margin:10px;
+}
+
+#CardBackContainer {
+  background-color: #c8c7a1;
+  width: 200px;
+  height: 320px;
+  border: 1px solid #021a40;
+  display: inline-block;
+  text-align:center;
+  margin:10px;
 }
 
 .card_image {

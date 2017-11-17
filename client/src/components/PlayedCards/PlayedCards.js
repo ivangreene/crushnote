@@ -1,17 +1,19 @@
 import React from "react";
 import "./PlayedCards.css";
 import PlayedCardsListItem from "./PlayedCards"
+let carddata = require("../../gamejson/cards.json");
 
-const PlayedCards = (props) => {
- console.log(props);
+const PlayedCards = () => {
+ console.log(carddata);
+ console.log(carddata.length);
 
- props.cards.map((card)=>{
-    console.log(card);
-    return(
-      <PlayedCardsListItem
-        key={card.id}
-        card={card}/>);
-      });
+ // carddata.map((card)=>{
+ //    console.log(card);
+ //    return(
+ //      <PlayedCardsListItem
+ //        key={card.id}
+ //        card={card}/>);
+ //      });
 
       return(
         <ul>
