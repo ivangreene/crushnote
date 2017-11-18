@@ -13,55 +13,53 @@ mongoose.connect(
   }
 );
 
-const articleSeed = [
+// two sample users
+const userSeed = [
   {
-    title: "Step 1: Chevron Cowl",
-    image: "http://yarnspirations.s3.amazonaws.com/catalog/product/cache/1/small_image/400x400/9df78eab33525d08d6e5fb8d27136e95/6/8/6887_1.jpg",
-    href: "http://www.yarnspirations.com/patterns/knitting-patterns/step-1-chevron-cowl.html",
-    date: new Date(Date.now()),
-    notes: []
+    username: `winona-ryder`,
+    password: `password123`,
+    email: `winona@example.com`,
+      stats: {
+      losses: 2,
+      wins: 1
+    }
   },
   {
-    title: "Simple Ridge & Eyelet Dishcloth",
-    image: "http://yarnspirations.s3.amazonaws.com/catalog/product/cache/1/small_image/400x400/9df78eab33525d08d6e5fb8d27136e95/1/2/127_1.jpg",
-    href: "http://www.yarnspirations.com/patterns/knitting-patterns/simple-ridge-eyelet-dishcloth.html",
-    date: new Date(Date.now()),
-    notes: []
+    username: `tom-hanks`,
+    password: `password456`,
+    email: `tom@example.com`,
+      stats: {
+      losses: 1,
+      wins: 2
+    }
   }
 ];
 
-// Sample notes
-const noteSeed = [
-  {
-    title: "Great pattern",
-    author: "KnitForever",
-    content: "I worked this up with purple mohair. Love it.",
-    date: new Date(Date.now())
-  },
-  {
-    title: "Worked alright",
-    author: "CrochetMostly",
-    content: "I wouldn't recommend this to beginners.",
-    date: new Date(Date.now())
+// Sample game
+const gameSeed = {
+  players: [],
+  moves: [],
+  cards: {
+    remaining: [],
+    discarded: []
   }
-];
+}
 
-db.Article
+db.Game
   .remove({})
-  .then(() => db.Article.collection.insertMany(articleSeed))
+  .then(() => db.Game.collection.insertOne(gameSeed))
   .then(data => {
-    console.log(data.insertedIds.length + " articles inserted!");
+    // console.log(data);
+    console.log(data.insertedCount + " game inserted!");
   })
-  .then(() => db.Note.remove({}))
-  .then(() => db.Note.collection.insertMany(noteSeed))
+  .then(() => db.User.remove({}))
+  .then(() => db.User.collection.insertMany(userSeed))
   .then(data => {
-    console.log(data.insertedIds.length + " notes inserted!");
+    console.log(data.insertedIds.length + " users inserted!");
     console.log(data.insertedIds);
-    db.Article.updateOne({}, {$set: {notes: data.insertedIds}}).then(console.log);
-  }).then(() => db.Article.findOne({}))
-  .then(article => {
-      return db.Note.updateMany({}, {$set: {parentArticle: article._id}});
-  }).then(() => process.exit(0))
+    db.Game.updateOne({}, {$set: {players: data.insertedIds}}).then(console.log);
+  }).then(() => db.Game.findOne({}))
+  .then(() => process.exit(0))
   .catch(err => {
     console.error(err);
     process.exit(1);
