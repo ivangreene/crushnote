@@ -1,12 +1,12 @@
 import React from "react";
+let carddata = require("../../gamejson/cards.json");
 
-const PlayedCardsListItem = ({card}) => {
-  //const video = props.video; makes the above ({video}) available instead of (props) and then the const declaration
-  if(!card){
-    return<div>Loading...</div>
-  };
-  
-    return ( <li>
+//const PlayedCardsListItem = ({card}) => {
+  const PlayedCardsListItem = (carddata) => {
+
+    return (
+      carddata.map((card)=>{
+        <li key={card.id} card={card}>
               <div className = "card_name">
                 <p>{card.name}</p>
                 </div>
@@ -14,7 +14,7 @@ const PlayedCardsListItem = ({card}) => {
                   <p>{card.count}</p>
                 </div>
       </li>
-    );
+    });
 }
 
 export default PlayedCardsListItem;
