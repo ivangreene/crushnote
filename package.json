@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
-    "client": "node scripts/start-client.js",
+    "client": "npm --prefix client start",
     "build": "react-scripts build",
     "seed": "node scripts/seedDB.js",
     "test": "react-scripts test --env=jsdom",
