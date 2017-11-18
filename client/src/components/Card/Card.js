@@ -1,15 +1,11 @@
-//import React, {Component} from "react";
 import React from "react";
 import "./Card.css";
-
 //const data = require('../../cards.json');
 const Card =({card})=>{
-//class Card extends Component {
 
 if(!card){
   return<div>Loading...</div>
-};
-
+}
     return (
       <div id="CardContainer" className="card">
         <div className="card_top">
@@ -27,7 +23,5 @@ if(!card){
       </div>
     );
   };
-
-
 
 export default Card;

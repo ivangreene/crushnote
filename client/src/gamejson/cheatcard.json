@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Guard (5): ",
+    "id": 1,
+    "action": "Guess A player's hand"
+  },
+  {
+    "name": "Priest (2): ",
+    "id": 2,
+    "action":"Look at a hand."
+  },
+  {
+    "name": "Baron (2): ",
+    "id": 3,
+    "action":"Compare hands, lower hand is out."
+  },
+  {
+    "name": "Handmaiden (2): ",
+    "id": 4,
+    "action":"Protection until next round."
+  },
+  {
+    "name":"Prince (2): ",
+    "id": 5,
+    "action": "One player discards his or her hand."
+  },
+  {
+    "name":"King (1): ",
+    "id": 6,
+    "action": "Trade hands with any other player."
+  },
+  {
+    "name":"Countess (1): ",
+    "id":7,
+    "action": "Discard if caught with King or Prince."
+  },
+  {
+    "name":"Princess (1): ",
+    "id": 8,
+    "action": "Lose if discarded."
+  }
+]

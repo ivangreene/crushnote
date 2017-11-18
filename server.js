@@ -1,3 +1,4 @@
+
 require('dotenv').config({ silent: process.env.NODE_ENV === 'production' });
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -6,8 +7,8 @@ const routes = require("./routes");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const app = express();
-const httpServer = require('http').Server(app);
-const io = require('socket.io')(httpServer);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
@@ -43,6 +44,20 @@ io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, n
 
 
 // Start the API server
-httpServer.listen(PORT, function() {
+server.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+});
+
+//-----Socket config------//
+io.on('connection', (socket) => {
+  console.log("User connected");
+    console.log(socket.id);
+
+    socket.on('SEND_MESSAGE', function(data){
+       io.emit('RECEIVE_MESSAGE', data);
+   });
+
+   socket.on('disconnect', () => {
+       console.log('user disconnected')
+     });
 });

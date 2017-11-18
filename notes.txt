@@ -1,0 +1,19 @@
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+server.listen(3000);
+
+
+
+//-----Socket config------//
+io.on('connection', (socket) => {
+  console.log("User connected");
+    console.log(socket.id);
+
+    socket.on('SEND_MESSAGE', function(data){
+       io.emit('RECEIVE_MESSAGE', data);
+   });
+
+   socket.on('disconnect', () => {
+       console.log('user disconnected')
+     });
+});
