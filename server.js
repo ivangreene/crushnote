@@ -4,8 +4,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const app = express();
-
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3001;
@@ -17,6 +18,8 @@ app.use(bodyParser.json());
 app.use(express.static("client/build"));
 // Add routes, both API and view
 app.use(routes);
+// Pass io to configure the socket.io routes
+require('./routes/socket')(io);
 
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
@@ -27,6 +30,18 @@ mongoose.connect(
     useMongoClient: true
   }
 );
+// Session middleware
+const sessionMiddleware = session({
+  secret: process.env.COOKIE_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
+});
+app.use(sessionMiddleware);
+io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
+
 
 // Start the API server
 server.listen(PORT, function() {

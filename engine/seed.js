@@ -8,25 +8,21 @@ const PRINCESS = 8,
          GUARD = 1;
 
 module.exports = {
-  playerOrder: ['abc', 'def'],
+  playerOrder: [],
   players: {
-    'abc': {
-      eliminated: false,
-      active: true,
-      hand: HANDMAID,
-      discarded: []
-    },
-    'def': {
-      eliminated: false,
-      active: false,
-      hand: KING,
-      discarded: []
-    },
-
   },
   cards: {
-    deck: [PRINCE, BARON, GUARD, HANDMAID, KING],
-    played: [BARON, GUARD, PRIEST],
-    excluded: GUARD
+    deck: [
+      ...Array(5).fill(GUARD),
+      ...Array(2).fill(PRIEST),
+      ...Array(2).fill(BARON),
+      ...Array(2).fill(HANDMAID),
+      ...Array(2).fill(PRINCE),
+      KING,
+      COUNTESS,
+      PRINCESS
+    ],
+    played: [],
+    excluded: null
   }
 };
