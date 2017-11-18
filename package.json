@@ -5,11 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\" \"npm run test\"",
     "client": "node scripts/start-client.js",
     "build": "react-scripts build",
     "seed": "node scripts/seedDB.js",
-    "test": "react-scripts test --env=jsdom",
+    "test": "mocha --require ./scripts/testSetup.js --compilers babel-core/register ./test/*test.js",
+    "test:watch": "npm test -- -w",
     "eject": "react-scripts eject"
   },
   "repository": {
@@ -24,17 +25,26 @@
   "homepage": "https://github.com/ivangreene/crushnote#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
     "express": "^4.16.2",
-    "http": "0.0.0",
     "mongoose": "^4.13.1",
     "mongoose-unique-validator": "^1.0.6",
     "react": "^16.1.0",
-    "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4"
+    "react-dom": "^16.1.0",
+    "react-scripts": "^1.0.17"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-import-export": "^1.0.2",
+    "babel-preset-react": "^6.24.1",
     "concurrently": "^3.5.0",
     "dotenv": "^4.0.0",
-    "nodemon": "^1.11.0"
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "mocha": "^4.0.1",
+    "nodemon": "^1.11.0",
+    "sinon": "^4.1.2"
   }
 }
