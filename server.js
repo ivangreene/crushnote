@@ -14,6 +14,20 @@ const PORT = process.env.PORT || 3001;
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Session middleware
+const sessionMiddleware = session({
+  secret: process.env.COOKIE_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  }),
+  name: 'ofo'
+});
+app.use(sessionMiddleware);
+io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
+
 // Serve up static assets
 app.use(express.static("client/build"));
 // Add routes, both API and view
@@ -30,18 +44,6 @@ mongoose.connect(
     useMongoClient: true
   }
 );
-// Session middleware
-const sessionMiddleware = session({
-  secret: process.env.COOKIE_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection
-  })
-});
-app.use(sessionMiddleware);
-io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
-
 
 // Start the API server
 server.listen(PORT, function() {
