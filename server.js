@@ -22,8 +22,7 @@ const sessionMiddleware = session({
   saveUninitialized: false,
   store: new MongoStore({
     mongooseConnection: mongoose.connection
-  }),
-  name: 'ofo'
+  })
 });
 app.use(sessionMiddleware);
 io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
