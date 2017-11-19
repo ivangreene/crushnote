@@ -26,7 +26,7 @@ module.exports = io => {
       io.emit('openGame', 'gameID');
     });
 
-    socket.on('searchingForGame');
+    socket.on('searchingForGame', ()=>{});
 
     socket.on('joinGame', gameID => {
       // TODO: Add this user to the game (if it is still open)
