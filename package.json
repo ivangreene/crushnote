@@ -7,6 +7,7 @@
     "start": "node server.js",
     "client": "npm --prefix client start",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\" \"npm run test\"",
+    "watch": "nodemon server.js",
     "build": "react-scripts build",
     "seed": "node scripts/seedDB.js",
     "test": "mocha --require ./scripts/testSetup.js --compilers babel-core/register ./test/*test.js",

@@ -9,7 +9,8 @@ const gameSchema = new Schema({
     played: Array,
     excluded: Number
   },
-  open: Boolean
+  open: Boolean,
+  completed: Boolean
 }, { minimize: false });
 
 const Game = mongoose.model("Game", gameSchema);

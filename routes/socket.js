@@ -1,17 +1,11 @@
-const moveEngine = require('../engine/game');
 const Game = require('../lib/gamesDbCalls');
 const cleanGameState = require('../lib/gameState').clean;
 
 module.exports = io => {
   io.on('connection', socket => {
     socket.on('gameMove', (gameID, move) => {
-      // TODO: Derive the userID from their session,
-      // verify that they are a participant in this
-      // game, send the move + state to the engine
-      // and write/transmit the new game state
-      // or emit an error.
       if (!move) move = {};
-      move.player = socket.request.session.userID;
+      move.player = socket.request.session.userId;
       Game.gameMove(gameID, move)
         .then(newState => {
           let cleanState = cleanGameState(newState);
@@ -21,16 +15,16 @@ module.exports = io => {
     });
 
     socket.on('setuid', id => {
-      socket.request.session.userID = id;
+      socket.request.session.userId = id;
       socket.request.session.save();
     });
 
     socket.on('newGame', () => {
-      if (!socket.request.session.userID) {
+      if (!socket.request.session.userId) {
         return socket.emit('err', { message: 'Not authenticated' });
       }
       Game.create()
-        .then(newGame => Game.joinGame(newGame._id, socket.request.session.userID))
+        .then(newGame => Game.joinGame(newGame._id, socket.request.session.userId))
         .then(newGame => {
           let cleanState = cleanGameState(newGame);
           socket.join(cleanState._id);
@@ -45,16 +39,18 @@ module.exports = io => {
     });
 
     socket.on('joinGame', gameID => {
-      Game.joinGame(gameID, socket.request.session.userID)
+      if (!socket.request.session.userId)
+        return socket.emit('err', { message: 'Not authenticated' });
+      Game.joinGame(gameID, socket.request.session.userId)
         .then(joinedGame => socket.join(joinedGame._id))
         .catch(err => socket.emit('err', { message: err }));
     });
 
     socket.on('startGame', gameID => {
-      Game.startGame(gameID, socket.request.session.userID)
+      Game.startGame(gameID, socket.request.session.userId)
         .then(game => io.to(gameID).emit('gameStarted', gameID))
-        .catch(err => socket.emit('err', err));
-    })
+        .catch(err => socket.emit('err', { message: err }));
+    });
 
     socket.on('spectateGame', gameID => {
       // TODO: Send the current game state (with sensitive details scrubbed)

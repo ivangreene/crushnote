@@ -130,7 +130,22 @@ function gameEngine(state, move) {
     // Wrap around if we are at the last player in the order
     if (nextPlayer === newState.playerOrder.length)
       nextPlayer = 0;
-    newState.players[nextPlayer].active = true;
+    newState.players[newState.playerOrder[nextPlayer]].active = true;
+
+    let toSplice = [];
+
+    for (let p = 0; p < newState.playerOrder.length; p++) {
+      if (newState.players[newState.playerOrder[p]].eliminated) {
+        toSplice.push(p);
+      }
+    }
+
+    for (let s = 0; s < toSplice.length; s++) {
+      newState.playerOrder.splice(toSplice[s], 1);
+    }
+
+    if (newState.playerOrder.length === 1)
+      newState.completed = true;
     
     resolve(newState);
 
