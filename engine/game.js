@@ -21,6 +21,9 @@ const requiresGuess = [GUARD];
 
 function gameEngine(state, move) {
   return new Promise((resolve, reject) => {
+    // Reject if this player isn't a participant in this game
+    if (!state.players[move.player]) return reject('Player isn\'t a participant.');
+
     // Reject the move if it isn't the player's turn, or if this player has been eliminated
     if (!state.players[move.player].active || state.players[move.player].eliminated)
       return reject('Player is eliminated or out of turn.');

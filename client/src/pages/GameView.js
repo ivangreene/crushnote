@@ -3,8 +3,8 @@ import PlayerHud from "../components/PlayerHud/PlayerHud";
 //import CardList from "../components/CardList/CardList";
 import Card from "../components/Card/Card";
 import CardBack from "../components/Card/CardBack";
-import TopNav from "../components/TopNav/TopNav";
-import Chat from "../components/Chat/Chat";
+//import TopNav from "../components/TopNav/TopNav";
+//import GameChat from "../components/Chat/GameChat";
 import "./GameView.css";
 
 let data = require('../gamejson/cards.json');
@@ -15,7 +15,6 @@ class GameView extends Component {
   render() {
     return (
       <div id="game_box">
-      <TopNav />
 
       <div id="card_view">
         <div id="oppenent1_hand">
@@ -34,9 +33,7 @@ class GameView extends Component {
           <Card card ={data[6]}/>
         </div>
       </div>
-
         <PlayerHud />
-        <Chat />
     </div>);
   }
 

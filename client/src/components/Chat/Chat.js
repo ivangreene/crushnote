@@ -48,7 +48,7 @@ class Chat extends Component {
     return (<div className="container">
       <div className="row">
         <div className="card-body">
-          <div className="card-title">Game Chat..</div>
+          <div className="card-title">Game Chat....</div>
           <hr/>
           <div className="messages">
             {

@@ -1,12 +1,46 @@
 .hud {
-  margin-top: 20px;
-  height: 135px;
+  text-align: center;
+  height: 115px;
   width: 100%;
   background-color: #c8c7a1;
-  -webkit-box-shadow: 10px 10px 5px #888888;
-  box-shadow: 10px 10px 5px #888888;
+  -webkit-box-shadow: 10px 10px 5px #b8b6b6;
+  box-shadow: 10px 0px 10px 5px #b8b6b6;
   padding-left: 25px;
   padding-top: 5px;
+  position: fixed;
+  bottom: 10px;
+}
+
+#user-buttons {
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+}
+
+/*==== Opponent Side ====*/
+
+#opponent-side {
+  float: left;
+}
+
+#opponent_round_tokens {
+  padding: 10px;
+  border-style: inset;
+  border-width: 3px;
+}
+
+#opponent_score {
+  float: left;
+  margin: 0 auto;
+}
+
+/*==== User Side ===*/
+
+#player_name{
+  margin:0 auto;
+}
+
+#player-side {
+  float: right;
 }
 
 #user_round_tokens {
@@ -14,7 +48,6 @@
   width: 210px;
   border-style: outset;
   border-width: 3px;
-  float: right;
   margin-right: 50px;
 }
 
@@ -29,18 +62,15 @@
 
 .table-button {
   font-size: 50px;
-  float: left;
 }
 
 #cheat_table_div {
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
+  position: fixed;
+  left: 200px;
   right: 50%;
-  top: 20%;
-  height:250px;
-  width:450px;
-  background-color: white;
+  top: 10%;
+  height: 250px;
+  width: 450px;
+  background-color: #d9ebe9;
   border-style: inset;
 }
