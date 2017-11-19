@@ -1,13 +1,13 @@
 import React, {Component} from "react";
-import PlayerHud from "../components/PlayerHud/PlayerHud";
+import PlayerHud from "../../components/PlayerHud/PlayerHud";
 //import CardList from "../components/CardList/CardList";
-import Card from "../components/Card/Card";
-import CardBack from "../components/Card/CardBack";
+import Card from "../../components/Card/Card";
+import CardBack from "../../components/Card/CardBack";
 //import TopNav from "../components/TopNav/TopNav";
 //import GameChat from "../components/Chat/GameChat";
 import "./GameView.css";
 
-let data = require('../gamejson/cards.json');
+let data = require('../../gamejson/cards.json');
 
 class GameView extends Component {
   state = {};

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import io from "socket.io-client";
+import Draggable from 'react-draggable';
 import "./GameChat.css";
 
 class GameChat extends Component {
@@ -66,13 +67,22 @@ class GameChatWindow extends Component {
       console.log(this.state.message);
       this.setState({message: ''});
       console.log("sending message");
-
     }
 
   }
 
+
   render() {
-    return (<div id="chat-box">
+    return (
+      <Draggable
+        axis="both"
+        handle=".chat-body"
+        defaultPosition={{x: 0, y: 0}}
+        position={null}
+        grid={[25, 25]}
+        onStart={this.handleStart}
+        onDrag={this.handleDrag}
+        onStop={this.handleStop}><div id="chat-box">
       <div className="chat-body">
         <div className="chat-title">Game Chat....</div>
         <hr/>
@@ -93,7 +103,8 @@ class GameChatWindow extends Component {
         <button onClick={this.sendMessage} id="send_chat_btn">Send</button>
         <button onClick={!this.state.isHidden} id="hide_chat">Hide</button>
       </div>
-    </div>)
+    </div>
+  </Draggable>)
   }
 }
 
