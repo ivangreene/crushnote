@@ -43,18 +43,6 @@ mongoose.connect(
     useMongoClient: true
   }
 );
-// Session middleware
-const sessionMiddleware = session({
-  secret: process.env.COOKIE_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection
-  })
-});
-app.use(sessionMiddleware);
-io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
-
 
 // Start the API server
 server.listen(PORT, function() {

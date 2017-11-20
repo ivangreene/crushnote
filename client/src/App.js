@@ -14,8 +14,8 @@ class App extends Component {
       <div>
         <DevNav />
         <Switch>
-          <Route exact="exact" path="/" component={MainPage}/>
-          <Route exact="exact" path="/twoplayer" component={GameView}/>
+          <Route exact path="/" component={MainPage}/>
+          <Route exact path="/twoplayer" component={GameView}/>
         </Switch>
       </div>
     </Router>)
