@@ -1,0 +1,25 @@
+
+#chat-box{
+  position:fixed;
+  top:10%;
+  left:67%;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #d9ebe9;
+}
+
+.messages{
+  width:200px;
+  height:200px;
+  overflow-y: auto;
+}
+
+.form-control{
+  width:100%;
+}
+
+#send_chat_btn{
+  margin-top: 5px;
+
+}

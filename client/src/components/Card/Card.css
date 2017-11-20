@@ -1,6 +1,7 @@
 #CardContainer {
-  background-color: #c8c7a1;
-  width: 175px;
+  /*background-color: #c8c7a1;*/
+  background-color: #72dae7;
+  width: 150px;
   height: 320px;
   border: 1px solid #021a40;
   padding: 10px;
@@ -11,6 +12,7 @@
 
 #CardBackContainer {
   background-color: #c8c7a1;
+  background-color: #72dae7;
   width: 200px;
   height: 320px;
   border: 1px solid #021a40;

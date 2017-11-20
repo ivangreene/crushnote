@@ -1,8 +1,11 @@
-
-
+body{
+  background-color: #ebe2c7;
+  background-color: #fff;
+}
 #oppenent1_hand{
   float:left;
   display:inline-block;
+  margin-left: 5%;
 }
 
 #cards_in_play{
@@ -13,6 +16,7 @@
 #player_hand{
   float:right;
   display:inline-block;
+  margin-right: 5%;
 }
 
 #card_view{
@@ -22,11 +26,4 @@
 .navbar{
   background-color: #c8c7a1;
   height:100%;
-}
-
-#show_card_btn{
-  float: right;
-clear: right;
-margin-right: 50px;
-margin-top: 5px;
 }

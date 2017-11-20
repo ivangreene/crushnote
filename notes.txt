@@ -1,19 +1,107 @@
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-server.listen(3000);
+import React, {Component} from "react";
+import io from "socket.io-client";
+import "./Chat.css";
+
+class Chat extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isHidden: true,
+      username: '',
+      message: '',
+      messages: []
+    };
+
+    toggleHidden () {
+      this.setState({
+        isHidden: !this.state.isHidden
+      })
+    }
+
+    this.socket = io();
+
+    this.socket.on('RECEIVE_MESSAGE', function(data) {
+      addMessage(data);
+    });
+
+    const addMessage = data => {
+      console.log(data);
+      this.setState({
+        messages: [
+          ...this.state.messages,
+          data
+        ]
+      });
+      console.log(this.state.messages);
+    };
+
+    this.sendMessage = ev => {
+      ev.preventDefault();
+      this.socket.emit('SEND_MESSAGE', {
+        author: this.state.username,
+        message: this.state.message
+      });
+      console.log(this.state.message);
+      this.setState({message: ''});
+      console.log("sending message");
+
+    }
+  }
+
+  const ChatWindow = () =>(
+     <div className="container">
+      <div className="row">
+        <div className="card-body">
+          <div className="card-title">Global Chat</div>
+          <hr/>
+          <div className="messages">
+            {
+              this.state.messages.map(message => {
+                return (<div>{message.author}: {message.message}</div>)
+              })
+            }
+          </div>
+
+        </div>
+        <div className="card-footer">
+          <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
+          <br/>
+          <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
+          <br/>
+          <button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
+        </div>
+      </div>
+    </div>);
+
+render () {
+  return (
+    <div>
+      <i className="material-icons table-button" onClick={this.toggleHidden.bind(this)}>view_list</i>
+      {!this.state.isHidden && <ChatWindow />}
+    </div>
+  )
+}
+}
+
+export default Chat;
 
 
 
-//-----Socket config------//
-io.on('connection', (socket) => {
-  console.log("User connected");
-    console.log(socket.id);
-
-    socket.on('SEND_MESSAGE', function(data){
-       io.emit('RECEIVE_MESSAGE', data);
-   });
-
-   socket.on('disconnect', () => {
-       console.log('user disconnected')
-     });
-});
+drag_start=(event)=> {
+  var style = window.getComputedStyle(event.target, null);
+  event.dataTransfer.setData("text/plain",
+  (parseInt(style.getPropertyValue("left"),10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY));
+}
+drag_over=(event)=> {
+  event.preventDefault();
+  return false;
+}
+drop=(event)=> {
+  var offset = event.dataTransfer.getData("text/plain").split(',');
+  var dm = document.getElementById('dragme');
+  dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+  dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+  event.preventDefault();
+  return false;
