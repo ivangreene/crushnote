@@ -2,7 +2,12 @@ const mongoose = { Schema } = require('mongoose');
 const uniqueValidator = require("mongoose-unique-validator");
 
 const gameSchema = new Schema({
-  playerOrder: Array,
+  playerOrder: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ],
   players: Object,
   cards: {
     deck: Array,
