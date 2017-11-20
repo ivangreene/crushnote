@@ -11,7 +11,8 @@ const DevNav = () => {
 
     <div className="navWide">
         <div className="wideDiv">
-          <a href="/">Main Page</a>
+          <a href="/">Login Page</a>
+          <a href="/main">Main Page</a>
           <a href="/twoplayer">2 v 2 Game page</a>
         </div>
       </div>

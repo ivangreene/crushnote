@@ -11,7 +11,7 @@ class GameChat extends Component {
     this.state = {
       isHidden: true
     };
-    this.socket = io();
+    //this.socket = io();
   }
 
   toggleHidden() {
@@ -34,7 +34,7 @@ class GameChatWindow extends Component {
     super(props);
 
     this.state = {
-      isHidden:false,
+      isHidden: false,
       username: '',
       message: '',
       messages: []
@@ -71,40 +71,34 @@ class GameChatWindow extends Component {
 
   }
 
-
   render() {
-    return (
-      <Draggable
-        axis="both"
-        handle=".chat-body"
-        defaultPosition={{x: 0, y: 0}}
-        position={null}
-        grid={[25, 25]}
-        onStart={this.handleStart}
-        onDrag={this.handleDrag}
-        onStop={this.handleStop}><div id="chat-box">
-      <div className="chat-body">
-        <div className="chat-title">Game Chat....</div>
-        <hr/>
-        <div className="messages">
-          {
-            this.state.messages.map(message => {
-              return (<div key={message.id}>{message.author}: {message.message}</div>)
-            })
-          }
-        </div>
+    return (<Draggable axis="both" handle=".chat-body" defaultPosition={{
+        x: 0,
+        y: 0
+      }} position={null} grid={[25, 25]} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>
+      <div id="chat-box">
+        <div className="chat-body">
+          <div className="chat-title">Game Chat....</div>
+          <hr/>
+          <div className="messages">
+            {
+              this.state.messages.map((message, index) => {
+                return (<div key={index}>{message.author}: {message.message}</div>)
+              })
+            }
+          </div>
 
+        </div>
+        <div className="chat-input">
+          <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
+          <br/>
+          <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
+          <br/>
+          <button onClick={this.sendMessage} id="send_chat_btn">Send</button>
+          <button onClick={!this.state.isHidden} id="hide_chat">Hide</button>
+        </div>
       </div>
-      <div className="chat-input">
-        <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
-        <br/>
-        <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
-        <br/>
-        <button onClick={this.sendMessage} id="send_chat_btn">Send</button>
-        <button onClick={!this.state.isHidden} id="hide_chat">Hide</button>
-      </div>
-    </div>
-  </Draggable>)
+    </Draggable>)
   }
 }
 
