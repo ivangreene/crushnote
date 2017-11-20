@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 //import CardList from "./components/CardList/CardList";
 //import PlayedCards from "./components/PlayedCards/PlayedCards";
 import GameView from "./pages/GameView";
+import "./App.css";
 
 //let data = require('./gamejson/cards.json');
 
