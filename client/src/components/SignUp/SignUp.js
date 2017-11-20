@@ -5,11 +5,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import io from "socket.io-client";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import "./LogIn.css";
+import "./SignUp.css";
 
 // http://www.material-ui.com/#/customization/themes
 
-class LogIn extends Component {
+class SignUp extends Component {
 
   constructor(props) {
     super(props);
@@ -40,42 +40,30 @@ class LogIn extends Component {
     });
   }
 
-  // saveUser(event) {
-  //   event.preventDefault();
-  //   this.socket.emit('saveNewUser', {
-  //     "email": this.state.email,
-  //     "username": this.state.username,
-  //     "password": this.state.password,
-  //     "passwordConfirm": this.state.passwordConfirm
-  //   });
-  //   console.log("sending user data");
-  // }
-
-  // authUser(event) {
-  //   event.preventDefault();
-  //   this.socket.emit('saveNewUser', {
-  //     "email": this.state.email,
-  //     "username": this.state.username,
-  //     "password": this.state.password,
-  //     "passwordConfirm": this.state.passwordConfirm
-  //   });
-  //   console.log("sending user data");
-  // }
-
-  authUser(event) {
+  saveUser(event) {
     event.preventDefault();
-    console.log(`log user in`);
-    // this.socket.emit('authUser', {
-    //   "username": this.state.username,
-    //   "password": this.state.password,
-    // });
+    this.socket.emit('saveNewUser', {
+      "email": this.state.email,
+      "username": this.state.username,
+      "password": this.state.password,
+      "passwordConfirm": this.state.passwordConfirm
+    });
+    console.log("sending user data");
   }
 
   render() {
-    return (<div id="login_body">
+    return (<div id="signup_body">
       <MuiThemeProvider>
         <div>
-          <h3 id="login_head">Login</h3>
+          <h3 id="signup_head">Create a New Player</h3>
+          <TextField
+            type="email"
+            hintText="Enter your Email"
+            floatingLabelText="Email"
+            onChange={(event, newValue) => this.setState({email: newValue})}
+            id="emailInput"
+          />
+          <br/>
           <TextField
             type="username"
             hintText="Enter your Username"
@@ -92,10 +80,18 @@ class LogIn extends Component {
             id="passwordInput"
           />
           <br/>
+          <TextField
+            type="password"
+            hintText="Reenter your Password to Confirm"
+            floatingLabelText="Password Confirmation"
+            onChange={(event, newValue) => this.setState({passwordConfirm: newValue})}
+            id="passwordConfirmInput"
+          />
+          <br/>
           <RaisedButton
             label="Submit"
             primary={true}
-            onClick={(event) => this.authUser(event)}
+            onClick={(event) => this.saveUser(event)}
           />
         </div>
       </MuiThemeProvider>
@@ -103,4 +99,4 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
+export default SignUp;

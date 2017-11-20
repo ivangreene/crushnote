@@ -1,7 +1,6 @@
 const moveEngine = require('../engine/game');
 const Game = require('../lib/gamesDbCalls');
-const UserDb = require('../lib/usersDbCalls');
-const User = require('../controllers/usersController');
+const User = require('../lib/usersDbCalls');
 
 module.exports = io => {
   console.log("listening for connection");
