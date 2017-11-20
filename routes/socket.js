@@ -1,8 +1,15 @@
 const moveEngine = require('../engine/game');
 const Game = require('../lib/gamesDbCalls');
+const UserDb = require('../lib/usersDbCalls');
+const User = require('../controllers/usersController');
 
 module.exports = io => {
+  console.log("listening for connection");
   io.on('connection', socket => {
+    console.log('io connection created');
+    /*
+    * Game logic
+    */
     socket.on('gameMove', (gameID, move) => {
       // TODO: Derive the userID from their session,
       // verify that they are a participant in this
@@ -35,6 +42,22 @@ module.exports = io => {
     socket.on('spectateGame', gameID => {
       // TODO: Send the current game state (with sensitive details scrubbed)
       socket.join(gameID); // Subscribe the user to this game's events
+    });
+
+    /*
+    * User logic
+    */
+    socket.on('saveNewUser', userData => {
+      console.log(`user data getting passed in server-side:`, userData);
+      User.create(userData);
+      io.emit('savedUser', userData);
+    });
+
+    socket.on('subscribeToTimer', (interval) => {
+      console.log('client is subscribing to timer with interval ', interval);
+      setInterval(() => {
+        socket.emit('timer', new Date());
+      }, interval);
     });
   });
 }
