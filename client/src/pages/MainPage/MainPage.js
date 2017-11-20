@@ -10,7 +10,7 @@ class MainPage extends Component {
     state = {
       isLoggedIn: false
     };
-  
+
   render() {
     return (<div>
 
