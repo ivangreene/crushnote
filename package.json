@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "client": "npm --prefix client start",
-    "dev": "concurrently \"nodemon server.js\" \"npm run client\" \"npm run test\"",
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "react-scripts build",
     "seed": "node scripts/seedDB.js",
     "test": "mocha --require ./scripts/testSetup.js --compilers babel-core/register ./test/*test.js",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/ivangreene/crushnote#readme",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "connect-mongo": "^2.0.0",
     "express": "^4.16.2",

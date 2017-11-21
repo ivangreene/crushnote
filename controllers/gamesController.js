@@ -28,7 +28,7 @@ module.exports = {
   },
   // when last round ends or last player leaves game room, remove game
   remove: function(req, res) {
-    callDb.removePromise(req.params.id)
+    callDb.remove(req.params.id)
       .then(() => res.json({success: true}))
       .catch(err => res.status(422).json(err));
   }

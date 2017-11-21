@@ -1,9 +1,18 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://localhost:3001/",
+  "proxy": {
+    "/": {
+      "target": "http://localhost:3001"
+    },
+    "/socket.io": {
+      "target": "ws://localhost:3001",
+      "ws": true
+    }
+  },
   "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
     "bulma": "^0.6.1",
     "material-ui": "^0.19.4",
     "purecss": "^1.0.0",

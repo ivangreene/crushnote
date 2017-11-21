@@ -2,6 +2,8 @@ import React, {Component} from "react";
 //import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import Toolbar from "material-ui/Toolbar";
 import Chat from "../../components/Chat/Chat";
+import LogIn from "../../components/LogIn/LogIn";
+import SignUp from "../../components/SignUp/SignUp";
 //import CardB from "../../components/Card/CardB"
 import "./MainPage.css";
 import "purecss";
@@ -37,6 +39,11 @@ class MainPage extends Component {
           <button>Start Game</button>
         </div>
 
+      <div id="main_body">
+        <div>
+          <SignUp />
+          <LogIn />
+        </div>
         <div className="pure-u-1-2" id="chat_main">
             <Chat/>
         </div>
