@@ -3,6 +3,7 @@ import PlayerHud from "../../components/PlayerHud/PlayerHud";
 //import CardList from "../components/CardList/CardList";
 import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
+import DiscardPile from "../../components/Card/DiscardPile";
 //import TopNav from "../components/TopNav/TopNav";
 //import GameChat from "../components/Chat/GameChat";
 import "./GameView.css";
@@ -18,18 +19,22 @@ class GameView extends Component {
 
         <div class="pure-g"  id="card_view">
 
-          <div class="pure-u-1-3" id="oppenent1_hand">
+          <div class="pure-u-1-4" id="oppenent1_hand">
             <p>Opponent hand</p>
             <CardBack />
           </div>
 
-          <div class="pure-u-1-3" id="cards_in_play">
-            <p>Cards in play</p>
-            <Card card ={data[7]}/>
+          <div class="pure-u-1-4" id="discard">
+            <p>Discard</p>
+              <DiscardPile />
+          </div>
+
+          <div class="pure-u-1-4" id="cards_in_play">
+            <p>Card currently played</p>
             <Card card ={data[6]}/>
           </div>
 
-          <div class="pure-u-1-3"  id="player_hand">
+          <div class="pure-u-1-4"  id="player_hand">
             <p>Player Hand</p>
             <Card card={data[0]}/>
           </div>
