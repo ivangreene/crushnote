@@ -16,9 +16,7 @@ class LogIn extends Component {
 
     this.state = {
       username: '',
-      password: '',
-      passwordConfirm: '',
-      email: ''
+      password: ''
     };
 
     console.log(io);
@@ -26,7 +24,7 @@ class LogIn extends Component {
     window.socket = this.socket;
     window.io = io;
 
-    this.socket.on('savedUser', function(data) {
+    this.socket.on('loggedIn', function(data) {
       // startUserSession();
       console.log("server received data and sent it back to client:", data);
     });
@@ -65,10 +63,10 @@ class LogIn extends Component {
   authUser(event) {
     event.preventDefault();
     console.log(`log user in`);
-    // this.socket.emit('authUser', {
-    //   "username": this.state.username,
-    //   "password": this.state.password,
-    // });
+    this.socket.emit('authUser', {
+      "username": this.state.username,
+      "password": this.state.password,
+    });
   }
 
   render() {
@@ -81,7 +79,7 @@ class LogIn extends Component {
             hintText="Enter your Username"
             floatingLabelText="Username"
             onChange={(event, newValue) => this.setState({username: newValue})}
-            id="usernameInput"
+            id="usernameLogInInput"
           />
           <br/>
           <TextField
@@ -89,7 +87,7 @@ class LogIn extends Component {
             hintText="Enter your Password"
             floatingLabelText="Password"
             onChange={(event, newValue) => this.setState({password: newValue})}
-            id="passwordInput"
+            id="passwordLogInInput"
           />
           <br/>
           <RaisedButton

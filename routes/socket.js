@@ -47,16 +47,20 @@ module.exports = io => {
     * User logic
     */
     socket.on('saveNewUser', userData => {
-      console.log(`user data getting passed in server-side:`, userData);
+      // console.log(`signup:\nuser data getting passed in server-side:`, userData);
       User.create(userData);
       io.emit('savedUser', userData);
     });
 
-    socket.on('subscribeToTimer', (interval) => {
-      console.log('client is subscribing to timer with interval ', interval);
-      setInterval(() => {
-        socket.emit('timer', new Date());
-      }, interval);
+    socket.on('authUser', userData => {
+      // console.log(`auth:\nuser data getting passed in server-side:`, userData);
+      User.findAndAuthenticate(userData).then(data => {
+        // console.log(`resolve the promise:`, data);
+        socket.request.session.userId = data;
+        console.log(`session:`, socket.request.session);
+        socket.request.session.save();
+        io.emit('loggedIn', userData);
+      });
     });
   });
 }
