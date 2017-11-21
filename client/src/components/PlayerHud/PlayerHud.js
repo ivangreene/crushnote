@@ -26,9 +26,16 @@ class PlayerHud extends Component {
     };
   }
 
+  mouseEnter=()=> {
+    this.refs.overlay.style.display = 'block';
+  }
+  mouseLeaves=()=> {
+    this.refs.overlay.style.display = 'block';
+  }
+
 render(){
-    return (<div>
-      <div className="hud">
+    return (<div onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeaves}>
+      <div className="hud" ref="overlay">
 
         <div id="opponent-side">
           <div className="opponent_stats">

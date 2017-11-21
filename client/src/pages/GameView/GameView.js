@@ -16,23 +16,27 @@ class GameView extends Component {
     return (
       <div id="game_box">
 
-      <div id="card_view">
-        <div id="oppenent1_hand">
-          <p>Opponent hand</p>
-          <CardBack />
+        <div class="pure-g"  id="card_view">
+
+          <div class="pure-u-1-3" id="oppenent1_hand">
+            <p>Opponent hand</p>
+            <CardBack />
+            <CardBack />
+          </div>
+
+          <div class="pure-u-1-3" id="cards_in_play">
+            <p>Cards in play</p>
+            <Card card ={data[7]}/>
+            <Card card ={data[6]}/>
+          </div>
+
+          <div class="pure-u-1-3"  id="player_hand">
+            <p>Player Hand</p>
+            <Card card={data[0]}/>
+          </div>
+
         </div>
 
-        <div id="player_hand">
-          <p>Player Hand</p>
-          <Card card={data[0]}/>
-        </div>
-
-        <div id="cards_in_play">
-          <p>Cards in play</p>
-          <Card card ={data[7]}/>
-          <Card card ={data[6]}/>
-        </div>
-      </div>
         <PlayerHud />
     </div>);
   }
