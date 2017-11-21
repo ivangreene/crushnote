@@ -1,6 +1,6 @@
-const Game = require('../lib/gamesDbCalls');
+const Game = require('../controllers/game');
 const cleanGameState = require('../lib/gameState').clean;
-const User = require('../lib/usersDbCalls');
+const User = require('../controllers/user');
 
 module.exports = io => {
   console.log("listening for connection");
