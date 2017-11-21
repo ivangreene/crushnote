@@ -20,7 +20,6 @@ export default class DropDown extends Component {
         <OffCanvasMenu className="nav-menu">
             <button href="#" onClick={this.handleClick.bind(this)}>Hide Cards</button>
               <CardList cards={data}/>
-
         </OffCanvasMenu>
       </OffCanvas>
     );

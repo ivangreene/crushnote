@@ -1,8 +1,14 @@
 const Game = require('../lib/gamesDbCalls');
 const cleanGameState = require('../lib/gameState').clean;
+const User = require('../lib/usersDbCalls');
 
 module.exports = io => {
+  console.log("listening for connection");
   io.on('connection', socket => {
+    console.log('io connection created');
+    /*
+    * Game logic
+    */
     socket.on('gameMove', (gameID, move) => {
       if (!move) move = {};
       move.player = socket.request.session.userId;
@@ -12,11 +18,6 @@ module.exports = io => {
           io.to(gameID).emit('gameStateUpdate', cleanState);
         })
         .catch(err => socket.emit('gameError', { message: err }));
-    });
-
-    socket.on('setuid', id => {
-      socket.request.session.userId = id;
-      socket.request.session.save();
     });
 
     socket.on('newGame', () => {
@@ -55,6 +56,26 @@ module.exports = io => {
     socket.on('spectateGame', gameID => {
       // TODO: Send the current game state (with sensitive details scrubbed)
       socket.join(gameID); // Subscribe the user to this game's events
+    });
+
+    /*
+    * User logic
+    */
+    socket.on('saveNewUser', userData => {
+      // console.log(`signup:\nuser data getting passed in server-side:`, userData);
+      User.create(userData);
+      io.emit('savedUser', userData);
+    });
+
+    socket.on('authUser', userData => {
+      // console.log(`auth:\nuser data getting passed in server-side:`, userData);
+      User.findAndAuthenticate(userData).then(data => {
+        // console.log(`resolve the promise:`, data);
+        socket.request.session.userId = data;
+        console.log(`session:`, socket.request.session);
+        socket.request.session.save();
+        io.emit('loggedIn', userData);
+      });
     });
   });
 }

@@ -1,0 +1,20 @@
+body{
+  background-color: #ebe2c7;
+  background-color: #fff;
+}
+#oppenent1_hand{
+}
+
+#cards_in_play{
+}
+
+#player_hand{
+}
+
+#card_view{
+  text-align: center;
+}
+
+CardBack {
+  height:20px;
+}

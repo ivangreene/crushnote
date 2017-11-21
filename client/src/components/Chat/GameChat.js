@@ -1,13 +1,40 @@
 import React, {Component} from "react";
 import io from "socket.io-client";
-import "./Chat.css";
+import Draggable from 'react-draggable';
+import "./GameChat.css";
 
-class Chat extends Component {
+class GameChat extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
+      isHidden: true
+    };
+    //this.socket = io();
+  }
+
+  toggleHidden() {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
+  }
+
+  render() {
+    return (<div>
+      <button onClick={this.toggleHidden.bind(this)}>Chat</button>
+      {!this.state.isHidden && <GameChatWindow/>}
+    </div>)
+  }
+}
+
+class GameChatWindow extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isHidden: false,
       username: '',
       message: '',
       messages: []
@@ -40,14 +67,18 @@ class Chat extends Component {
       console.log(this.state.message);
       this.setState({message: ''});
       console.log("sending message");
-
     }
+
   }
 
   render() {
-    return (<div className="chat_container">
+    return (<Draggable axis="both" handle=".chat-body" defaultPosition={{
+        x: 0,
+        y: 0
+      }} position={null} grid={[25, 25]} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>
+      <div id="chat-box">
         <div className="chat-body">
-          <div className="chat-title"><h3>Crush Note Lobby Chat</h3></div>
+          <div className="chat-title">Game Chat....</div>
           <hr/>
           <div className="messages">
             {
@@ -58,15 +89,17 @@ class Chat extends Component {
           </div>
 
         </div>
-        <div className="card-footer">
+        <div className="chat-input">
           <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
           <br/>
           <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
           <br/>
-          <button onClick={this.sendMessage}>Send</button>
+          <button onClick={this.sendMessage} id="send_chat_btn">Send</button>
+          <button onClick={!this.state.isHidden} id="hide_chat">Hide</button>
         </div>
-    </div>);
+      </div>
+    </Draggable>)
   }
 }
 
-export default Chat;
+export default GameChat;
