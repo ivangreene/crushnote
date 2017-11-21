@@ -16,7 +16,7 @@ class CheatSheet extends Component {
   render () {
     return (
       <div>
-        <i className="material-icons table-button" onClick={this.toggleHidden.bind(this)}>view_list</i>
+        <button onClick={this.toggleHidden.bind(this)}>Hint Card</button>
         {!this.state.isHidden && <CheatTable />}
       </div>
     )
@@ -41,3 +41,6 @@ const CheatTable = () => (
   </div>
 )
 export default CheatSheet;
+
+//material icon swap for button
+//    <i className="material-icons table-button" onClick={this.toggleHidden.bind(this)}>view_list</i>

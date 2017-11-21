@@ -1,5 +1,6 @@
-
-require('dotenv').config({ silent: process.env.NODE_ENV === 'production' });
+require('dotenv').config({
+  silent: process.env.NODE_ENV === 'production'
+});
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -12,7 +13,7 @@ const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Session middleware
@@ -20,9 +21,7 @@ const sessionMiddleware = session({
   secret: process.env.COOKIE_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection
-  })
+  store: new MongoStore({mongooseConnection: mongoose.connection})
 });
 app.use(sessionMiddleware);
 io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
@@ -37,12 +36,7 @@ require('./routes/socket')(io);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/" + process.env.LOCAL_MONGO_DB,
-  {
-    useMongoClient: true
-  }
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/" + process.env.LOCAL_MONGO_DB, {useMongoClient: true});
 
 // Start the API server
 server.listen(PORT, function() {
@@ -52,13 +46,17 @@ server.listen(PORT, function() {
 //-----Socket config------//
 io.on('connection', (socket) => {
   console.log("User connected");
-    console.log(socket.id);
+  console.log(socket.id);
 
-    socket.on('SEND_MESSAGE', function(data){
-       io.emit('RECEIVE_MESSAGE', data);
-   });
+  socket.on('SEND_MESSAGE', function(data) {
+    io.emit('RECEIVE_MESSAGE', data);
+  });
 
-   socket.on('disconnect', () => {
-       console.log('user disconnected')
-     });
+  socket.on('error', function(err) {
+    console.log(err);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected')
+  });
 });

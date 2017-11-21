@@ -1,0 +1,19 @@
+.dev_nav {
+	overflow: hidden;
+	padding: 1em;
+  box-shadow: 2px 2px 25px #888888;
+}
+
+.navWide {
+  margin: 0 auto;
+}
+
+.wideDiv {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 20px;
+}
