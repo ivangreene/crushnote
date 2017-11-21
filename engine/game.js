@@ -21,6 +21,9 @@ const requiresGuess = [GUARD];
 
 function gameEngine(state, move) {
   return new Promise((resolve, reject) => {
+    // Reject if the game hasn't started yet
+    if (state.open) return reject('Game hasn\'t started.');
+
     // Reject if this player isn't a participant in this game
     if (!state.players[move.player]) return reject('Player isn\'t a participant.');
 
@@ -120,6 +123,29 @@ function gameEngine(state, move) {
       // Otherwise, get rid of the top of the deck anyway (it's already stored 
       // in their discarded array)
       : newState.cards.deck.shift();
+
+    // Switch the next player to active
+    newState.players[move.player].active = false;
+    let nextPlayer = newState.playerOrder.indexOf(move.player) + 1;
+    // Wrap around if we are at the last player in the order
+    if (nextPlayer === newState.playerOrder.length)
+      nextPlayer = 0;
+    newState.players[newState.playerOrder[nextPlayer]].active = true;
+
+    let toSplice = [];
+
+    for (let p = 0; p < newState.playerOrder.length; p++) {
+      if (newState.players[newState.playerOrder[p]].eliminated) {
+        toSplice.push(p);
+      }
+    }
+
+    for (let s = 0; s < toSplice.length; s++) {
+      newState.playerOrder.splice(toSplice[s], 1);
+    }
+
+    if (newState.playerOrder.length === 1)
+      newState.completed = true;
     
     resolve(newState);
 
