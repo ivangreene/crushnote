@@ -39,7 +39,6 @@ class MainPage extends Component {
           <button>Start Game</button>
         </div>
 
-      <div id="main_body">
         <div>
           <SignUp />
           <LogIn />

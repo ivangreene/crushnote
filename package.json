@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "client": "npm --prefix client start",
+    "watch": "nodemon server.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "react-scripts build",
     "seed": "node scripts/seedDB.js",
@@ -26,6 +27,7 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "chalk": "^2.3.0",
     "connect-mongo": "^2.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
