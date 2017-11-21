@@ -24,14 +24,22 @@ class LogIn extends Component {
     window.socket = this.socket;
     window.io = io;
 
+    const setCookie = (name, val, expDays) => {
+      let d = new Date();
+      d.setTime(d.getTime() + (expDays*24*60*60*1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = name + "=" + val + ";" + expires + ";path=/";
+    };
+
     this.socket.on('loggedIn', function(data) {
-      // startUserSession();
-      console.log("server received data and sent it back to client:", data);
+      setCookie(`userId`, data, 14);
+      console.log(`cookie set\nname: 'userId', value: ${data}, expiration: 14 days`);
+      // console.log("server received data and sent it back to client:", data);
     });
-    console.log('adding connect handler');
-    this.socket.on('connect', () => {
-      console.log('connected to socket');
-    });
+    // console.log('adding connect handler');
+    // this.socket.on('connect', () => {
+    //   console.log('connected to socket');
+    // });
     this.socket.on('connect_error', (error) => {
       console.log(error);
       throw error;
@@ -67,6 +75,7 @@ class LogIn extends Component {
       "username": this.state.username,
       "password": this.state.password,
     });
+    console.log(document.cookie);
   }
 
   render() {

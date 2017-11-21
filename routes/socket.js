@@ -3,9 +3,9 @@ const Game = require('../lib/gamesDbCalls');
 const User = require('../lib/usersDbCalls');
 
 module.exports = io => {
-  console.log("listening for connection");
+  // console.log("listening for connection");
   io.on('connection', socket => {
-    console.log('io connection created');
+    // console.log('io connection created');
     /*
     * Game logic
     */
@@ -15,7 +15,7 @@ module.exports = io => {
       // game, send the move + state to the engine
       // and write/transmit the new game state
       // or emit an error.
-      move.player = socket.request.session.userID;
+      move.player = socket.request.session.userId;
       Game.findById(gameID)
         .then(game => moveEngine(game, move))
         .then(newState => {
@@ -57,10 +57,14 @@ module.exports = io => {
       User.findAndAuthenticate(userData).then(data => {
         // console.log(`resolve the promise:`, data);
         socket.request.session.userId = data;
-        console.log(`session:`, socket.request.session);
+        // console.log(`session:`, socket.request.session);
         socket.request.session.save();
-        io.emit('loggedIn', userData);
+        io.emit('loggedIn', data);
       });
+    });
+
+    socket.on('logOutUser', data => {
+      console.log(`at logOut the cookie is:`, socket.request.session);
     });
   });
 }
