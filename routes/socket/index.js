@@ -1,4 +1,5 @@
 module.exports = io => {
-  require('./game')(io);
   require('./chat')(io);
+  require('./game')(io);
+  require('./user')(io);
 };
