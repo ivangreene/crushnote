@@ -1,11 +1,12 @@
-const Game = require('../lib/gamesDbCalls');
-const cleanGameState = require('../lib/gameState').clean;
-const User = require('../lib/usersDbCalls');
+const Game = require('../../controllers/game');
+const cleanGameState = require('../../lib/gameState').clean;
+const User = require('../../controllers/user');
+const chalk = require('chalk');
 
 module.exports = io => {
-  console.log("listening for connection");
+  console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
   io.on('connection', socket => {
-    console.log('io connection created');
+    console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
     /*
     * Game logic
     */
@@ -72,7 +73,7 @@ module.exports = io => {
       User.findAndAuthenticate(userData).then(data => {
         // console.log(`resolve the promise:`, data);
         socket.request.session.userId = data;
-        console.log(`session:`, socket.request.session);
+        console.log(`${chalk.underline.green(`socket.io`)}: session: ${socket.request.session}`);
         socket.request.session.save();
         io.emit('loggedIn', userData);
       });
