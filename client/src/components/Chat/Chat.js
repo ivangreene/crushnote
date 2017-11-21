@@ -47,12 +47,12 @@ class Chat extends Component {
   render() {
     return (<div className="chat_container">
         <div className="chat-body">
-          <div className="chat-title">Main Chat</div>
+          <div className="chat-title"><h3>Crush Note Lobby Chat</h3></div>
           <hr/>
           <div className="messages">
             {
-              this.state.messages.map(message => {
-                return (<div>{message.author}: {message.message}</div>)
+              this.state.messages.map((message, index) => {
+                return (<div key={index}>{message.author}: {message.message}</div>)
               })
             }
           </div>
