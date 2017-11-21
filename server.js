@@ -24,7 +24,7 @@ const sessionMiddleware = session({
   store: new MongoStore({mongooseConnection: mongoose.connection})
 });
 app.use(sessionMiddleware);
-//io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
+io.use((socket, next) => sessionMiddleware(socket.request, socket.request.res, next));
 
 // Serve up static assets
 app.use(express.static("client/build"));
