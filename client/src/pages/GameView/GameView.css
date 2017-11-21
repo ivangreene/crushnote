@@ -3,27 +3,18 @@ body{
   background-color: #fff;
 }
 #oppenent1_hand{
-  float:left;
-  display:inline-block;
-  margin-left: 5%;
 }
 
 #cards_in_play{
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #player_hand{
-  float:right;
-  display:inline-block;
-  margin-right: 5%;
 }
 
 #card_view{
   text-align: center;
 }
 
-.navbar{
-  background-color: #c8c7a1;
-  height:100%;
+CardBack {
+  height:20px;
 }

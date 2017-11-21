@@ -1,14 +1,16 @@
 .messages{
   width:100%;
-  height:200px;
+  height:300px;
   overflow-y: auto;
   background-color: #d9ebe9;
 }
 
 .chat_container{
-  float:right;
   margin-right:10%;
+  height: 75%;
+  width: 100%;
+}
+
+.chat-title, .card-footer{
   text-align: center;
-  height: 100px;
-  width: 210px;
 }
