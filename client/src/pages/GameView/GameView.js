@@ -21,7 +21,6 @@ class GameView extends Component {
           <div class="pure-u-1-3" id="oppenent1_hand">
             <p>Opponent hand</p>
             <CardBack />
-            <CardBack />
           </div>
 
           <div class="pure-u-1-3" id="cards_in_play">
