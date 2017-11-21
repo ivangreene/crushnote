@@ -4,7 +4,7 @@ import "./Card.css";
 const Card =({card})=>{
 
 if(!card){
-  return<div>Loading...</div>
+  return <div>Loading...</div>
 }
     return (
       <div id="CardContainer" className="card">
