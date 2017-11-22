@@ -21,7 +21,6 @@ class SignUp extends Component {
       email: ''
     };
 
-    console.log(io);
     this.socket = io();
     window.socket = this.socket;
     window.io = io;

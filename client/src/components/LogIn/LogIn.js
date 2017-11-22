@@ -19,7 +19,6 @@ class LogIn extends Component {
       password: ''
     };
 
-    console.log(io);
     this.socket = io();
     window.socket = this.socket;
     window.io = io;
