@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import LogIn from "../../components/LogIn/LogIn";
+import SignUp from "../../components/SignUp/SignUp";
 //import CardB from "../../components/Card/CardB"
 //import "./LoginPage.css";
 
@@ -15,10 +16,8 @@ class LoginPage extends Component {
 
       <div id="main_body">
         <div>
-          <LogIn
-            handleClick={this.handleClick}
-            isHidden={this.state.isHidden}
-            isLoggedIn={this.state.isLoggedIn}/>
+          <LogIn />
+          <SignUp />
         </div>
       </div>
     </div>)

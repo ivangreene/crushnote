@@ -23,6 +23,7 @@ class MainPage extends Component {
         or a modal with instructions on how to play the game</p>
       </div>
       <hr></hr>
+
       <div className="pure-g gutters"  id="main_body">
 
         <div className="pure-u-1-4" id="players_main">
@@ -39,10 +40,7 @@ class MainPage extends Component {
           <button>Start Game</button>
         </div>
 
-        <div>
-          <SignUp />
-          <LogIn />
-        </div>
+
         <div className="pure-u-1-2" id="chat_main">
             <Chat/>
         </div>

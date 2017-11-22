@@ -15,6 +15,8 @@ body{
 }
 
 .nav-menu{
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
   background-color: #00000096;
   display: flex;
   flex-direction: row;
@@ -36,7 +38,7 @@ body{
  max-width: 50%;
  margin: 0 auto;
  flex-wrap: wrap;
-zoom:0.7;
+ zoom:0.7;
 }
 
 #hide_cards_btn{

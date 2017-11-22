@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import PlayerHud from "../../components/PlayerHud/PlayerHud";
-//import CardList from "../components/CardList/CardList";
 import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
 import DiscardPile from "../../components/Card/DiscardPile";
