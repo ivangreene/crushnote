@@ -32,42 +32,22 @@ class LogIn extends Component {
     };
 
     this.socket.on('loggedIn', function(data) {
-      setCookie(`userId`, data, 14);
-      console.log(`cookie set\nname: 'userId', value: ${data}, expiration: 14 days`);
-      // console.log("server received data and sent it back to client:", data);
+      // startUserSession();
+      console.log("server received data and sent it back to client:", data);
     });
     // console.log('adding connect handler');
     // this.socket.on('connect', () => {
     //   console.log('connected to socket');
     // });
+    this.socket.on('recieveCookie', function(cookie) {
+      // startUserSession();
+      console.log("server sent back new cookie to client:", cookie);
+    });
     this.socket.on('connect_error', (error) => {
       console.log(error);
       throw error;
     });
-  }
-
-  // saveUser(event) {
-  //   event.preventDefault();
-  //   this.socket.emit('saveNewUser', {
-  //     "email": this.state.email,
-  //     "username": this.state.username,
-  //     "password": this.state.password,
-  //     "passwordConfirm": this.state.passwordConfirm
-  //   });
-  //   console.log("sending user data");
-  // }
-
-  // authUser(event) {
-  //   event.preventDefault();
-  //   this.socket.emit('saveNewUser', {
-  //     "email": this.state.email,
-  //     "username": this.state.username,
-  //     "password": this.state.password,
-  //     "passwordConfirm": this.state.passwordConfirm
-  //   });
-  //   console.log("sending user data");
-  // }
-
+  },
   authUser(event) {
     event.preventDefault();
     console.log(`log user in`);
@@ -76,6 +56,7 @@ class LogIn extends Component {
       "password": this.state.password,
     });
     console.log(document.cookie);
+    this.socket.emit(`sessionCookie`, document.cookie);
   }
 
   render() {
