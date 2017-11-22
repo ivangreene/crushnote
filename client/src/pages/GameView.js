@@ -21,27 +21,26 @@ let data = require('../gamejson/cards.json');
 class GameView extends Component {
   state = {
     game: {
-      {
-        playerOrder: ['userid1', 'userid2'],
-        players: {
-          userid1: {
-            hand: 5,
-            discarded: [],
-            active: true,
-            eliminated: false
-          },
-          userid2: {
-            hand: 3,
-            discarded: [],
-            active: false,
-            eliminated: false
-          }
+      opponentHand: [],
+      playerOrder: ['userid1', 'userid2'],
+      players: {
+        userid1: {
+          hand: 5,
+          discarded: [],
+          active: true,
+          eliminated: false
         },
-        cards: {
-          deck: [1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8],
-          played: [],
-          excluded: null
+        userid2: {
+          hand: 3,
+          discarded: [],
+          active: false,
+          eliminated: false
         }
+      },
+      cards: {
+        deck: [1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8],
+        played: [],
+        excluded: null
       }
     }
   };
@@ -57,35 +56,47 @@ class GameView extends Component {
           <CardBack />
         </div>
 
-        {
-          // Game deck
           <div>
-            {this.state.cards.deck}
+            Game deck
+            {this.state.game.cards.deck}
+            <br />
+            Excluded card
+            {this.state.game.cards.excluded}
           </div>
 
-          // What are the excluded cards again?
+
           <div>
-            {this.state.cards.excluded}
+            Played cards
+            {this.state.game.cards.played}
           </div>
 
-          // LOOK HERE!!!
-          // Played cards? I forget what this would be in the actual game.
-          <div>
-            {this.state.cards.played}
+          <div className="card_top">
+            Opponent Hand
+            {this.state.game.opponentHand}
           </div>
 
-          this.state.game.playerOrder.map(pid => {
+          {
+            this.state.game.playerOrder.map(pid => {
             return (
-              //Player's Hand
-              <div >
-                {this.state.game.players[pid].hand}
-              </div>
-              // Player's discarded pile
+              // Player's Hand
+              // Conditional rendering that greys out player's hand if they're eliminated
               <div>
-                {this.state.game.players[pid].discarded}
+              {
+                !this.state.game.players[pid].eliminated &&
+
+                <div className={this.state.game.players[pid].eliminated ? 'normal' : 'greyedOut'}>
+                  Player's hand:
+                  {this.state.game.players[pid].hand}
+                </div>
+              }
+
+                <div>
+                  Player's discarded pile:
+                  {this.state.game.players[pid].discarded}
+                </div>
               </div>
-            );
-          });
+            )
+          })
         }
 
         <div id="player_hand">
