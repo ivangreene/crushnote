@@ -8,7 +8,7 @@
     "client": "npm --prefix client start",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "eject": "react-scripts eject",
-    "prestart": "npm --prefix client/ run build",
+    "prestart": "npm --prefix client/ install && npm --prefix client/ run build",
     "seed": "node scripts/seedDB.js",
     "start": "node server.js",
     "test": "mocha --require ./scripts/testSetup.js --compilers babel-core/register ./test/*test.js",
