@@ -11,7 +11,7 @@ const MongoStore = require('connect-mongo')(session);
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const HOST = process.env.HOST || '127.0.0.1';
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
