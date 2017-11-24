@@ -78,9 +78,9 @@ class GameChatWindow extends Component {
       }} position={null} grid={[25, 25]} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>
       <div id="chat-box">
         <div className="chat-body">
-          <div className="chat-title">Game Chat....</div>
+          <div className="chat-title">Game Chat</div>
           <hr/>
-          <div className="messages">
+          <div className="ingame_messages">
             {
               this.state.messages.map((message, index) => {
                 return (<div key={index}>{message.author}: {message.message}</div>)

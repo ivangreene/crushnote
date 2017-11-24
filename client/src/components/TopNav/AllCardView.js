@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas';
 import CardList from "../CardList/CardList";
+import "./AllCardView.css";
 let data = require('../../gamejson/cards.json');
 
-export default class DropDown extends Component {
+export default class AllCardView extends Component {
 
   componentWillMount() {
     this.setState({
@@ -18,8 +19,9 @@ export default class DropDown extends Component {
           <button onClick={this.handleClick.bind(this)} id="show_card_btn">Show Cards</button>
         </OffCanvasBody>
         <OffCanvasMenu className="nav-menu">
-            <button id="hide_cards_btn" onClick={this.handleClick.bind(this)}>Hide Cards</button>
-              <CardList cards={data}/>
+            {/* <button id="hide_cards_btn" onClick={this.handleClick.bind(this)}>Hide Cards</button> */}
+            <i className="material-icons md-48"  id="hide_cards_btn" onClick={this.handleClick.bind(this)}>done</i>
+              <CardList cards={data} />
         </OffCanvasMenu>
       </OffCanvas>
     );

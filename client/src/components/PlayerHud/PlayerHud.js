@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./PlayerHud.css";
 import CheatSheet from "./CheatSheet";
-import DropDown from "../TopNav/DropDown";
+import AllCardView from "../TopNav/AllCardView";
 //let data = require('../cards.json');
 import GameChat from "../Chat/GameChat";
 
@@ -34,10 +34,11 @@ class PlayerHud extends Component {
   }
 
 render(){
-    return (<div onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeaves}>
+    return (
+      <footer><div onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeaves}>
       <div className="hud" ref="overlay">
 
-        <div id="opponent-side">
+        <div className="opponent-side">
           <div className="opponent_stats">
             <header>
               <i className="material-icons">&#xE87C;</i>
@@ -48,12 +49,12 @@ render(){
             </h4>
             <i className="material-icons no-point">&#xE87D;</i>
             <i className="material-icons no-point">&#xE87D;</i>
-            <i className="material-icons round-won">favorite_border</i>
+            <i className="material-icons no-point">&#xE87D;</i>
             <i className="material-icons round-won">favorite_border</i>
           </div>
         </div>
 
-        <div id="player-side">
+        <div className="player-side">
           <h3 id="player_name">
             <i className="material-icons">person</i>
             Player name</h3>
@@ -61,7 +62,7 @@ render(){
             <h4 id="round_score">Rounds Won:
             </h4>
             <i className="material-icons no-point">&#xE87D;</i>
-            <i className="material-icons no-point">&#xE87D;</i>
+            <i className="material-icons round-won">favorite_border</i>
             <i className="material-icons round-won">favorite_border</i>
             <i className="material-icons round-won">favorite_border</i>
           </div>
@@ -69,12 +70,13 @@ render(){
 
         <div id="user-buttons">
           <CheatSheet/>
-          <DropDown/>
+          <AllCardView/>
           <GameChat/>
         </div>
 
       </div>
-    </div>);
+    </div>
+  </footer>);
   }
 
 //   render() {

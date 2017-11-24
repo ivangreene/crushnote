@@ -3,7 +3,8 @@
     "name": "Guard",
     "id": 1,
     "count": 5,
-    "action": "When this card is played, its player designates another player and names a type of card. If that player's hand matches the type of card specified, that player is eliminated from the round. However, Guard cannot be named as the type of card."
+    "action": "When this card is played, its player designates another player and names a type of card. If that player's hand matches the type of card specified, that player is eliminated from the round. However, Guard cannot be named as the type of card.",
+    "image":"../style/img/test2.jpg"
   },
   {
     "name": "Priest",

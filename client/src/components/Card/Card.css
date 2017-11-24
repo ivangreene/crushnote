@@ -1,8 +1,7 @@
 #CardContainer {
-
   background-color: #72dae7;
-  width: 150px;
-  height: 320px;
+  width: 190px;
+  height: 380px;
   border: 1px solid #021a40;
   padding: 10px;
   display: inline-block;
@@ -21,17 +20,7 @@
   margin: 10px;
 }
 
-.card_image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
-  clear: both;
-  height: 100px;
-  width: 100px;
-  border: 1px solid #021a40;
-  background-color: #fff;
-}
+
 
 .card_name {
   display: inline-block;
@@ -66,8 +55,17 @@
   transform: scale(1.5);
 }
 
-#discard_top, li {
+li {
   font-size: 12px;
+}
+
+#discard_top{
+font-size: 14px;
+margin: 10px;
+}
+
+#discard_list{
+  padding:10px;
 }
 
 ul {
@@ -85,3 +83,14 @@ ul {
   height: 320px;
   border: 1px solid #021a40;
 }
+ .card{
+   width:75%;
+   z-index: 2;
+ }
+
+ .image{
+   margin:0 auto;
+ }
+ .card-image{
+   margin-bottom: 10px;
+ }

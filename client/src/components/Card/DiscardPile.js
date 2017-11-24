@@ -14,17 +14,19 @@ const DiscardPile =()=>{
 
     return (<div>
 
-      <div className="stacked_card">
+      <div className="card">
       </div>
-      
+
+      <div className="card">
       <div id="CardBackContainer">
         <div className="card_top">
-          <p id="discard_top">Cards left in play or cards discarded?  Loop through either display on back here</p>
-          <ul>
+          <p id="discard_top">Cards discarded this round</p>
+          <ul id="discard_list">
             {discarded}
             </ul>
         </div>
       </div>
+    </div>
 
 
     </div>);

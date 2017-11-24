@@ -1,6 +1,8 @@
 import React from "react";
 import "./Card.css";
 //const data = require('../../cards.json');
+import test2 from "../../style/img/test2.jpg";
+
 const Card =({card})=>{
 
 if(!card){
@@ -13,8 +15,8 @@ if(!card){
           <p className="card_name">{card.name}</p>
         </div>
         <div className="card_image">
-          Image placeholder
-          <img src="" alt=""/></div>
+
+          <img src={test2} alt=""/></div>
         <div className="card_action">
           <p className="action_text">
             {card.action}

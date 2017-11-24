@@ -1,46 +1,31 @@
 import React from "react";
 import 'bulma/css/bulma.css'
-import {Card, Content, Image, Media, MediaItem, Section} from "bulma";
+import test2 from "../../style/img/test2.jpg";
 
 // const CardB =({card})=>{
-const CardB = () => {
+const CardB = ({card}) => {
 
-  return (<Card>
-    <Card type="image" size="4by3" src="http://bulma.io/images/placeholders/1280x960.png"/>
-    <Card type="content">
-      <Media>
-        <MediaItem renderAs="figure" position="left">
-          <Image renderAs="p" size="64" alt="64x64" src="http://bulma.io/images/placeholders/128x128.png"/>
-        </MediaItem>
-        <MediaItem>
-          <Section size="4">
-            John Smith
-          </Section>
-          <Section subtitle="subtitle" size="6">
-            @johnsmith
-          </Section>
-        </MediaItem>
-      </Media>
-      <Content>
-        Lorem ipsum dolor sit t, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-        <a>
-          @bulmaio
-        </a>
-        .
-        <a href="#1">
-          #css
-        </a>
-
-        <a href="#2">
-          #responsive
-        </a>
-        <br/>
-        <time dateTime="2016-1-1">
-          11:09 PM - 1 Jan 2016
-        </time>
-      </Content>
-    </Card>
-  </Card>);
+  return (<div className="card">
+    <div className="card-content">
+      <div className="media">
+        <div className="media-left">
+          <p className="card_value">{card.id}</p>
+        </div>
+        <div className="media-content">
+          <p className="card_name">{card.name}</p>
+        </div>
+      </div>
+      <div className="card-image card_top">
+        <figure className="image is-4by3">
+          <img src={test2} alt="test char"/></figure>
+      </div>
+      <div className="card_action">
+        <div className="action_text">
+        {card.action}
+      </div>
+      </div>
+    </div>
+  </div>);
 };
 
 export default CardB;
