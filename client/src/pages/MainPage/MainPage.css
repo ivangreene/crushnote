@@ -1,12 +1,12 @@
-#main_title header{
-  font-size: 20px;
-  text-align: center;
-}
 
 #main_title p{
   color:red;
   margin-left: 20%;
   margin-right: 20%;
+}
+
+#main_header{
+  text-align: center;
 }
 
 .pure-g.gutters{

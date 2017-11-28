@@ -1,3 +1,5 @@
+//This is card component witout bulma/ shrinks down better
+
 import React from "react";
 import "./Card.css";
 //const data = require('../../cards.json');

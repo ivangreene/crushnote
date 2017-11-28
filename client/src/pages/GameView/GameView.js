@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import PlayerHud from "../../components/PlayerHud/PlayerHud";
-import Card from "../../components/Card/Card";
+// import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
 import CardB from "../../components/Card/CardB";
 import DiscardPile from "../../components/Card/DiscardPile";
-import TopNav from "../../components/TopNav/TopNav";
+//import TopNav from "../../components/TopNav/TopNav";
 import "./GameView.css";
 
 // const PRINCESS = 8,
@@ -48,7 +48,7 @@ class GameView extends Component {
   render() {
     return (
       <div id="game_box">
-        <TopNav />
+        {/* <TopNav /> */}
 
         {/* =========    DIV containing card views ============*/}
 

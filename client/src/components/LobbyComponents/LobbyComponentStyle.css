@@ -1,0 +1,39 @@
+/*  Player Info List item */
+
+div.player_info:hover{
+  background-color: #eee;
+  border: inset;
+}
+
+.player_info{
+  padding:10px;
+  border: outset;
+  font-family: 'Cookie';
+  overflow: hidden;
+}
+
+#player_name{
+  font-size: 30px;
+}
+
+#player_record{
+font-size: 20px;
+float:left;
+}
+
+button{
+  float:right;
+}
+
+@-webkit-keyframes greenPulse {
+  from { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333; }
+  50% { background-color: #91bd09; -webkit-box-shadow: 0 0 18px #91bd09; }
+  to { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333; }
+}
+
+button.green:hover {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  color:white;
+}

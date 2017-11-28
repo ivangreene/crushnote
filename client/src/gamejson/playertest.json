@@ -1,0 +1,29 @@
+ [
+  {
+    "username": "winona-ryder",
+    "password": "password123",
+    "email": "winona@example.com",
+      "stats": {
+      "losses": 2,
+      "wins": 1
+    }
+  },
+  {
+    "username": "tom-hanks",
+    "password": "password456",
+    "email": "tom@example.com",
+      "stats": {
+      "losses": 1,
+      "wins": 2
+    }
+  },
+  {
+    "username": "gave-dill",
+    "password": "pasasdfadf6",
+    "email": "bozo@clownpenis.fart",
+      "stats": {
+      "losses": 99,
+      "wins": 0
+    }
+  }
+]
