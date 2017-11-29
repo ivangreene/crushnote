@@ -35,17 +35,20 @@ class App extends Component {
   }
 
   render() {
+    console.log('user state is:', this.state.user);
 
-    return (<Router>
-      <div>
-        <DevNav user={this.state.user}/>
-        <Switch>
-          <Route exact path="/" component={LoginPage}/>
-          <Route exact path="/main" component={MainPage}/>
-          <Route exact path="/twoplayer" component={GameView}/>
-        </Switch>
-      </div>
-    </Router>)
+    return (
+      <Router>
+        <div>
+          <DevNav user={this.state.user} />
+          <Switch>
+            <Route exact path="/" component={LoginPage}/>
+            <Route exact path="/main" component={MainPage}/>
+            <Route exact path="/twoplayer" component={GameView}/>
+          </Switch>
+        </div>
+      </Router>
+    )
   }
 }
 

@@ -21,14 +21,9 @@ class LogIn extends Component {
     this.socket = window.socket;
 
     this.socket.on('setCookie', function(data) {
-      // startUserSession();
-      // console.log("server received data and sent it back to client:", data);
-      // console.log(`cookies before setting:`, document.cookie);
       document.cookie = data;
-      // console.log(`cookies after setting:`, document.cookie);
     });
     this.socket.on('recieveCookie', function(cookie) {
-      // startUserSession();
       console.log("server sent back new cookie to client:", cookie);
     });
     this.socket.on('connect_error', (error) => {
