@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import io from "socket.io-client";
 import Draggable from 'react-draggable';
 import "./GameChat.css";
 
@@ -40,7 +39,7 @@ class GameChatWindow extends Component {
       messages: []
     };
 
-    this.socket = io();
+    this.socket = window.socket;
 
     this.socket.on('RECEIVE_MESSAGE', function(data) {
       addMessage(data);

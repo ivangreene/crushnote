@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import io from "socket.io-client";
 import "./Chat.css";
 
 class Chat extends Component {
@@ -13,7 +12,7 @@ class Chat extends Component {
       messages: []
     };
 
-    this.socket = io();
+    this.socket = window.socket;
 
     this.socket.on('RECEIVE_MESSAGE', function(data) {
       addMessage(data);

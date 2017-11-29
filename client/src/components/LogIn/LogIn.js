@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import AppBar from 'material-ui/AppBar';
 //import Divider from "material-ui/Divider";
-import io from "socket.io-client";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import "./LogIn.css";
@@ -19,46 +18,19 @@ class LogIn extends Component {
       password: ''
     };
 
-    this.socket = io();
-    window.socket = this.socket;
-    window.io = io;
+    this.socket = window.socket;
 
-    this.socket.on('loggedIn', function(data) {
-      // startUserSession();
-      console.log("server received data and sent it back to client:", data);
+    this.socket.on('setCookie', function(data) {
+      document.cookie = data;
     });
-    console.log('adding connect handler');
-    this.socket.on('connect', () => {
-      console.log('connected to socket');
+    this.socket.on('recieveCookie', function(cookie) {
+      console.log("server sent back new cookie to client:", cookie);
     });
     this.socket.on('connect_error', (error) => {
       console.log(error);
       throw error;
     });
-  }
-
-  // saveUser(event) {
-  //   event.preventDefault();
-  //   this.socket.emit('saveNewUser', {
-  //     "email": this.state.email,
-  //     "username": this.state.username,
-  //     "password": this.state.password,
-  //     "passwordConfirm": this.state.passwordConfirm
-  //   });
-  //   console.log("sending user data");
-  // }
-
-  // authUser(event) {
-  //   event.preventDefault();
-  //   this.socket.emit('saveNewUser', {
-  //     "email": this.state.email,
-  //     "username": this.state.username,
-  //     "password": this.state.password,
-  //     "passwordConfirm": this.state.passwordConfirm
-  //   });
-  //   console.log("sending user data");
-  // }
-
+  };
   authUser(event) {
     event.preventDefault();
     console.log(`log user in`);
@@ -66,6 +38,8 @@ class LogIn extends Component {
       "username": this.state.username,
       "password": this.state.password,
     });
+    console.log(document.cookie);
+    this.socket.emit(`sessionCookie`, document.cookie);
   }
 
   render() {
