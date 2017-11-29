@@ -21,9 +21,9 @@ module.exports = (socket, io) => {
         accumulator[parts[0]] = parts[1];
         return accumulator;
       }, {})
-    console.log(cookie);
+    // console.log(cookie);
     token = cookie.sid;
-    console.log(`the token is ${token}`);
+    // console.log(`the token is ${token}`);
   }
   if (token) {
     let arr = token.split('-');
@@ -33,11 +33,12 @@ module.exports = (socket, io) => {
     let plaintext = Buffer.from(obfuscated, 'base64').toString();
     console.log(plaintext);
     bcrypt.compare(plaintext+process.env.COOKIE_SECRET, hash).then(function(res) {
-      console.log(`${sockChalk}: Current sid cookie is valid`);
+      // console.log(`${sockChalk}: Current sid cookie is valid`);
       let id = plaintext.split('-')[0].trim();
       console.log(`${sockChalk}: the id is now ${id}`);
       User.findById(id).then(user => {
         socket.emit(`loggedIn`, {name: user.username, id: user._id});
+        socket.request.session.userId = user._id;
         redirect(socket, user);
       });
     });
@@ -68,12 +69,16 @@ module.exports = (socket, io) => {
 
         const sidCookie = "sid=" + authToken + ";expires=" + expires + ";path=/";
         socket.emit('setCookie', sidCookie);
+        // io.emit('userLoggedIn', data);
         redirect(socket, user);
       });
     });
   });
 
   socket.on('logOutUser', data => {
-    console.log(`${sockChalk}: at logOut the cookie is:`, socket.request.session);
+    // Do we need to do anything on the back end when a user logs out?
+    console.log(`${sockChalk}: session info:`, socket.request.session);
+    // io.emit('userLoggedOut', socket.request.session.userId);
+    // console.log(`${sockChalk}: at logOut the cookie is:`, socket.request.session.cookie);
   });
 }

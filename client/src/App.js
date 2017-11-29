@@ -23,15 +23,17 @@ class App extends Component {
         ) {
         that.setState({user: {name: data.name, id: data.id}});
       }
-      console.log(that.state.user);
+      // console.log(`currently the react state.user is:`, that.state.user);
     });
-    socket.on('redirect', function(destination) {
-      if (window.location.pathname === destination) {
-        return;
-      } else {
-        window.location.href = destination;
-      }
-    });
+    // Redirect user to a given url based on their userId
+    // This example code always keeps a logged in user on '/main'
+    // socket.on('redirect', function(destination) {
+    //   if (window.location.pathname === destination) {
+    //     return;
+    //   } else {
+    //     window.location.href = destination;
+    //   }
+    // });
   }
 
   render() {

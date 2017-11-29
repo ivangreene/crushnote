@@ -8,8 +8,21 @@ import "purecss";
 
 class MainPage extends Component {
 
-  state = {
-    isLoggedIn: false
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoggedIn: false
+    };
+
+    this.socket = window.socket;
+
+    // this.socket.on('userLoggedIn', function(data) {
+    //   console.log(`a user logged in:`, data);
+    // });
+    // this.socket.on('userLoggedOut', function(data) {
+    //   console.log(`a user logged out:`, data);
+    // });
   };
 
   render() {
