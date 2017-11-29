@@ -9,9 +9,8 @@ module.exports = {
   // get user matching selected user id
   // returned as part of auth cookie info for each user
   findById: (id) => {
-    return db.User.findById({id});
+    return db.User.findById(id);
   },
-  // TODO: Make this return a promise
   findAndAuthenticate: (userData) => {
     return new Promise((resolve, reject) => {
       console.log(`password and username in usersDbCalls.js:`, userData);
@@ -32,23 +31,6 @@ module.exports = {
         reject(`User data must have username and password fields`);
       }
     });
-    // console.log(`password and username in usersDbCalls.js:`, userData);
-    // if (userData.username && userData.password) {
-    //   db.User.authenticate(userData.username, userData.password, function (error, user) {
-    //     if (error || !user) {
-    //       var err = new Error('Wrong username or password.');
-    //       err.status = 401;
-    //       return next(err);
-    //     } else {
-    //       // req.session.userId = user._id;
-    //       console.log(`successful login of ${user.username} with id ${user._id}`);
-    //       // this is the id to tie the session to
-    //       return user;
-    //     }
-    //   });
-    // } else {
-    //   throw `User data must have username and password fields`;
-    // }
   },
   // make a new user
   // if this doesn't work as expected, this might be the problem:

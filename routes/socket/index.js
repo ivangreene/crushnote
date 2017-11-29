@@ -1,4 +1,7 @@
 module.exports = io => {
-  require('./game')(io);
-  require('./chat')(io);
+	io.on('connection', socket => {
+	  require('./chat')(socket, io);
+	  require('./game')(socket, io);
+	  require('./user')(socket, io);
+	});
 };
