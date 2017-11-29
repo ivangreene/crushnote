@@ -8,7 +8,6 @@ const CardBack =()=>{
     return (
       <div id="CardBackContainer">
         <div className="card_top">
-          
         </div>
       </div>
     );

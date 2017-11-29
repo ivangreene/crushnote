@@ -47,7 +47,6 @@ class Chat extends Component {
     return (<div className="chat_container">
         <div className="chat-body">
           <div className="chat-title"><h3>Crush Note Lobby Chat</h3></div>
-          <hr/>
           <div className="messages">
             {
               this.state.messages.map((message, index) => {

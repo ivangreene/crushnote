@@ -77,9 +77,9 @@ class GameChatWindow extends Component {
       }} position={null} grid={[25, 25]} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>
       <div id="chat-box">
         <div className="chat-body">
-          <div className="chat-title">Game Chat....</div>
+          <div className="chat-title">Game Chat</div>
           <hr/>
-          <div className="messages">
+          <div className="ingame_messages">
             {
               this.state.messages.map((message, index) => {
                 return (<div key={index}>{message.author}: {message.message}</div>)
@@ -94,7 +94,6 @@ class GameChatWindow extends Component {
           <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
           <br/>
           <button onClick={this.sendMessage} id="send_chat_btn">Send</button>
-          <button onClick={!this.state.isHidden} id="hide_chat">Hide</button>
         </div>
       </div>
     </Draggable>)

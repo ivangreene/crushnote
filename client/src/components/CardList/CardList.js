@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "../Card/Card";
+import CardListItem from "../TopOpponentBar/CardListItem";
 
 const CardList =(props)=>{
 
   const cardItems = props.cards.map((card)=>{
     return(
-      <Card
+      <CardListItem
         key={card.id}
         card={card}/>);
   });

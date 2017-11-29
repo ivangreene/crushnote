@@ -6,6 +6,10 @@ module.exports = {
   findAll: (query) => {
     return db.User.find(query);
   },
+
+  // findAllUsers: (query) => {
+  //   return db.users.find(query);
+  // },
   // get user matching selected user id
   // returned as part of auth cookie info for each user
   findById: (id) => {

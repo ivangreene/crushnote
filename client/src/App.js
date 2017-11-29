@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import GameView from "./pages/GameView/GameView";
 import MainPage from "./pages/MainPage/MainPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import DevNav from "./components/DevNav/DevNav";
 import io from "socket.io-client";
 //import "./App.css";
 
@@ -39,18 +38,15 @@ class App extends Component {
   render() {
     console.log('user state is:', this.state.user);
 
-    return (
-      <Router>
-        <div>
-          <DevNav user={this.state.user} />
-          <Switch>
-            <Route exact path="/" component={LoginPage}/>
-            <Route exact path="/main" component={MainPage}/>
-            <Route exact path="/twoplayer" component={GameView}/>
-          </Switch>
-        </div>
-      </Router>
-    )
+    return (<Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={LoginPage}/>
+          <Route exact path="/main" component={MainPage}/>
+          <Route exact path="/game" component={GameView}/>
+        </Switch>
+      </div>
+    </Router>)
   }
 }
 

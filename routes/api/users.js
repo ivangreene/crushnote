@@ -2,12 +2,14 @@ const router = require("express").Router();
 const User = require("../../controllers/user");
 
 // Matches with "/api/users"
-router.route("/")
-  .get(function (req, res) {
+  router.route("/")
+    .get(function (req, res) {
     User.findAll(req.query)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  })
+    })
+
+
   // sign up: create a new user
   .post(function (req, res) {
     User.create(userData)

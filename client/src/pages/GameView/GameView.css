@@ -1,44 +1,54 @@
 body{
   background-color: #fff;
 }
-#oppenent1_hand{
-}
-
-#cards_in_play{
-}
-
-#player_hand{
-}
 
 #card_view{
   text-align: center;
 }
 
-.nav-menu{
-  background-color: #00000096;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  text-align: center;
-
+.opponent-side{
+  margin-left: 25px;
 }
 
-.nav-menu ul{
- display: flex;
- flex-direction: row;
- align-items: center;
- justify-content: flex-start;
- max-width: 50%;
- margin: 0 auto;
- flex-wrap: wrap;
-zoom:0.7;
+footer{
+position:absolute;
+left:0;
+bottom:0;
+right:0;
 }
 
-#hide_cards_btn{
-  margin-left: 25%;
+#show_hud_area{
+  width:100%;
+}
+
+.hud {
+  width: 100%;
+  padding-right:25px;
+  padding-top: 5px;
+  bottom: 10px;
+  display:block;
+}
+
+/*==== User Side ===*/
+
+#player_name{
+  margin:0 auto;
+}
+
+.player-side {
+  height:100%;
+  width:33%;
+  float: right;
+  margin-right: 25px;
+  background-color: #72dae7;
+  -webkit-box-shadow: 10px 10px 5px #b8b6b6;
+}
+
+
+.no-point, .round-won {
+  color: red;
+}
+
+.table-button {
+  font-size: 50px;
 }
