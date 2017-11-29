@@ -13,6 +13,7 @@
     "start": "node server.js",
     "test": "mocha --require ./scripts/testSetup.js --compilers babel-core/register ./test/*test.js",
     "test:watch": "npm test -- -w",
+    "test:watch:engine": "mocha -w test/engine.test.js",
     "watch": "nodemon server.js"
   },
   "repository": {

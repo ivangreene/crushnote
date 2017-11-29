@@ -71,12 +71,6 @@ describe('The move engine', function () {
   });
   
   describe(`after a move`, function () {
-    it(`should eliminate a player when the Princess is played`, function () {
-      state.players.foo.hand = PRINCESS;
-      expect(state).to.nested.include({ 'players.foo.eliminated': false });
-      return expect(move(state, { player: 'foo', card: PRINCESS })).to.eventually.nested.include({ 'players.foo.eliminated': true });
-    });
-
     it(`should make the next player active and the last player inactive`, function () {
       return expect(move(state, { player: 'foo', card: COUNTESS })).to.eventually.nested.include({'players.bar.active': true, 'players.foo.active': false});
     });
@@ -89,5 +83,28 @@ describe('The move engine', function () {
     });
   });
 
+  describe(`when playing`, function () {
+    describe(`Princess`, function () {
+      it(`should eliminate the originating player`, function () {
+        state.players.foo.hand = PRINCESS;
+        expect(state).to.nested.include({ 'players.foo.eliminated': false });
+        return expect(move(state, { player: 'foo', card: PRINCESS })).to.eventually.nested.include({ 'players.foo.eliminated': true });
+      });
+    });
+
+    describe(`Countess`, function () {
+      it(`should do nothing`, function () {
+        return expect(move(state, { player: 'foo', card: COUNTESS })).to.eventually.be.fulfilled;
+      })
+    });
+
+    // describe(`King`, function () {
+    //   it(`should trade cards with a chosen player`, function () {
+    //     state.players.cards.deck[0] = KING;
+    //     state.players.bar.hand = PRINCE;
+    //     return expect(move(state, { player: 'foo', card: KING, chosenPlayer: 'bar' })).to.eventually.nested.include({'players': KING})
+    //   })
+    // })
+  });
 
 });
