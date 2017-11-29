@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import AppBar from 'material-ui/AppBar';
 //import Divider from "material-ui/Divider";
-import io from "socket.io-client";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import "./SignUp.css";
@@ -21,10 +20,7 @@ class SignUp extends Component {
       email: ''
     };
 
-    console.log(io);
-    this.socket = io();
-    window.socket = this.socket;
-    window.io = io;
+    this.socket = window.socket;
 
     this.socket.on('savedUser', function(data) {
       // startUserSession();

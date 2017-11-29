@@ -9,7 +9,7 @@ module.exports = {
   // get user matching selected user id
   // returned as part of auth cookie info for each user
   findById: (id) => {
-    return db.User.findById({id});
+    return db.User.findById(id);
   },
   findAndAuthenticate: (userData) => {
     return new Promise((resolve, reject) => {

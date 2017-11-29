@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import AppBar from 'material-ui/AppBar';
 //import Divider from "material-ui/Divider";
-import io from "socket.io-client";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import "./LogIn.css";
@@ -19,26 +18,15 @@ class LogIn extends Component {
       password: ''
     };
 
-    console.log(io);
-    this.socket = io();
-    window.socket = this.socket;
-    window.io = io;
+    this.socket = window.socket;
 
-    const setCookie = (name, val, expDays) => {
-      let d = new Date();
-      d.setTime(d.getTime() + (expDays*24*60*60*1000));
-      let expires = "expires=" + d.toUTCString();
-      document.cookie = name + "=" + val + ";" + expires + ";path=/";
-    };
-
-    this.socket.on('loggedIn', function(data) {
+    this.socket.on('setCookie', function(data) {
       // startUserSession();
-      console.log("server received data and sent it back to client:", data);
+      // console.log("server received data and sent it back to client:", data);
+      // console.log(`cookies before setting:`, document.cookie);
+      document.cookie = data;
+      // console.log(`cookies after setting:`, document.cookie);
     });
-    // console.log('adding connect handler');
-    // this.socket.on('connect', () => {
-    //   console.log('connected to socket');
-    // });
     this.socket.on('recieveCookie', function(cookie) {
       // startUserSession();
       console.log("server sent back new cookie to client:", cookie);
@@ -47,7 +35,7 @@ class LogIn extends Component {
       console.log(error);
       throw error;
     });
-  },
+  };
   authUser(event) {
     event.preventDefault();
     console.log(`log user in`);

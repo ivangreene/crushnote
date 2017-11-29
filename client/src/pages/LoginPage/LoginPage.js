@@ -20,10 +20,7 @@ class LoginPage extends Component {
             handleClick={this.handleClick}
             isHidden={this.state.isHidden}
             isLoggedIn={this.state.isLoggedIn}/>
-          <SignUp
-            handleClick={this.handleClick}
-            isHidden={this.state.isHidden}
-            isLoggedIn={this.state.isLoggedIn}/>
+          <SignUp />
         </div>
       </div>
     </div>)

@@ -3,9 +3,8 @@ const cleanGameState = require('../../lib/gameState').clean;
 const User = require('../../controllers/user');
 const chalk = require('chalk');
 
-module.exports = io => {
+module.exports = (socket, io) => {
   console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
-  io.on('connection', socket => {
     console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
     /*
     * Game logic
@@ -58,5 +57,4 @@ module.exports = io => {
       // TODO: Send the current game state (with sensitive details scrubbed)
       socket.join(gameID); // Subscribe the user to this game's events
     });
-  });
 }

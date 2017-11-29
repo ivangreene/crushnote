@@ -4,15 +4,16 @@
   "description": "Implementation of Love Letter as a web app.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "client": "npm --prefix client start",
-    "watch": "nodemon server.js",
-    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "react-scripts build",
+    "client": "npm --prefix client start",
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "eject": "react-scripts eject",
+    "heroku-prebuild": "cd client/ && yarn install && yarn build; cd ../",
     "seed": "node scripts/seedDB.js",
+    "start": "node server.js",
     "test": "mocha --require ./scripts/testSetup.js --compilers babel-core/register ./test/*test.js",
     "test:watch": "npm test -- -w",
-    "eject": "react-scripts eject"
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",

@@ -21,12 +21,12 @@ userSchema.pre('save', function (next) {
     }
     user.password = hash;
     next();
-  })
+  });
 });
 
 //authenticate input against database
-userSchema.statics.authenticate = function (username, password, callback) {
-  User.findOne({ username: username })
+userSchema.statics.authenticate = function (name, password, callback) {
+  User.findOne({ username: name })
     .exec(function (err, user) {
       if (err) {
         return callback(err)
