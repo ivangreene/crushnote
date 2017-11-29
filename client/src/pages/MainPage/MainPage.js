@@ -4,25 +4,23 @@ import Stats from "../../components/LobbyComponents/Stats";
 import "./MainPage.css";
 import "purecss";
 
-
 class MainPage extends Component {
-
 
   render() {
     return (<div>
-        <div id="login_title">
-          <h1 className='elegantshadow'>Crush Note</h1>
-        </div>
+      <div id="login_title">
+        <h1 className='elegantshadow'>Crush Note</h1>
+      </div>
 
-      <div className="pure-g gutters"  id="main_body">
+      <div className="pure-g gutters" id="main_body">
 
         <div className="pure-u-1-4" id="players_main">
           <header id="players_header">Players List</header>
-          <Stats />
+          <Stats/>
         </div>
 
         <div className="pure-u-1-2" id="chat_main">
-            <Chat/>
+          <Chat/>
         </div>
 
         <div className="pure-u-1-4" id="games_main">

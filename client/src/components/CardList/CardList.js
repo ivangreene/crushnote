@@ -1,5 +1,5 @@
 import React from "react";
-import CardListItem from "../TopNav/CardListItem";
+import CardListItem from "../TopOpponentBar/CardListItem";
 
 const CardList =(props)=>{
 

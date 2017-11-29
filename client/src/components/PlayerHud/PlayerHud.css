@@ -3,42 +3,11 @@
 }
 
 .hud {
-  text-align: center;
-  height: 115px;
   width: 100%;
-  padding-left: 25px;
   padding-right:25px;
   padding-top: 5px;
   bottom: 10px;
   display:block;
-}
-
-/*==== Opponent Side ====*/
-
-.opponent-side {
-  height:100%;
-  width:33%;
-  float: left;
-  background-color: #72dae7;
-  -webkit-box-shadow: 10px 10px 5px #b8b6b6;
-  box-shadow: 10px 0px 10px 5px #b8b6b6;
-}
-
-
-#opponent_round_tokens {
-  padding:  7px;
-  width: 33%;
-  border-style: inset;
-  border-width: 3px;
-  margin-left: 50px;
-  margin-top: 10px;
-}
-
-
-
-#opponent_score {
-  float: left;
-  margin: 0 auto;
 }
 
 /*==== User Side ===*/
@@ -51,9 +20,9 @@
   height:100%;
   width:33%;
   float: right;
+  margin-right: 25px;
   background-color: #72dae7;
   -webkit-box-shadow: 10px 10px 5px #b8b6b6;
-  box-shadow: 10px 0px 10px 5px #b8b6b6;
 }
 
 #user_round_tokens {

@@ -10,7 +10,7 @@ class LoginPage extends Component {
 
   render() {
     return (<div>
-      <div id="login_title" className="">
+      <div id="login_title">
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
 
@@ -36,7 +36,7 @@ class LoginPage extends Component {
                 <span id="login_front_text" className="">Play Now</span>
               </div>
             </div>
-            <div className="side backB">
+            <div className="side backB pulsate">
               <SignUp/>
             </div>
           </div>

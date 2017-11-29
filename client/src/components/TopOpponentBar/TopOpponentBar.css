@@ -1,7 +1,4 @@
-#opponent_score{
-  float:left;
-  margin:0 auto;
-}
+
 
 .top_nav{
     height: 105px;
@@ -9,13 +6,4 @@
     padding-right: 25px;
     padding-top: 5px;
     margin-bottom: 15px;
-}
-
-#opponent_round_tokens {
-  padding:  7px;
-  width: 210px;
-  border-style: inset;
-  border-width: 3px;
-  margin-left: 50px;
-  margin-top: 10px;
 }

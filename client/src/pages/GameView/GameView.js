@@ -1,10 +1,12 @@
 import React, {Component} from "react";
-import PlayerHud from "../../components/PlayerHud/PlayerHud";
+//import PlayerHud from "../../components/PlayerHud/PlayerHud";
 import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
 import DiscardPile from "../../components/Card/DiscardPile";
 import TopOpponentBar from "../../components/TopOpponentBar/TopOpponentBar";
+import AllCardView from "../../components/TopOpponentBar/AllCardView";
+import GameChat from "../../components/Chat/GameChat";
 import "./GameView.css";
 
 const PRINCESS = 8,
@@ -46,28 +48,25 @@ class GameView extends Component {
   render() {
     return (
       <div id="game_box">
-         <TopOpponentBar />
 
-        {/* =========    DIV containing card views ============*/}
+        <div className="pure-u-1-1">
+         <div className="opponent-side">
+           <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+         </div>
+         <div className="player-side">
+           <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+         </div>
+       </div>
 
         <div className="pure-g"  id="card_view">
           <div className="pure-u-1-4" id="oppenent1_hand">
             <p>Opponent hand</p>
             <CardBack />
           </div>
-
           <div className="pure-u-1-4" id="discard">
             <p>Discard</p>
               <DiscardPile />
           </div>
-
-          {/* <div>
-           Game deck
-           {this.state.game.cards.deck}
-           <br />
-           Excluded card
-           {this.state.game.cards.excluded}
-         </div> */}
           <div className="pure-u-1-4" id="cards_in_play">
             <p>Card currently played</p>
             <Card card={PRINCESS}/>
@@ -77,12 +76,25 @@ class GameView extends Component {
             <Card card={this.state.game.players.userid1.hand}/>
           </div>
         </div>
-        {/* ========  END CARD VIEW DIV  ========== */}
 
-       <PlayerHud />
+        <footer>
+          <div className="hud">
+            <div className="opponent-side">
+              <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+            </div>
+            <div className="player-side">
+              <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[1]]}/>
+
+            </div>
+            <div id="user-buttons">
+              <AllCardView/>
+              <GameChat />
+            </div>
+          </div>
+        </footer>
+
     </div>);
   }
-
 }
 
 export default GameView;

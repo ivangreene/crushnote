@@ -9,13 +9,6 @@ body {
   margin-bottom: 20px;
 }
 
-#login_title {
-  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-  text-align: center;
-  font-size: 80px;
-  color: black;
-  text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
-}
 
 #login_front_text {
   line-height: 4;
@@ -70,6 +63,26 @@ body {
 
 .loginCard .backB {
   transform: rotateY(180deg);
+  -webkit-box-shadow:0 0 250px red;
+  -moz-box-shadow: 0 0 250px red;
+  box-shadow:0 0 250px red;
+}
+
+.pulsate {
+    -webkit-animation: pulsate 3s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.5;
+}
+@-webkit-keyframes pulsate {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.5;
+    }
 }
 
 .frontSide {
@@ -83,10 +96,10 @@ body {
 
 /*  load animation    */
 
-#third.loginCard {
+/*#third.loginCard {
   -webkit-animation: flip 5s;
   animation: flip 5s;
-}
+}*/
 
 #second.loginCard {
   -webkit-animation: flip 4s;

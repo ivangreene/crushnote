@@ -1,23 +1,54 @@
 body{
   background-color: #fff;
 }
-#oppenent1_hand{
-}
-
-#cards_in_play{
-}
-
-#player_hand{
-}
 
 #card_view{
   text-align: center;
 }
 
+.opponent-side{
+  margin-left: 25px;
+}
 
 footer{
 position:absolute;
 left:0;
 bottom:0;
 right:0;
+}
+
+#show_hud_area{
+  width:100%;
+}
+
+.hud {
+  width: 100%;
+  padding-right:25px;
+  padding-top: 5px;
+  bottom: 10px;
+  display:block;
+}
+
+/*==== User Side ===*/
+
+#player_name{
+  margin:0 auto;
+}
+
+.player-side {
+  height:100%;
+  width:33%;
+  float: right;
+  margin-right: 25px;
+  background-color: #72dae7;
+  -webkit-box-shadow: 10px 10px 5px #b8b6b6;
+}
+
+
+.no-point, .round-won {
+  color: red;
+}
+
+.table-button {
+  font-size: 50px;
 }
