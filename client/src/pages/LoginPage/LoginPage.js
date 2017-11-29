@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import SignUp from "../../components/SignUp/SignUp";
 import "./LoginPage.css";
-//import cardback_placeholder from "../style/img/cardback_placeholder.jpg";
 
 class LoginPage extends Component {
 
@@ -9,13 +8,9 @@ class LoginPage extends Component {
     isLoggedIn: false
   };
 
-
-  //--was messing with changing login state to remove add component, believe now
-  // it would be easier to just put this on own page and not deal with state tranfer until next page
   render() {
     return (<div>
       <div id="login_title" className="">
-        {/* <span className="txt anim-text-flow">Crush Note</span> */}
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
 
@@ -62,7 +57,8 @@ class LoginPage extends Component {
 
       </div>
 
-      <div><a href="/main">shortcut</a></div>
+      <div><a href="/main">lobby</a></div>
+      <div><a href="/game">gameview</a></div>
     </div>)
   }
 }

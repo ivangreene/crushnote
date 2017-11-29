@@ -23,8 +23,9 @@
   text-align: center;
 }
 
-.chat-title {
-  margin: 10px;
+.chat-title h3 {
+  margin-top: 10px;
+  margin-bottom:20px;
   font-size: 40px;
   font-family: 'Cookie';
 }

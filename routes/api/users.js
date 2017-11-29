@@ -4,7 +4,6 @@ const User = require("../../controllers/user");
 // Matches with "/api/users"
   router.route("/")
     .get(function (req, res) {
-    console.log("api/users.js")
     User.findAll(req.query)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

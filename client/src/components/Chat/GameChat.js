@@ -95,7 +95,6 @@ class GameChatWindow extends Component {
           <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
           <br/>
           <button onClick={this.sendMessage} id="send_chat_btn">Send</button>
-          <button onClick={!this.state.isHidden} id="hide_chat">Hide</button>
         </div>
       </div>
     </Draggable>)

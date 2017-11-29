@@ -41,6 +41,3 @@ const CheatTable = () => (
   </div>
 )
 export default CheatSheet;
-
-//material icon swap for button
-//    <i className="material-icons table-button" onClick={this.toggleHidden.bind(this)}>view_list</i>

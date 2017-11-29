@@ -21,6 +21,18 @@ font-size: 20px;
 float:left;
 }
 
+#players_main{
+  padding-left: 20px;
+}
+
+#players_header, #games_header{
+  margin-bottom: 30px;
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+}
+
 button{
   float:right;
 }
@@ -37,3 +49,5 @@ button.green:hover {
   -webkit-animation-iteration-count: infinite;
   color:white;
 }
+
+/* Game info div */

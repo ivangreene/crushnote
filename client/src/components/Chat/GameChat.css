@@ -2,8 +2,8 @@
 #chat-box{
   z-index: 4;
   position:fixed;
-  top:10%;
-  left:67%;
+  top:25%;
+  left:2%;
   border: 1px solid;
   border-radius: 10px;
   padding: 10px;
@@ -12,7 +12,7 @@
 }
 
 .ingame_messages{
-  width:100%;
+  width:89%;
   height:200px;
   padding:20px;
   overflow-y: auto;

@@ -1,22 +1,20 @@
 import React, {Component} from "react";
 import PlayerHud from "../../components/PlayerHud/PlayerHud";
-// import Card from "../../components/Card/Card";
+import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
-import CardB from "../../components/Card/CardB";
+import PlayerMount from "../../components/PlayerMount/PlayerMount";
 import DiscardPile from "../../components/Card/DiscardPile";
-//import TopNav from "../../components/TopNav/TopNav";
+import TopOpponentBar from "../../components/TopOpponentBar/TopOpponentBar";
 import "./GameView.css";
 
-// const PRINCESS = 8,
-//       COUNTESS = 7,
-//           KING = 6,
-//         PRINCE = 5,
-//       HANDMAID = 4,
-//          BARON = 3,
-//         PRIEST = 2,
-//          GUARD = 1;
-
-let data = require('../../gamejson/cards.json');
+const PRINCESS = 8,
+      COUNTESS = 7,
+          KING = 6,
+        PRINCE = 5,
+      HANDMAID = 4,
+         BARON = 3,
+        PRIEST = 2,
+         GUARD = 1;
 
 class GameView extends Component {
   state = {
@@ -48,7 +46,7 @@ class GameView extends Component {
   render() {
     return (
       <div id="game_box">
-        {/* <TopNav /> */}
+         <TopOpponentBar />
 
         {/* =========    DIV containing card views ============*/}
 
@@ -72,11 +70,11 @@ class GameView extends Component {
          </div> */}
           <div className="pure-u-1-4" id="cards_in_play">
             <p>Card currently played</p>
-            <CardB card ={data[6]}/>
+            <Card card={PRINCESS}/>
           </div>
           <div className="pure-u-1-4"  id="player_hand">
             <p>Player Hand </p>
-            <CardB card ={data[0]}/>
+            <Card card={this.state.game.players.userid1.hand}/>
           </div>
         </div>
         {/* ========  END CARD VIEW DIV  ========== */}

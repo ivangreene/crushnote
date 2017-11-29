@@ -2,7 +2,6 @@ import React from "react";
 import 'bulma/css/bulma.css'
 import test2 from "../../style/img/test2.jpg";
 
-// const CardB =({card})=>{
 const CardB = ({card}) => {
 
   return (<div className="card">
