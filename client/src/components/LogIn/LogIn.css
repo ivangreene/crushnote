@@ -1,22 +1,18 @@
-#login_body{
-  width:25%;
-  float:left;
+#login_body {
+  width: 100%;
   text-align: center;
-  position: absolute;
-  top:25%;
-  bottom: 0;
-  left: 0;
-  right: 0;
   margin: auto;
 }
 
-svg{
-  display:none;
+svg {
+  display: none;
 }
 
-#login_head{
-  color:white;
-  background-color: rgb(0,188,212);
+#login_head {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 100%;
+  color: white;
+  background-color: #3c5b75;
   padding: 10px;
-  border-radius: 5px;
 }

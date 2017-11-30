@@ -1,15 +1,30 @@
 import React, {Component} from "react";
 import SignUp from "../../components/SignUp/SignUp";
+import LogIn from "../../components/LogIn/LogIn";
 import "./LoginPage.css";
 
 class LoginPage extends Component {
 
   state = {
-    isLoggedIn: false
+    active: "signIn",
+    label: "Log In"
   };
 
+  handleClick= ()=> {
+        let active = this.state.active;
+        let newActive = active === 'signIn' ? 'logIn' : 'signIn';
+        this.setState({
+            active: newActive,
+            label: "Sign In"
+        });
+    }
+
   render() {
-    return (<div>
+
+    let active = this.state.active;
+
+    return (
+      <div>
       <div id="login_title">
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
@@ -36,8 +51,13 @@ class LoginPage extends Component {
                 <span id="login_front_text" className="">Play Now</span>
               </div>
             </div>
+
             <div className="side backB pulsate">
-              <SignUp/>
+              { active === 'signIn' ? (
+                <SignUp onClick={this.handleClick}/>
+              ): active === 'logIn' ? (
+              <LogIn onClick={this.handleClick}/>
+            ) : null }
             </div>
           </div>
         </div>
@@ -63,5 +83,3 @@ class LoginPage extends Component {
   }
 }
 export default LoginPage;
-
-//<img src={cardback_placeholder} alt=""/>

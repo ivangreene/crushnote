@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-//import AppBar from 'material-ui/AppBar';
-//import Divider from "material-ui/Divider";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import "./LogIn.css";
@@ -47,6 +45,8 @@ class LogIn extends Component {
       <MuiThemeProvider>
         <div>
           <h3 id="login_head">Login</h3>
+          -OR-
+          <div id="signup_head" onClick={this.props.onClick}>Sign in</div>
           <TextField
             type="username"
             hintText="Enter your Username"

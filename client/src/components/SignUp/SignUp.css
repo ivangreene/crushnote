@@ -1,16 +1,17 @@
-#signup_body{
-  width:100%;
+#signup_body {
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 }
 
-svg{
-  display:none;
+svg {
+  display: none;
 }
 
-#signup_head{
-  color:white;
+#signup_head {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: white;
   background-color: #3c5b75;
   padding: 10px;
-  border-radius: 5px;
 }
