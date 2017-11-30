@@ -7,7 +7,7 @@
 }
 
 #opponent_mount>div {
-  flex: 1 0 50px;
+  /*flex: 1 0 50px;*/
   margin: 5px;
   box-sizing: border-box;
   border: 1px inset;
@@ -45,7 +45,6 @@
 
 #opponent_round_tokens {
   float: left;
-  padding: 5px;
   width: 50%;
   border-style: inset;
   border-width: 3px;
@@ -56,4 +55,8 @@
 #opponent_score {
   float: left;
   margin: 0 auto;
+}
+
+#opponent_hand{
+  padding:5px;
 }
