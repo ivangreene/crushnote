@@ -35,11 +35,12 @@ class LoginPage extends Component {
           <div className="loginCard" id="first">
             <div className="side">
               <div className="frontSide">
-
+                <div className="inner_card">
+                </div>
               </div>
             </div>
-            <div className="side back">
 
+            <div className="side back">
             </div>
           </div>
         </div>
@@ -48,7 +49,9 @@ class LoginPage extends Component {
           <div className="loginCard" id="third">
             <div className="side">
               <div className="frontSide">
-                <span id="login_front_text" className="">Play Now</span>
+                <div className="inner_card">
+                  <span id="login_front_text" className="">Play Now</span>
+                </div>
               </div>
             </div>
 
@@ -66,11 +69,12 @@ class LoginPage extends Component {
           <div className="loginCard" id="second">
             <div className="side">
               <div className="frontSide">
-
+                <div className="inner_card">
+                </div>
               </div>
             </div>
-            <div className="side back">
 
+            <div className="side back">
             </div>
           </div>
         </div>

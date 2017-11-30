@@ -10,10 +10,33 @@ body {
 }
 
 #login_front_text {
-  line-height: 4;
+  line-height: 5;
+  white-space: nowrap;
   font-size: 80px;
   font-family: 'Cookie', Helvetica, sans-serif;
   color: white;
+  text-align: center;
+
+}
+
+#login_front_text {
+  background-image: -webkit-linear-gradient(left, #fade7c 10%, #faebc9 80%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-animation: stripes 3s ease-in-out infinite;
+  animation: stripes 3s ease-in-out infinite
+}
+
+@-webkit-keyframes stripes {
+  100% {
+    background-position: 0 -100px;
+  }
+}
+
+@keyframes stripes {
+  100% {
+    background-position: 500px;
+  }
 }
 
 /*     Card and Card Flip Styling     */
@@ -76,6 +99,14 @@ body {
   background-size: cover;
 }
 
+.inner_card {
+  height: 90%;
+  width: 90%;
+  border: 3px double wheat;
+  display: inline-block;
+  margin-top: 5%;
+}
+
 /*  load animation    */
 
 /*#third.loginCard {
@@ -117,7 +148,7 @@ h1 {
   font-weight: 400;
   font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
   font-size: 92px;
-  padding-bottom: 50px;
+  padding-bottom: 35px;
   padding-left: 30px;
   padding-right: 30px;
   text-align: center;
