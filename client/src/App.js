@@ -9,6 +9,10 @@ import io from "socket.io-client";
 //let data = require('./gamejson/cards.json');
 
 class App extends Component {
+  state = {
+    user: {}
+  };
+  
   componentWillMount() {
     // define one socket connection for the whole app
     const socket = io();
@@ -17,9 +21,7 @@ class App extends Component {
     // enables access to state, etc. inside of the socket functions
     let that = this;
     socket.on('loggedIn', function(data) {
-      if (!that.state.user
-        || (that.state.user && that.state.user.name && that.state.user.name !== data.username)
-        ) {
+      if (that.state.user.name !== data.name) {
         that.setState({user: {name: data.name, id: data.id}});
       }
       // console.log(`currently the react state.user is:`, that.state.user);
@@ -43,7 +45,9 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={LoginPage}/>
           <Route exact path="/main" component={MainPage}/>
-          <Route exact path="/game" component={GameView}/>
+          <Route exact path="/game"
+            render={(props) => <GameView user={this.state.user} />}
+          />
         </Switch>
       </div>
     </Router>)

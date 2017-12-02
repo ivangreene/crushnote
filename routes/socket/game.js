@@ -17,7 +17,7 @@ module.exports = (socket, io) => {
           let cleanState = cleanGameState(newState);
           io.to(gameID).emit('gameStateUpdate', cleanState);
         })
-        .catch(err => socket.emit('gameError', { message: err }));
+        .catch(err => socket.emit('err', { message: err }));
     });
 
     socket.on('newGame', () => {

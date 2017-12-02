@@ -4,14 +4,16 @@ import "./Card.css";
 import test2 from "../../style/img/test2.jpg";
 import data from '../../gamejson/cards.json';
 
-const Card =({card})=>{
+const Card =({card, onClick, selected})=>{
 
     card = parseInt(card, 10);
-    if(!card){
-      return<div>Loading...</div>
+
+    if (!card) {
+      return <div></div>
     }
+
     return (
-      <div id="CardContainer" className="card">
+      <a onClick={() => onClick(card)} id="CardContainer" className="card" style={(card && selected === card) ? { backgroundColor: 'yellow' } : undefined } >
         <div className="card_top">
           <p className="card_value">{card}</p>
           <p className="card_name">{data[card - 1].name}</p>
@@ -24,7 +26,7 @@ const Card =({card})=>{
             {data[card - 1].action}
           </p>
         </div>
-      </div>
+      </a>
     );
   };
 

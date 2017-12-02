@@ -19,12 +19,16 @@ const PRINCESS = 8,
          GUARD = 1;
 
 class GameView extends Component {
+
+  socket = window.socket;
+
   state = {
+    gameId: '5a231a0f5a1cb7511d097a1e',
     game: {
       opponentHand: [],
-      playerOrder: ['userid1', 'userid2'],
+      playerOrder: ['5a1f02d62c26f1322ba6de4d', 'userid2'],
       players: {
-        userid1: {
+        "5a1f02d62c26f1322ba6de4d": {
           hand: 5,
           discarded: [],
           active: true,
@@ -42,8 +46,32 @@ class GameView extends Component {
         played: [],
         excluded: null
       }
+    },
+    move: {
     }
   };
+
+  componentDidMount() {
+    this.socket.on('err', console.log);
+    this.socket.on('gameStateUpdate', console.log);
+  }
+
+  sendMove = () => {
+    this.socket.emit('gameMove', this.state.gameId, this.state.move);
+  }
+
+  addToMove = attr => val => {
+    let move = JSON.parse(JSON.stringify(this.state.move));
+    move[attr] = val;
+    this.setState({ move });
+  }
+
+  playersBesidesMe() {
+    // Returns a playerOrder array, excluding this player
+    let index = this.state.game.playerOrder.indexOf(this.props.user.id);
+    if (index <= -1) return this.state.game.playerOrder;
+    return [...this.state.game.playerOrder.slice(0, index), ...this.state.game.playerOrder.slice(index + 1, this.state.game.playerOrder.length)];
+  }
 
   render() {
     return (
@@ -51,10 +79,10 @@ class GameView extends Component {
 
         <div className="pure-u-1-1">
          <div className="opponent-side">
-           <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+           { this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer} /> }
          </div>
          <div className="player-side">
-           <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+         { this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[3]]} selected={this.state.move.chosenPlayer} /> }
          </div>
        </div>
 
@@ -64,26 +92,27 @@ class GameView extends Component {
             <CardBack />
           </div>
           <div className="pure-u-1-4" id="discard">
-            <p>Discard</p>
-              <DiscardPile />
+            <p>Discarded</p>
+              <Card card={ this.state.game.cards.played[0] } />
           </div>
           <div className="pure-u-1-4" id="cards_in_play">
-            <p>Card currently played</p>
-            <Card card={PRINCESS}/>
+            <p>&nbsp;</p>
+            <Card onClick={this.addToMove('card')} card={ this.state.game.cards.deck[0] } selected={this.state.move.card} />
           </div>
           <div className="pure-u-1-4"  id="player_hand">
-            <p>Player Hand </p>
-            <Card card={this.state.game.players.userid1.hand}/>
+            <p>Your Hand</p>
+            <Card onClick={this.addToMove('card')} card={this.state.game.players[this.props.user.id] && this.state.game.players[this.props.user.id].hand} selected={this.state.move.card} />
+            <button onClick={this.sendMove}>Play Card</button>
           </div>
         </div>
 
         <footer>
           <div className="hud">
             <div className="opponent-side">
-              <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+              <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[0]} player={this.state.game.players[this.playersBesidesMe()[0]]} selected={this.state.move.chosenPlayer} />
             </div>
             <div className="player-side">
-              <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[1]]}/>
+              <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.props.user.id} player={this.state.game.players[this.props.user.id]} selected={this.state.move.chosenPlayer} />
 
             </div>
             <div id="user-buttons">

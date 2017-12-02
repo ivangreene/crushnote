@@ -70,8 +70,10 @@ module.exports = {
             return reject('Game not found.');
           if (!game.open)
             return reject('Game already started.');
-          if (game.playerOrder[0].toString() !== userID)
+          if (game.playerOrder[0].toString() !== userID.toString()) {
+            debugger;
             return reject('Only the originating player can start a game.');
+          }
           game.open = false;
           game.players[game.playerOrder[0]].active = true;
           for (let p = 0; p < game.playerOrder.length; p++) {

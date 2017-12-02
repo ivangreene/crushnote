@@ -47,10 +47,10 @@
   font-size: 10px;
 }
 
-.card:hover {
+/* .card:hover {
   transform: scale(1.5);
   z-index: 8 !important;
-}
+} */
 
  .card{
    transition: all .4s ease-in-out;
@@ -58,9 +58,9 @@
    z-index: 2;
  }
 
- #player_hand:hover, #cards_in_play:hover{
+ /* #player_hand:hover, #cards_in_play:hover{
      z-index: 8 !important;
- }
+ } */
 
  .image{
    margin:0 auto;
@@ -89,9 +89,9 @@
    width: 75%;
  }
 
- .cheatCard:hover {
+ /* .cheatCard:hover {
    transform: rotateY(180deg);
- }
+ } */
 
  .cheatCard .cheatSide {
    background: #72dae7;
