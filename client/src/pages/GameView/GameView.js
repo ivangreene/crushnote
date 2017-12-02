@@ -53,26 +53,27 @@ class GameView extends Component {
          <div className="opponent-side">
            <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
          </div>
+
          <div className="player-side">
            <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+         </div>
+         <div id="user-buttons">
+           <AllCardView/>
+           <GameChat />
          </div>
        </div>
 
         <div className="pure-g"  id="card_view">
-          <div className="pure-u-1-4" id="oppenent1_hand">
-            <p>Opponent hand</p>
-            <CardBack />
-          </div>
-          <div className="pure-u-1-4" id="discard">
+          <div className="pure-u-1-3" id="discard">
             <p>Discard</p>
               <DiscardPile />
           </div>
-          <div className="pure-u-1-4" id="cards_in_play">
-            <p>Card currently played</p>
+          <div className="pure-u-1-3" id="cards_in_play">
+            {/* <p>Card currently played</p> */}
             <Card card={PRINCESS}/>
           </div>
-          <div className="pure-u-1-4"  id="player_hand">
-            <p>Player Hand </p>
+          <div className="pure-u-1-3"  id="player_hand">
+            {/* <p>Player Hand </p> */}
             <Card card={this.state.game.players.userid1.hand}/>
           </div>
         </div>
@@ -86,10 +87,7 @@ class GameView extends Component {
               <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[1]]}/>
 
             </div>
-            <div id="user-buttons">
-              <AllCardView/>
-              <GameChat />
-            </div>
+
           </div>
         </footer>
 

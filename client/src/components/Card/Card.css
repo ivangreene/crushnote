@@ -6,6 +6,7 @@
   display: inline-block;
   text-align: center;
   margin: 10px;
+  border-radius: 10px;
 }
 
 #CardBackContainer {
@@ -61,13 +62,21 @@
  #player_hand:hover, #cards_in_play:hover{
      z-index: 8 !important;
  }
-
- .image{
-   margin:0 auto;
- }
  .card_image{
    margin-bottom: 10px;
    border: double 2px;
+ }
+
+ img{
+   width:100%;
+ }
+
+ #card_gutters{
+   border-left:double 3px #a39999;
+   border-right:double 3px #a39999;
+   border-top:solid 3px #a39999;
+   border-bottom:solid 3px #a39999;
+   padding: 5px;
  }
 
  /* --- Discard / Cheat Card  ----*/

@@ -4,7 +4,6 @@ const data = require('../../gamejson/cards.json');
 const cheatdata = require('../../gamejson/cheatcard.json');
 
 const DiscardPile = () => {
-  //console.log(data);
 
   const discarded = data.map((card) => {
     return (<li key={card.id} card={card}>
@@ -13,10 +12,12 @@ const DiscardPile = () => {
     </li>);
   });
 
+
   return (<div>
 
     <div className="cheatCard-container">
       <div className="cheatCard">
+        <button>stuff</button>
         <div className="cheatSide">
           <div className="cheatFrontSide">
             <p id="discard_top">Cards discarded this round</p>
@@ -26,6 +27,7 @@ const DiscardPile = () => {
           </div>
         </div>
         <div className="cheatSide back">
+          <button>stuff</button>
           <div>
             <table>
               <tbody>

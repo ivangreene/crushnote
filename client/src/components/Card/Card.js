@@ -12,6 +12,7 @@ const Card =({card})=>{
     }
     return (
       <div id="CardContainer" className="card">
+        <div id="card_gutters">
         <div className="card_top">
           <p className="card_value">{card}</p>
           <p className="card_name">{data[card - 1].name}</p>
@@ -24,6 +25,7 @@ const Card =({card})=>{
             {data[card - 1].action}
           </p>
         </div>
+      </div>
       </div>
     );
   };
