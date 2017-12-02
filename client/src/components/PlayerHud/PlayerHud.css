@@ -16,14 +16,7 @@
   margin:0 auto;
 }
 
-.player-side {
-  height:100%;
-  width:33%;
-  float: right;
-  margin-right: 25px;
-  background-color: #72dae7;
-  -webkit-box-shadow: 10px 10px 5px #b8b6b6;
-}
+
 
 #user_round_tokens {
   padding: 7px;

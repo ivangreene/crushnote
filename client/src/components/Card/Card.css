@@ -2,8 +2,7 @@
   background-color: #72dae7;
   width: 190px;
   height: 380px;
-  border: 1px solid #021a40;
-  padding: 10px;
+  border: double 5px #a39999;  padding: 10px;
   display: inline-block;
   text-align: center;
   margin: 10px;
@@ -20,9 +19,11 @@
 }
 
 .card_name {
+  border-bottom: 1px solid;
   display: inline-block;
   text-align: center;
   margin-left: 12px;
+  border-top: 1px solid;
 }
 
 .card_value {
@@ -33,10 +34,12 @@
   border-radius: 50px;
   display: inline-block;
   line-height: 2.5;
+  background-color: white;
 }
 
 .card_action {
   border-style: inset;
+  background-color: #b7dce1;
 }
 
 .action_text {
@@ -44,26 +47,28 @@
   font-size: 10px;
 }
 
-.card {
-  transition: all .4s ease-in-out;
-}
-
 .card:hover {
   transform: scale(1.5);
+  z-index: 8 !important;
 }
 
  .card{
+   transition: all .4s ease-in-out;
    width:75%;
    z-index: 2;
+ }
+
+ #player_hand:hover, #cards_in_play:hover{
+     z-index: 8 !important;
  }
 
  .image{
    margin:0 auto;
  }
- .card-image{
+ .card_image{
    margin-bottom: 10px;
+   border: double 2px;
  }
-
 
  /* --- Discard / Cheat Card  ----*/
 
@@ -75,7 +80,8 @@
  }
 
  .cheatCard {
-    background: #72dae7;
+   border: double 5px #a39999;  padding: 10px;
+   background: #72dae7;
    margin: 0 auto;
    height: 95%;
    transform-style: preserve-3d;
@@ -91,10 +97,8 @@
    background: #72dae7;
    backface-visibility: hidden;
    border-radius: 6px;
-   height: 100%;
    position: absolute;
    overflow: hidden;
-   width: 100%;
  }
 
  .cheatCard .back {

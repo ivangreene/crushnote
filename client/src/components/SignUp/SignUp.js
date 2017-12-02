@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-//import AppBar from 'material-ui/AppBar';
-//import Divider from "material-ui/Divider";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import "./SignUp.css";
@@ -52,6 +50,8 @@ class SignUp extends Component {
       <MuiThemeProvider>
         <div>
           <h3 id="signup_head">Create a New Player</h3>
+          -OR-
+          <div id="signup_head" onClick={this.props.onClick}>Log in</div>
           <TextField
             type="email"
             hintText="Enter your Email"

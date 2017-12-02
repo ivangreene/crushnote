@@ -1,6 +1,15 @@
 body{
-  background-color: #fff;
+    background-color: #fff;
 }
+
+#game_box{
+  background-image: url("../../style/img/table1 (2).png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: 100%;
+}
+
 
 #card_view{
   text-align: center;
@@ -41,7 +50,7 @@ right:0;
   float: right;
   margin-right: 25px;
   background-color: #72dae7;
-  -webkit-box-shadow: 10px 10px 5px #b8b6b6;
+  -webkit-box-shadow: 10px 10px 5px #494343
 }
 
 
@@ -51,4 +60,10 @@ right:0;
 
 .table-button {
   font-size: 50px;
+}
+
+#user-buttons{
+position: fixed;
+left: 50%;
+bottom:2%;
 }
