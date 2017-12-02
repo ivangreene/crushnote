@@ -70,7 +70,7 @@ module.exports = {
             return reject('Game not found.');
           if (!game.open)
             return reject('Game already started.');
-          if (game.playerOrder[0] !== userID)
+          if (game.playerOrder[0].toString() !== userID)
             return reject('Only the originating player can start a game.');
           game.open = false;
           game.players[game.playerOrder[0]].active = true;
