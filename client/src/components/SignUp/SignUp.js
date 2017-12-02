@@ -42,6 +42,7 @@ class SignUp extends Component {
       "password": this.state.password,
       "passwordConfirm": this.state.passwordConfirm
     });
+    this.setState({username: '', email: '', password: '', passwordConfirm: ''});
     console.log("sending user data");
   }
 
@@ -56,6 +57,7 @@ class SignUp extends Component {
             type="email"
             hintText="Enter your Email"
             floatingLabelText="Email"
+            value={this.state.email}
             onChange={(event, newValue) => this.setState({email: newValue})}
             id="emailInput"
           />
@@ -64,6 +66,7 @@ class SignUp extends Component {
             type="username"
             hintText="Enter your Username"
             floatingLabelText="Username"
+            value={this.state.username}
             onChange={(event, newValue) => this.setState({username: newValue})}
             id="usernameInput"
           />
@@ -72,6 +75,7 @@ class SignUp extends Component {
             type="password"
             hintText="Enter your Password"
             floatingLabelText="Password"
+            value={this.state.password}
             onChange={(event, newValue) => this.setState({password: newValue})}
             id="passwordInput"
           />
@@ -80,6 +84,7 @@ class SignUp extends Component {
             type="password"
             hintText="Reenter your Password to Confirm"
             floatingLabelText="Password Confirmation"
+            value={this.state.passwordConfirm}
             onChange={(event, newValue) => this.setState({passwordConfirm: newValue})}
             id="passwordConfirmInput"
           />

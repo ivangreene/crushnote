@@ -6,22 +6,18 @@ import "purecss";
 
 class MainPage extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoggedIn: false
-    };
-
-    this.socket = window.socket;
-
-    // this.socket.on('userLoggedIn', function(data) {
-    //   console.log(`a user logged in:`, data);
-    // });
-    // this.socket.on('userLoggedOut', function(data) {
-    //   console.log(`a user logged out:`, data);
-    // });
+  state = {
+    isLoggedIn: false
   };
+
+  socket = window.socket;
+
+  // socket.on('userLoggedIn', function(data) {
+  //   console.log(`a user logged in:`, data);
+  // });
+  // socket.on('userLoggedOut', function(data) {
+  //   console.log(`a user logged out:`, data);
+  // });
 
   render() {
     return (<div>
@@ -48,6 +44,7 @@ class MainPage extends Component {
           <p>current round/token score from game state?</p>
           -OR-
           <hr></hr>
+          // this should be top 5 users win/loss ratio
           <p>Past Game Results displaying...</p>
           <h4>userid -vs- userid</h4>
           <p>current round/token score from game state?</p>
