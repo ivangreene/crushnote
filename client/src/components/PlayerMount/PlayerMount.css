@@ -1,4 +1,5 @@
 #opponent_mount {
+  border: 3px double wheat;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -10,7 +11,7 @@
   /*flex: 1 0 50px;*/
   margin: 5px;
   box-sizing: border-box;
-  border: 1px inset;
+  /*border: 1px inset;*/
 }
 
 .opponent-side {
@@ -18,7 +19,7 @@
   width: 33%;
   float: left;
   background-color: #72dae7;
-  -webkit-box-shadow: 10px 10px 5px #b8b6b6;
+  -webkit-box-shadow: 10px 10px 5px #494343;
 }
 
 #hand_title {
@@ -48,12 +49,10 @@
   width: 50%;
   border-style: inset;
   border-width: 3px;
-  margin-left: 35px;
-  margin-top: 10px;
+  margin: 0 auto !important;
 }
 
 #opponent_score {
-  float: left;
   margin: 0 auto;
 }
 
