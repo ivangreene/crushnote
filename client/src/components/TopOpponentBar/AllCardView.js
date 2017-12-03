@@ -6,29 +6,19 @@ let data = require('../../gamejson/cards.json');
 
 export default class AllCardView extends Component {
 
-  componentWillMount() {
-    this.setState({
-      isMenuOpened: false
-    })
-  }
-
   render() {
     return (
-      <OffCanvas width={1200} transitionDuration={300} isMenuOpened={this.state.isMenuOpened} position={"right"}>
+      <OffCanvas width={1200} transitionDuration={300} isMenuOpened={this.props.open} position={"right"}>
         <OffCanvasBody className="not-sure">
-          <button onClick={this.handleClick.bind(this)} id="show_card_btn">Show Cards</button>
+          <button onClick={this.props.onClick} id="show_card_btn">Show Cards</button>
         </OffCanvasBody>
         <OffCanvasMenu className="nav-menu">
             {/* <button id="hide_cards_btn" onClick={this.handleClick.bind(this)}>Hide Cards</button> */}
-            <i className="material-icons md-48"  id="hide_cards_btn" onClick={this.handleClick.bind(this)}>done</i>
-              <CardList cards={data} />
+            <i className="material-icons md-48"  id="hide_cards_btn" onClick={this.props.onClick}>done</i>
+              <CardList onClick={this.props.chooseCard} cards={data} />
         </OffCanvasMenu>
       </OffCanvas>
     );
-  }
-
-  handleClick() {
-    this.setState({ isMenuOpened: !this.state.isMenuOpened });
   }
 
 }

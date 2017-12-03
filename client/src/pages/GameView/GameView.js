@@ -7,6 +7,8 @@ import DiscardPile from "../../components/Card/DiscardPile";
 import TopOpponentBar from "../../components/TopOpponentBar/TopOpponentBar";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
 import GameChat from "../../components/Chat/GameChat";
+import Axios from "axios";
+import deepObjectAssign from '../../deepObjectAssign';
 import "./GameView.css";
 
 const PRINCESS = 8,
@@ -23,28 +25,13 @@ class GameView extends Component {
   socket = window.socket;
 
   state = {
-    gameId: '5a231a0f5a1cb7511d097a1e',
+    cardViewOpen: false,
     game: {
-      opponentHand: [],
-      playerOrder: ['5a1f02d62c26f1322ba6de4d', 'userid2'],
-      players: {
-        "5a1f02d62c26f1322ba6de4d": {
-          hand: 5,
-          discarded: [],
-          active: true,
-          eliminated: false
-        },
-        userid2: {
-          hand: 3,
-          discarded: [],
-          active: false,
-          eliminated: false
-        }
-      },
+      playerOrder: [],
+      players: {},
       cards: {
-        deck: [1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8],
-        played: [],
-        excluded: null
+        deck: [],
+        played: []
       }
     },
     move: {
@@ -52,12 +39,35 @@ class GameView extends Component {
   };
 
   componentDidMount() {
+    Axios.get('/api/games?_id=' + this.props.match.params.gameId)
+      .then(response => {
+        if (response.data[0]) {
+          let game = {...this.state.game};
+          game = deepObjectAssign(game, response.data[0]);
+          this.setState({ game });
+        }
+      })
+      .catch(err => console.log(err));
     this.socket.on('err', console.log);
-    this.socket.on('gameStateUpdate', console.log);
+    let stateUpdate = (refresh) => (gameId, state) => {
+      if (this.props.match.params.gameId === gameId) {
+        let game = {...this.state.game};
+        game = deepObjectAssign(game, state);
+        if (game.players[this.props.user.id] && !game.players[this.props.user.id].active) {
+          game.cards.deck = [];
+        }
+        this.setState({game});
+      }
+      if (refresh) this.socket.emit('myHand', this.props.match.params.gameId);
+    };
+    this.socket.on('gameStateUpdate', stateUpdate(true));
+    this.socket.on('partialState', stateUpdate(false));
+    this.socket.emit('myHand', this.props.match.params.gameId);
+    this.socket.emit('subscribeToGame', this.props.match.params.gameId);
   }
 
   sendMove = () => {
-    this.socket.emit('gameMove', this.state.gameId, this.state.move);
+    this.socket.emit('gameMove', this.props.match.params.gameId, this.state.move);
   }
 
   addToMove = attr => val => {
@@ -79,10 +89,10 @@ class GameView extends Component {
 
         <div className="pure-u-1-1">
          <div className="opponent-side">
-           { this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer} /> }
+           { this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.state.game.players[this.playersBesidesMe()[1]]} selected={this.state.move.chosenPlayer} /> }
          </div>
          <div className="player-side">
-         { this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[3]]} selected={this.state.move.chosenPlayer} /> }
+         { this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer} /> }
          </div>
        </div>
 
@@ -112,11 +122,16 @@ class GameView extends Component {
               <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[0]} player={this.state.game.players[this.playersBesidesMe()[0]]} selected={this.state.move.chosenPlayer} />
             </div>
             <div className="player-side">
-              <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.props.user.id} player={this.state.game.players[this.props.user.id]} selected={this.state.move.chosenPlayer} />
+              { this.state.game.playerOrder.indexOf(this.props.user.id) > -1 
+                ? <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.props.user.id} player={this.state.game.players[this.props.user.id]} selected={this.state.move.chosenPlayer} />
+                : (
+                  this.playersBesidesMe()[3] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[3]} player={this.state.game.players[this.playersBesidesMe()[3]]} selected={this.state.move.chosenPlayer} />
+                )
+              }
 
             </div>
             <div id="user-buttons">
-              <AllCardView/>
+              <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({cardViewOpen: !this.state.cardViewOpen})} open={this.state.cardViewOpen} />
               <GameChat />
             </div>
           </div>

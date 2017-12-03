@@ -45,8 +45,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={LoginPage}/>
           <Route exact path="/main" component={MainPage}/>
-          <Route exact path="/game"
-            render={(props) => <GameView user={this.state.user} />}
+          <Route exact path="/game/:gameId"
+            render={(props) => <GameView {...props} user={this.state.user} />}
           />
         </Switch>
       </div>

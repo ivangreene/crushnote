@@ -9,15 +9,39 @@ module.exports = (socket, io) => {
     /*
     * Game logic
     */
-    socket.on('gameMove', (gameID, move) => {
+    socket.on('gameMove', (gameId, move) => {
       if (!move) move = {};
       move.player = socket.request.session.userId;
-      Game.gameMove(gameID, move)
+      Game.gameMove(gameId, move)
         .then(newState => {
           let cleanState = cleanGameState(newState);
-          io.to(gameID).emit('gameStateUpdate', cleanState);
+          io.to(gameId).emit('gameStateUpdate', gameId, cleanState);
         })
         .catch(err => socket.emit('err', { message: err }));
+    });
+
+    socket.on('myHand', (gameId) => {
+      if (!socket.request.session.userId)
+        return socket.emit('err', { message: 'Not authenticated' });
+      Game.findById(gameId)
+        .then(({_doc}) => {
+          if (_doc.players[socket.request.session.userId]) {
+            let partialState = {
+              players: {
+                [socket.request.session.userId]: { hand: _doc.players[socket.request.session.userId].hand }
+              }
+            };
+            if (_doc.players[socket.request.session.userId].active) {
+              partialState.cards = { deck: [_doc.cards.deck[0]] };
+            }
+            return socket.emit('partialState', gameId, partialState);
+          }
+          else
+            return socket.emit('err', { message: 'Not a participant' });
+        })
+        .catch(err => {
+          return socket.emit('err', { message: 'Game not found' });
+        });
     });
 
     socket.on('newGame', () => {
@@ -53,8 +77,7 @@ module.exports = (socket, io) => {
         .catch(err => socket.emit('err', { message: err }));
     });
 
-    socket.on('spectateGame', gameID => {
-      // TODO: Send the current game state (with sensitive details scrubbed)
+    socket.on('subscribeToGame', gameID => {
       socket.join(gameID); // Subscribe the user to this game's events
     });
 }
