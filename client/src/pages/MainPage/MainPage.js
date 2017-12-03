@@ -19,7 +19,6 @@ class MainPage extends Component {
   // });
 
   render() {
-    let socket = window.socket;
     return (<div>
       <div id="login_title">
         <h1 className='elegantshadow'>Crush Note</h1>
@@ -41,7 +40,7 @@ class MainPage extends Component {
           <p>
             <button
               onClick={() => {
-                socket.emit('newGame')
+                this.props.socket.emit('newGame');
               }}
               >
                 Create Game
@@ -67,17 +66,19 @@ class MainPage extends Component {
   }
 
   renderGame(game) {
-    const isOwner = game.playerOrder[0] === this.props.user.id;
-    const canStartGame = isOwner && game.playerOrder.length > 1;
-    const inGame = game.playerOrder.some(playerId => playerId === this.props.user.id);
-    const canJoinGame = !inGame && game.open;
+    //const isOwner = game.playerOrder[0] === this.props.user.id;
+    //const canStartGame = isOwner && game.playerOrder.length > 1;
+    //const inGame = game.playerOrder.some(playerId => playerId === this.props.user.id);
+    const canJoinGame = game.open;
     return (
       <div className="gameListEntry" key={game._id}>
         <div>{game.playerOrder.length} Players</div>
-        { isOwner && <div><button disabled={!canStartGame}>Start Game</button></div> }
-        { /* We could allow leaving a game until it has been started. */}
-        { inGame && <div>You have joined this game</div> }
-        { canJoinGame && <div><button>Join Game</button></div> }
+        { canJoinGame && <div>
+          <button onClick={() => {
+            this.props.socket.emit(`joinGame`, game._id);
+            window.location.href = `game/${game._id}`
+          }}>Join Game</button>
+          </div> }
       </div>
     );
   }

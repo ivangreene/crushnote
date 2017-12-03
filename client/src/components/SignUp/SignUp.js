@@ -24,10 +24,6 @@ class SignUp extends Component {
       // startUserSession();
       console.log("server received data and sent it back to client:", data);
     });
-    console.log('adding connect handler');
-    this.socket.on('connect', () => {
-      console.log('connected to socket');
-    });
     this.socket.on('connect_error', (error) => {
       console.log(error);
       throw error;

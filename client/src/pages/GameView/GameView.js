@@ -95,6 +95,25 @@ class GameView extends Component {
 
     </div>);
   }
+
+  renderPreGame(game) {
+    const isOwner = game.playerOrder[0] === this.props.user.id;
+    const canStartGame = isOwner && game.playerOrder.length > 1;
+    return (
+      <div className="gameListEntry" key={game._id}>
+        <div>{game.playerOrder.length} Players</div>
+        { isOwner && <div>
+            {canStartGame ? (<button >Start Game</button>) : 'Waiting for other players...' }
+          </div>
+        }
+        { /* Currently allows leaving at any time */}
+        <button onClick={() => {
+          this.props.socket.emit(`leaveGame`, game._id);
+        }}>Leave Game</button>
+      </div>
+    );
+  }
+
 }
 
 export default GameView;

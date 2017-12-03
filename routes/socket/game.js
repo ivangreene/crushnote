@@ -46,7 +46,10 @@ module.exports = (socket, io) => {
       if (!socket.request.session.userId)
         return socket.emit('err', { message: 'Not authenticated' });
       Game.joinGame(gameID, socket.request.session.userId)
-        .then(joinedGame => socket.join(joinedGame._id))
+        .then(joinedGame => {
+          socket.join(joinedGame._id);
+          io.emit('gameStateUpdate', cleanGameState(joinedGame));
+        })
         .catch(err => socket.emit('err', { message: err }));
     });
 
@@ -54,6 +57,13 @@ module.exports = (socket, io) => {
       Game.startGame(gameID, socket.request.session.userId)
         .then(game => io.to(gameID).emit('gameStarted', gameID))
         .catch(err => socket.emit('err', { message: err }));
+    });
+
+    socket.on('leaveGame', gameID => {
+      if (!socket.request.session.userId)
+        return socket.emit('err', { message: 'Not authenticated' });
+      Game.leaveGame(gameID, socket.request.session.userId);
+      socket.leave(gameID); // Unsubscribe the user to this game's events
     });
 
     socket.on('spectateGame', gameID => {

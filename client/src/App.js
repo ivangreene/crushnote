@@ -14,6 +14,10 @@ class App extends Component {
     const socket = io();
     this.setState({socket});
     window.socket = socket;
+    console.log('adding connect handler');
+    socket.on('connect', () => {
+      console.log('connected to socket');
+    });
     // enables access to state, etc. inside of the socket functions
     let that = this;
     // All socket handling should be added in App.componentWillMount so that
@@ -34,9 +38,29 @@ class App extends Component {
     socket.on('openGame', game => {
       // Append the new game to the end of the list of games.
       this.setState({games: [...this.state.games, game]});
+      if (game.playerOrder[0] === this.state.user.id) {
+        window.location.href = `game/${game._id}`
+      }
     });
     socket.on('games', games => {
       this.setState({games});
+      const myGames = games.filter(game => {
+        return game.playerOrder.some(id => id === this.state.user.id);
+      });
+      // a user should only be in one game at a time
+      // but if they are in multiple, this will send them to the first one
+      if (myGames.length > 0) {
+        window.location.href = `game/${myGames[0]._id}`
+      }
+    });
+    socket.on('gameStateUpdate', game => {
+      let i;
+      for (i = 0; i < this.state.games.length; i++) {
+        if (this.state.games[i]._id === game._id) break;
+      }
+      const newGames = [...this.state.games];
+      newGames.splice(i, 1, game);
+      this.setState({games: newGames});
     });
     // Redirect user to a given url based on their userId
     // This example code always keeps a logged in user on '/main'
@@ -59,7 +83,9 @@ class App extends Component {
           <Route exact path="/main" render={(props) => (
             <MainPage {...this.state} />
           )} />
-          <Route exact path="/game" component={GameView}/>
+          <Route exact path="/game" render={(props) => (
+            <GameView {...this.state} />
+          )} />
         </Switch>
       </div>
     </Router>)

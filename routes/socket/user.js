@@ -86,4 +86,9 @@ module.exports = (socket, io) => {
     // io.emit('userLoggedOut', socket.request.session.userId);
     // console.log(`${sockChalk}: at logOut the cookie is:`, socket.request.session.cookie);
   });
+
+  socket.on(`abandonGame`, data => {
+    // then score game as a loss for leaving player
+    User.update(userID, $inc: { stats.losses : 1 });
+  });
 }
