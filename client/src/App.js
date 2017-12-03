@@ -16,13 +16,27 @@ class App extends Component {
     window.socket = socket;
     // enables access to state, etc. inside of the socket functions
     let that = this;
+    // All socket handling should be added in App.componentWillMount so that
+    // they are added only once per page view, otherwise we will get duplicate
+    // handlers for events.
     socket.on('loggedIn', function(data) {
       if (!that.state.user
         || (that.state.user && that.state.user.name && that.state.user.name !== data.username)
         ) {
         that.setState({user: {name: data.name, id: data.id}});
       }
+      // Get the list of games on login.
+      socket.emit('searchingForGame');
       // console.log(`currently the react state.user is:`, that.state.user);
+    });
+    // This will be emitted by the server when a user creates a new game,
+    // by clicking the `Create Game` button in `MainPage.js`.
+    socket.on('openGame', game => {
+      // Append the new game to the end of the list of games.
+      this.setState({games: [...this.state.games, game]});
+    });
+    socket.on('games', games => {
+      this.setState({games});
     });
     // Redirect user to a given url based on their userId
     // This example code always keeps a logged in user on '/main'
@@ -42,7 +56,9 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path="/" component={LoginPage}/>
-          <Route exact path="/main" component={MainPage}/>
+          <Route exact path="/main" render={(props) => (
+            <MainPage {...this.state} />
+          )} />
           <Route exact path="/game" component={GameView}/>
         </Switch>
       </div>

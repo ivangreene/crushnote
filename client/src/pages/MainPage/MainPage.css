@@ -22,3 +22,7 @@
 #chat_main{
   padding-right:20px;
 }
+
+.gameListEntry {
+	border: 1px solid black;
+}
