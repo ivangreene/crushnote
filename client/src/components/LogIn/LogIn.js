@@ -1,15 +1,8 @@
 import React, {Component} from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-<<<<<<< HEAD
-//import AppBar from 'material-ui/AppBar';
-//import Divider from "material-ui/Divider";
-import io from "socket.io-client";
-||||||| merged common ancestors
-=======
 //import AppBar from 'material-ui/AppBar';
 //import Divider from "material-ui/Divider";
 //import io from "socket.io-client";
->>>>>>> aca33c8ec10a6ac1e612040be77bd6863ccaac4c
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import "./LogIn.css";
