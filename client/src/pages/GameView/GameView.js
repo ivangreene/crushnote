@@ -46,15 +46,19 @@ class GameView extends Component {
   };
 
   render() {
+    // console.log(this.props.games, this.props.gameId);
+    if (!this.props.gameId || !this.props.games) return null;
+    const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
+    if (!game) return null;
     return (
       <div id="game_box">
 
         <div className="pure-u-1-1">
          <div className="opponent-side">
-           <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+           <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[2]]}/>
          </div>
          <div className="player-side">
-           <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+           <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[2]]}/>
          </div>
        </div>
 
@@ -73,22 +77,30 @@ class GameView extends Component {
           </div>
           <div className="pure-u-1-4"  id="player_hand">
             <p>Player Hand </p>
-            <Card card={this.state.game.players.userid1.hand}/>
+            <Card card={game.players[game.playerOrder[0]].hand}/>
           </div>
         </div>
 
         <footer>
           <div className="hud">
             <div className="opponent-side">
-              <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[2]]}/>
+              <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[2]]}/>
             </div>
             <div className="player-side">
-              <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[1]]}/>
+              <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[1]]}/>
 
             </div>
             <div id="user-buttons">
               <AllCardView/>
               <GameChat />
+              <button
+                onClick={game => {
+                  console.log(`abandon this game`);
+                  // this.socket.emit('leaveGame', this.props.gameId)
+                }}
+              >
+                Abandon Game
+              </button>
             </div>
           </div>
         </footer>

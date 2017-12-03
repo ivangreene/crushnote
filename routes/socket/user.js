@@ -89,6 +89,6 @@ module.exports = (socket, io) => {
 
   socket.on(`abandonGame`, data => {
     // then score game as a loss for leaving player
-    User.update(userID, $inc: { stats.losses : 1 });
+    //User.update(userID, $inc: { stats.losses : 1 });
   });
 }

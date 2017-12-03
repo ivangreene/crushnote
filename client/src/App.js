@@ -12,12 +12,26 @@ class App extends Component {
   componentWillMount() {
     // define one socket connection for the whole app
     const socket = io();
-    this.setState({socket});
+    let gameId = null;
+    // Check url for game id.
+    const matches = window.location.pathname.match(/\/game\/(.+)/);
+    if (matches && matches.length) {
+      gameId = matches[1];
+    }
+    this.setState({socket, gameId});
     window.socket = socket;
     console.log('adding connect handler');
     socket.on('connect', () => {
       console.log('connected to socket');
     });
+
+    // Redirects to the given path, if not already at that path.
+    const redirectToPath = path => {
+      if (window.location.pathname !== path) {
+        console.log(window.location, path);
+        window.location.href = path;
+      }
+    }
     // enables access to state, etc. inside of the socket functions
     let that = this;
     // All socket handling should be added in App.componentWillMount so that
@@ -39,7 +53,7 @@ class App extends Component {
       // Append the new game to the end of the list of games.
       this.setState({games: [...this.state.games, game]});
       if (game.playerOrder[0] === this.state.user.id) {
-        window.location.href = `game/${game._id}`
+        redirectToPath(`/game/${game._id}`);
       }
     });
     socket.on('games', games => {
@@ -50,7 +64,7 @@ class App extends Component {
       // a user should only be in one game at a time
       // but if they are in multiple, this will send them to the first one
       if (myGames.length > 0) {
-        window.location.href = `game/${myGames[0]._id}`
+        redirectToPath(`/game/${myGames[0]._id}`);
       }
     });
     socket.on('gameStateUpdate', game => {
@@ -83,7 +97,7 @@ class App extends Component {
           <Route exact path="/main" render={(props) => (
             <MainPage {...this.state} />
           )} />
-          <Route exact path="/game" render={(props) => (
+          <Route path="/game" render={(props) => (
             <GameView {...this.state} />
           )} />
         </Switch>

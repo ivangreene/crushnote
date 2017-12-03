@@ -78,7 +78,7 @@ module.exports = {
           if (game.playerOrder.length <= 1 || userIDIndex === 0) {
             // when last player leaves then close the game
             // TODO: check the syntax here - use return or resolve?
-            resolve(db.Game.findByIdAndRemove(_id));
+            return db.Game.findByIdAndRemove(_id);
           }
           game.playerOrder.splice(userIDIndex, 1);
           // TODO: find userID in the players hash and remove that key/value pair
