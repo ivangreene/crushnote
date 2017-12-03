@@ -92,6 +92,10 @@ class GameView extends Component {
   }
 
   render() {
+    // console.log(this.props.games, this.props.gameId);
+    if (!this.props.gameId || !this.props.games) return null;
+    const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
+    if (!game) return null;
     return (
       <div id="game_box">
 
@@ -144,12 +148,39 @@ class GameView extends Component {
             <div id="user-buttons">
               <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({cardViewOpen: !this.state.cardViewOpen})} open={this.state.cardViewOpen} />
               <GameChat />
+              <button
+                onClick={game => {
+                  console.log(`abandon this game`);
+                  // this.socket.emit('leaveGame', this.props.gameId)
+                }}
+              >
+                Abandon Game
+              </button>
             </div>
           </div>
         </footer>
 
     </div>);
   }
+
+  renderPreGame(game) {
+    const isOwner = game.playerOrder[0] === this.props.user.id;
+    const canStartGame = isOwner && game.playerOrder.length > 1;
+    return (
+      <div className="gameListEntry" key={game._id}>
+        <div>{game.playerOrder.length} Players</div>
+        { isOwner && <div>
+            {canStartGame ? (<button >Start Game</button>) : 'Waiting for other players...' }
+          </div>
+        }
+        { /* Currently allows leaving at any time */}
+        <button onClick={() => {
+          this.props.socket.emit(`leaveGame`, game._id);
+        }}>Leave Game</button>
+      </div>
+    );
+  }
+
 }
 
 export default GameView;

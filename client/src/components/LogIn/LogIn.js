@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+//import AppBar from 'material-ui/AppBar';
+//import Divider from "material-ui/Divider";
+//import io from "socket.io-client";
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import "./LogIn.css";
@@ -24,6 +27,13 @@ class LogIn extends Component {
     this.socket.on('recieveCookie', function(cookie) {
       console.log("server sent back new cookie to client:", cookie);
     });
+
+    this.socket.on('redirect', function(destination) {
+      if (window.location.pathname !== destination) {
+        window.location.href = destination;
+      }
+    });
+
     this.socket.on('connect_error', (error) => {
       console.log(error);
       throw error;
@@ -36,6 +46,7 @@ class LogIn extends Component {
       "username": this.state.username,
       "password": this.state.password,
     });
+    this.setState({username: '', password: ''});
     console.log(document.cookie);
     this.socket.emit(`sessionCookie`, document.cookie);
   }
@@ -51,6 +62,7 @@ class LogIn extends Component {
             type="username"
             hintText="Enter your Username"
             floatingLabelText="Username"
+            value={this.state.username}
             onChange={(event, newValue) => this.setState({username: newValue})}
             id="usernameLogInInput"
           />
@@ -59,6 +71,7 @@ class LogIn extends Component {
             type="password"
             hintText="Enter your Password"
             floatingLabelText="Password"
+            value={this.state.password}
             onChange={(event, newValue) => this.setState({password: newValue})}
             id="passwordLogInInput"
           />

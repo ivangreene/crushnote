@@ -62,6 +62,35 @@ module.exports = {
         .catch(err => console.log(err));
     });
   },
+  leaveGame: (_id, userID) => {
+    return new Promise((resolve, reject) => {
+      db.Game.findById(_id)
+        .then(game => {
+          if (!game)
+            return reject('Game not found.');
+          // if (!game.open)
+          //   return reject('Cannot leave game in progress.');
+          if (!game.playerOrder.indexOf(userID) > -1)
+            return reject('Player may only leave a game they have joined.');
+          // find userId in playerOrder array and remove it
+          const userIDIndex = game.playerOrder.findIndex(item => {item === userID});
+          // if it is the first item in the array, then close the room
+          if (game.playerOrder.length <= 1 || userIDIndex === 0) {
+            // when last player leaves then close the game
+            // TODO: check the syntax here - use return or resolve?
+            return db.Game.findByIdAndRemove(_id);
+          }
+          game.playerOrder.splice(userIDIndex, 1);
+          // TODO: find userID in the players hash and remove that key/value pair
+          // game.players[userID] = playerSeed();
+          db.Game.findOneAndUpdate({_id}, game, { new: true }, (err, newGame) => {
+            if (err) return console.log(err);
+            resolve(newGame);
+          });
+        })
+        .catch(err => console.log(err));
+    });
+  },
   startGame: (_id, userID) => {
     return new Promise((resolve, reject) => {
       db.Game.findById(_id)

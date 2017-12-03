@@ -33,7 +33,7 @@ float:left;
   font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
 
-button{
+.player_info button{
   float:right;
 }
 

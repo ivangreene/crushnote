@@ -13,6 +13,7 @@ const redirect = (socket, user) => {
 
 module.exports = (socket, io) => {
   let user = null;
+  let userSockets = {};
   let token;
   if (socket.request.headers.cookie) {
     const cookie = socket.request.headers.cookie.split(';').reduce(
@@ -37,10 +38,13 @@ module.exports = (socket, io) => {
       let id = plaintext.split('-')[0].trim();
       console.log(`${sockChalk}: the id is now ${id}`);
       User.findById(id).then(user => {
-        socket.emit(`loggedIn`, {name: user.username, id: user._id});
+        let data = {name: user.username, id: user._id};
         socket.join(user._id);
+        socket.emit(`loggedIn`, data);
         socket.request.session.userId = user._id;
-        redirect(socket, user);
+        user = data;
+        userSockets[user.id] = socket;
+        // redirect(socket, user);
       });
     });
   }
@@ -53,6 +57,7 @@ module.exports = (socket, io) => {
   socket.on('authUser', userData => {
     User.findAndAuthenticate(userData).then(data => {
       user = data;
+      userSockets[user.id] = socket;
 
       console.log(`${sockChalk}: cookie:`, socket.request.headers.cookie);
       const days = 14;
@@ -70,7 +75,7 @@ module.exports = (socket, io) => {
 
         const sidCookie = "sid=" + authToken + ";expires=" + expires + ";path=/";
         socket.emit('setCookie', sidCookie);
-        // io.emit('userLoggedIn', data);
+        io.emit('userLoggedIn', data);
         redirect(socket, user);
       });
     });
@@ -82,5 +87,10 @@ module.exports = (socket, io) => {
     socket.leave(user._id);
     // io.emit('userLoggedOut', socket.request.session.userId);
     // console.log(`${sockChalk}: at logOut the cookie is:`, socket.request.session.cookie);
+  });
+
+  socket.on(`abandonGame`, data => {
+    // then score game as a loss for leaving player
+    //User.update(userID, $inc: { stats.losses : 1 });
   });
 }

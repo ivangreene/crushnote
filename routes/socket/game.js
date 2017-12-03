@@ -61,20 +61,26 @@ module.exports = (socket, io) => {
           let cleanState = cleanGameState(newGame);
           socket.join(cleanState._id);
           io.to(cleanState._id).emit('gameStateUpdate', cleanState);
-          io.emit('openGame', cleanState._id);
+          io.emit('openGame', cleanState);
         })
         .catch(err => console.log(err));
     });
 
-    socket.on('searchingForGame', ()=>{
-      // TODO: send this user open games
+    socket.on('searchingForGame', () => {
+      Game.findAll({})
+        .then(games => socket.emit('games', games.map(cleanGameState)))
+        // We may want to indicate an error to the client somehow.
+        .catch(err => socket.emit('games', []));
     });
 
     socket.on('joinGame', gameID => {
       if (!socket.request.session.userId)
         return socket.emit('err', { message: 'Not authenticated' });
       Game.joinGame(gameID, socket.request.session.userId)
-        .then(joinedGame => socket.join(joinedGame._id))
+        .then(joinedGame => {
+          socket.join(joinedGame._id);
+          io.emit('gameStateUpdate', cleanGameState(joinedGame));
+        })
         .catch(err => socket.emit('err', { message: err }));
     });
 
@@ -82,6 +88,13 @@ module.exports = (socket, io) => {
       Game.startGame(gameID, socket.request.session.userId)
         .then(game => io.to(gameID).emit('gameStarted', gameID))
         .catch(err => socket.emit('err', { message: err }));
+    });
+
+    socket.on('leaveGame', gameID => {
+      if (!socket.request.session.userId)
+        return socket.emit('err', { message: 'Not authenticated' });
+      Game.leaveGame(gameID, socket.request.session.userId);
+      socket.leave(gameID); // Unsubscribe the user to this game's events
     });
 
     socket.on('subscribeToGame', gameID => {
