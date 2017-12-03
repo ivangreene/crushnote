@@ -9,6 +9,18 @@ module.exports = (socket, io) => {
     /*
     * Game logic
     */
+    function sendUserHand(gameId, userId, state) {
+      let partialState = {
+        players: {
+          [userId]: { hand: state.players[userId].hand }
+        }
+      };
+      if (state.players[userId].active) {
+        partialState.cards = { deck: [state.cards.deck[0]] };
+      }
+      io.to(userId).emit('partialState', gameId, partialState);
+    }
+
     socket.on('gameMove', (gameId, move) => {
       if (!move) move = {};
       move.player = socket.request.session.userId;
@@ -16,6 +28,9 @@ module.exports = (socket, io) => {
         .then(newState => {
           let cleanState = cleanGameState(newState);
           io.to(gameId).emit('gameStateUpdate', gameId, cleanState);
+          newState.playerOrder.map(userId => {
+            sendUserHand(gameId, userId, newState);
+          });
         })
         .catch(err => socket.emit('err', { message: err }));
     });
@@ -26,15 +41,7 @@ module.exports = (socket, io) => {
       Game.findById(gameId)
         .then(({_doc}) => {
           if (_doc.players[socket.request.session.userId]) {
-            let partialState = {
-              players: {
-                [socket.request.session.userId]: { hand: _doc.players[socket.request.session.userId].hand }
-              }
-            };
-            if (_doc.players[socket.request.session.userId].active) {
-              partialState.cards = { deck: [_doc.cards.deck[0]] };
-            }
-            return socket.emit('partialState', gameId, partialState);
+            sendUserHand(gameId, socket.request.session.userId, _doc);
           }
           else
             return socket.emit('err', { message: 'Not a participant' });

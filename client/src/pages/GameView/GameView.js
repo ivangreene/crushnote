@@ -76,6 +76,14 @@ class GameView extends Component {
     this.setState({ move });
   }
 
+  joinGame = () => {
+    this.socket.emit('joinGame', this.props.match.params.gameId);
+  }
+
+  startGame = () => {
+    this.socket.emit('startGame', this.props.match.params.gameId);
+  }
+
   playersBesidesMe() {
     // Returns a playerOrder array, excluding this player
     let index = this.state.game.playerOrder.indexOf(this.props.user.id);
@@ -94,6 +102,9 @@ class GameView extends Component {
          <div className="player-side">
          { this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer} /> }
          </div>
+         <button onClick={this.sendMove}>Play Card</button>
+         <button onClick={this.joinGame}>Join Game</button>
+         <button onClick={this.startGame}>Start Game</button>
        </div>
 
         <div className="pure-g"  id="card_view">
@@ -112,7 +123,7 @@ class GameView extends Component {
           <div className="pure-u-1-4"  id="player_hand">
             <p>Your Hand</p>
             <Card onClick={this.addToMove('card')} card={this.state.game.players[this.props.user.id] && this.state.game.players[this.props.user.id].hand} selected={this.state.move.card} />
-            <button onClick={this.sendMove}>Play Card</button>
+            
           </div>
         </div>
 
