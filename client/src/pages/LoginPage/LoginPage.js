@@ -11,13 +11,13 @@ class LoginPage extends Component {
   };
 
   handleClick= ()=> {
-        let active = this.state.active;
-        let newActive = active === 'signIn' ? 'logIn' : 'signIn';
-        this.setState({
-            active: newActive,
-            label: "Sign In"
-        });
-    }
+    let active = this.state.active;
+    let newActive = active === 'signIn' ? 'logIn' : 'signIn';
+    this.setState({
+        active: newActive,
+        label: "Sign In"
+    });
+  }
 
   render() {
 
