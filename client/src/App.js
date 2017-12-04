@@ -30,12 +30,12 @@ class App extends Component {
     });
 
     // Redirects to the given path, if not already at that path.
-    const redirectToPath = path => {
-      if (window.location.pathname !== path) {
-        console.log(window.location, path);
-        window.location.href = path;
-      }
-    }
+    // const redirectToPath = path => {
+    //   if (window.location.pathname !== path) {
+    //     console.log(window.location, path);
+    //     window.location.href = path;
+    //   }
+    // }
     // enables access to state, etc. inside of the socket functions
     let that = this;
     // All socket handling should be added in App.componentWillMount so that
@@ -55,19 +55,19 @@ class App extends Component {
       // Append the new game to the end of the list of games.
       this.setState({games: [...this.state.games, game]});
       if (game.playerOrder[0] === this.state.user.id) {
-        redirectToPath(`/game/${game._id}`);
+        // redirectToPath(`/game/${game._id}`);
       }
     });
     socket.on('games', games => {
       this.setState({games});
-      const myGames = games.filter(game => {
-        return game.playerOrder.some(id => id === this.state.user.id);
-      });
+      // const myGames = games.filter(game => {
+      //   return game.playerOrder.some(id => id === this.state.user.id);
+      // });
       // a user should only be in one game at a time
       // but if they are in multiple, this will send them to the first one
-      if (myGames.length > 0) {
-        redirectToPath(`/game/${myGames[0]._id}`);
-      }
+      // if (myGames.length > 0) {
+      //   redirectToPath(`/game/${myGames[0]._id}`);
+      // }
     });
     socket.on('gameStateUpdate', game => {
       let i;
@@ -100,7 +100,7 @@ class App extends Component {
             <MainPage {...this.state} />
           )} />
           <Route exact path="/game/:gameId" render={(props) => (
-            <GameView {...props} {...this.state} />
+            <GameView {...props} user={this.state.user} />
           )} />
         </Switch>
       </div>

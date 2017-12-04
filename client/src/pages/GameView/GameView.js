@@ -67,7 +67,14 @@ class GameView extends Component {
   }
 
   sendMove = () => {
-    this.socket.emit('gameMove', this.props.match.params.gameId, this.state.move);
+    let move = {...this.state.move};
+    if (move.card === 'deck') {
+      move.card = this.state.game.cards.deck[0];
+    } else if (move.card === 'hand') {
+      move.card = this.state.game.players[this.props.user.id].hand;
+    }
+    this.socket.emit('gameMove', this.props.match.params.gameId, move);
+    this.setState({ move: {} });
   }
 
   addToMove = attr => val => {
@@ -93,9 +100,9 @@ class GameView extends Component {
 
   render() {
     // console.log(this.props.games, this.props.gameId);
-    if (!this.props.gameId || !this.props.games) return null;
-    const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
-    if (!game) return null;
+    // if (!this.props.gameId || !this.props.games) return null;
+    // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
+    // if (!game) return null;
     return (
       <div id="game_box">
 
@@ -122,11 +129,11 @@ class GameView extends Component {
           </div>
           <div className="pure-u-1-4" id="cards_in_play">
             <p>&nbsp;</p>
-            <Card onClick={this.addToMove('card')} card={ this.state.game.cards.deck[0] } selected={this.state.move.card} />
+            <Card onClick={() => this.addToMove('card')('deck')} card={ this.state.game.cards.deck[0] } selected={this.state.move.card === 'deck'} />
           </div>
           <div className="pure-u-1-4"  id="player_hand">
             <p>Your Hand</p>
-            <Card onClick={this.addToMove('card')} card={this.state.game.players[this.props.user.id] && this.state.game.players[this.props.user.id].hand} selected={this.state.move.card} />
+            <Card onClick={() => this.addToMove('card')('hand')} card={this.state.game.players[this.props.user.id] && this.state.game.players[this.props.user.id].hand} selected={this.state.move.card === 'hand'} />
             
           </div>
         </div>

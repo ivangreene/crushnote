@@ -13,7 +13,7 @@ const Card =({card, onClick, selected})=>{
     }
 
     return (
-      <a onClick={() => onClick(card)} id="CardContainer" className="card" style={(card && selected === card) ? { backgroundColor: 'yellow' } : undefined } >
+      <a onClick={() => onClick()} id="CardContainer" className="card" style={ selected ? { backgroundColor: 'yellow' } : undefined } >
         <div className="card_top">
           <p className="card_value">{card}</p>
           <p className="card_name">{data[card - 1].name}</p>
