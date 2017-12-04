@@ -11,7 +11,7 @@ if(!card){
   return<div>Loading...</div>
 }
     return (
-      <div id="CardContainer" className="card">
+      <div id="CardContainer" className="card card-magnify">
         <div className="card_top">
           <p className="card_value">{card.id}</p>
           <p className="card_name">{card.name}</p>

@@ -1,60 +1,55 @@
-import React from "react";
+import React, {Component} from "react";
 import "./Card.css";
 const data = require('../../gamejson/cards.json');
-const cheatdata = require('../../gamejson/cheatcard.json');
 
-const DiscardPile = () => {
+//Still need to reference the cards as they are played
 
-  const discarded = data.map((card) => {
-    return (<li key={card.id} card={card}>
-      <p>{card.name}
-        : remaining ({card.count})</p>
-    </li>);
-  });
+class DiscardPile extends Component {
+  constructor() {
+    super();
+    this.state = {
+      childVisible: false
+    }
+  }
 
+  render() {
+    return (<div>
+      <button className ="green" id="discard_button" onClick={() => this.onClick()}>
+        Discarded
+      </button>
+      {
+        this.state.childVisible
+          ? <DiscardList/>
+          : null
+      }
+    </div>)
+  }
 
-  return (<div>
+  onClick() {
+    this.setState({
+      childVisible: !this.state.childVisible
+    });
+  }
+};
 
-    <div className="cheatCard-container">
-      <div className="cheatCard">
-        <button>stuff</button>
-        <div className="cheatSide">
+class DiscardList extends Component {
+
+  render() {
+    const discarded = data.map((card) => {
+      return (<li key={card.id} card={card}>
+        <p>{card.name}
+          : remaining ({card.count})</p>
+      </li>);
+    });
+
+    return (<div>
           <div className="cheatFrontSide">
             <p id="discard_top">Cards discarded this round</p>
             <ul id="discard_list">
               {discarded}
             </ul>
           </div>
-        </div>
-        <div className="cheatSide back">
-          <button>stuff</button>
-          <div>
-            <table>
-              <tbody>
-                <tr>
-                  <th>
-                    Card / Count
-                  </th>
-                  <th>
-                    Action
-                  </th>
-                </tr>
-                {
-                  cheatdata.map((item, i) => {
-                    return <tr key={item.id}>
-                      <td className="ellipsis">{item.name}</td>
-                      <td className="ellipsis">{item.action}</td>
-                    </tr>
-                  })
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>);
-};
-
+    </div>);
+  }
+}
 export default DiscardPile;

@@ -7,6 +7,7 @@ import DiscardPile from "../../components/Card/DiscardPile";
 import TopOpponentBar from "../../components/TopOpponentBar/TopOpponentBar";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
 import GameChat from "../../components/Chat/GameChat";
+import CheatCard from "../../components/Card/CheatCard";
 import "./GameView.css";
 
 const PRINCESS = 8,
@@ -42,10 +43,26 @@ class GameView extends Component {
         played: [],
         excluded: null
       }
-    }
+    },
+    active: "discardDiv"
   };
 
+  handleClick(event) {
+    console.log("wut");
+        // let active = this.state.active;
+        // let newActive = active === 'discardDiv' ? 'cheats' : 'discardDiv';
+        // this.setState({
+        //     active: newActive,
+        // });
+    }
+
+    componentDidMount() {
+      document.body.classList.add('body-image');
+    }
+
   render() {
+        let active = this.state.active;
+
     return (
       <div id="game_box">
 
@@ -60,13 +77,13 @@ class GameView extends Component {
          <div id="user-buttons">
            <AllCardView/>
            <GameChat />
+           {/* <DiscardPile /> */}
          </div>
        </div>
 
         <div className="pure-g"  id="card_view">
           <div className="pure-u-1-3" id="discard">
-            <p>Discard</p>
-              <DiscardPile />
+            <DiscardPile />
           </div>
           <div className="pure-u-1-3" id="cards_in_play">
             {/* <p>Card currently played</p> */}

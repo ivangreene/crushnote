@@ -48,7 +48,7 @@
   font-size: 10px;
 }
 
-.card:hover {
+.card-magnify:hover {
   transform: scale(1.5);
   z-index: 8 !important;
 }
@@ -120,13 +120,11 @@
 
 
  .cheatFrontSide {
-   text-align: center;
-   /*background-image: url("../../style/img/cardback_placeholder.jpg");
-   height: 100%;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;*/
-  background-color: #72dae7;
+   width:80%;
+   margin:0 auto;
+   background-color: #72dae7;
+   padding-top: 25px;
+   padding-bottom: 25px;
  }
 
  .cheatCard li, .cheatCard p {
@@ -136,4 +134,14 @@
  .cheatCard ul {
    list-style: none;
    text-align: left;
+ }
+
+ #discard_list{
+   list-style: none;
+   padding:0;
+ }
+
+ #discard_button{
+   float: left;
+  margin-left: 25px;
  }

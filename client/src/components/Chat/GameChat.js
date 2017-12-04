@@ -8,9 +8,9 @@ class GameChat extends Component {
     super(props);
 
     this.state = {
-      isHidden: true
+      isHidden: true,
+      messages:[]
     };
-    //this.socket = io();
   }
 
   toggleHidden() {

@@ -6,25 +6,22 @@ import "./LoginPage.css";
 class LoginPage extends Component {
 
   state = {
-    active: "signIn",
-    label: "Log In"
+    active: "signIn"
   };
 
-  handleClick= ()=> {
-        let active = this.state.active;
-        let newActive = active === 'signIn' ? 'logIn' : 'signIn';
-        this.setState({
-            active: newActive,
-            label: "Sign In"
-        });
-    }
+  handleClick = () => {
+    let active = this.state.active;
+    let newActive = active === 'signIn'
+      ? 'logIn'
+      : 'signIn';
+    this.setState({active: newActive});
+  }
 
   render() {
 
     let active = this.state.active;
 
-    return (
-      <div>
+    return (<div>
       <div id="login_title">
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
@@ -35,13 +32,11 @@ class LoginPage extends Component {
           <div className="loginCard" id="first">
             <div className="side">
               <div className="frontSide">
-                <div className="inner_card">
-                </div>
+                <div className="inner_card"></div>
               </div>
             </div>
 
-            <div className="side back">
-            </div>
+            <div className="side back"></div>
           </div>
         </div>
 
@@ -56,33 +51,35 @@ class LoginPage extends Component {
             </div>
 
             <div className="side backB pulsate">
-              { active === 'signIn' ? (
-                <SignUp onClick={this.handleClick}/>
-              ): active === 'logIn' ? (
-              <LogIn onClick={this.handleClick}/>
-            ) : null }
+              {
+                active === 'signIn'
+                  ? (<SignUp onClick={this.handleClick}/>)
+                  : active === 'logIn'
+                    ? (<LogIn onClick={this.handleClick}/>)
+                    : null
+              }
             </div>
           </div>
         </div>
-
         <div className="pure-u-1-3 loginCard-container">
           <div className="loginCard" id="second">
             <div className="side">
               <div className="frontSide">
-                <div className="inner_card">
-                </div>
+                <div className="inner_card"></div>
               </div>
             </div>
-
-            <div className="side back">
-            </div>
+            <div className="side back"></div>
           </div>
         </div>
-
+      </div>
+      
+      <div>
+        <a href="/main">lobby</a>
+      </div>
+      <div>
+        <a href="/game">gameview</a>
       </div>
 
-      <div><a href="/main">lobby</a></div>
-      <div><a href="/game">gameview</a></div>
     </div>)
   }
 }

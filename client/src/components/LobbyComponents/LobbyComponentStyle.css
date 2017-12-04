@@ -1,24 +1,24 @@
-/*  Player Info List item */
-
 div.player_info:hover{
   background-color: #eee;
   border: inset;
 }
 
 .player_info{
+  text-align: center;
   padding:10px;
   border: outset;
   font-family: 'Cookie';
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
   overflow: hidden;
 }
 
 #player_name{
-  font-size: 30px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 #player_record{
-font-size: 20px;
-float:left;
+font-size: 15px;
 }
 
 #players_main{
@@ -34,6 +34,7 @@ float:left;
 }
 
 button{
+  font-family: 'Cookie';
   float:right;
 }
 
