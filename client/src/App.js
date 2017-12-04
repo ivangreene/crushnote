@@ -78,7 +78,6 @@ class App extends Component {
     }
     socket.on('gameStateUpdate', game => updateGameInState(game));
     socket.on('gameStarted', game => {
-      console.log('gameStarted', game);
       updateGameInState(game);
     });
     socket.on('leftGame', game => {

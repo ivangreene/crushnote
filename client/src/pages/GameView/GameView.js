@@ -45,6 +45,11 @@ class GameView extends Component {
     }
   };
 
+  componentWillMount() {
+    console.log("joining game room", this.props.gameId);
+    this.props.socket.emit('joinGameRoom', this.props.gameId);
+  }
+
   renderPreGame(game) {
     const isOwner = game.playerOrder[0] === this.props.user.id;
     const canStartGame = isOwner && game.playerOrder.length > 1;

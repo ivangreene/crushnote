@@ -6,6 +6,7 @@ const chalk = require('chalk');
 module.exports = (socket, io) => {
   console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
     console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
+
     /*
     * Game logic
     */
@@ -28,7 +29,9 @@ module.exports = (socket, io) => {
         .then(newGame => Game.joinGame(newGame._id, socket.request.session.userId))
         .then(newGame => {
           let cleanState = cleanGameState(newGame);
-          socket.join(cleanState._id);
+          // This doesn't work because the client makes a new socket
+          // when they redirect.
+          //socket.join(cleanState._id);
           io.to(cleanState._id).emit('gameStateUpdate', cleanState);
           io.emit('openGame', cleanState);
         })
@@ -40,6 +43,10 @@ module.exports = (socket, io) => {
         .then(games => socket.emit('games', games.map(cleanGameState)))
         // We may want to indicate an error to the client somehow.
         .catch(err => socket.emit('games', []));
+    });
+
+    socket.on('joinGameRoom', gameID => {
+      socket.join(gameID);
     });
 
     socket.on('joinGame', gameID => {
@@ -58,7 +65,6 @@ module.exports = (socket, io) => {
       console.log(`gameId`, gameID, `| userId`, socket.request.session.userId);
       Game.startGame(gameID, socket.request.session.userId)
         .then(game => {
-          console.log(game._id, cleanGameState(game));
           io.to(game._id).emit('gameStarted', cleanGameState(game));
         })
         .catch(err => socket.emit('err', { message: err }));
