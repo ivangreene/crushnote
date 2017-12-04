@@ -58,8 +58,8 @@ module.exports = (socket, io) => {
       console.log(`gameId`, gameID, `| userId`, socket.request.session.userId);
       Game.startGame(gameID, socket.request.session.userId)
         .then(game => {
-          console.log(`\n\nSending game started message\n\n\n`);
-          socket.emit('gameStarted', game)
+          console.log(game._id, cleanGameState(game));
+          io.to(game._id).emit('gameStarted', cleanGameState(game));
         })
         .catch(err => socket.emit('err', { message: err }));
     });

@@ -16,7 +16,7 @@ class App extends Component {
     // Check url for game id.
     const matches = window.location.pathname.match(/\/game\/(.+)/);
     if (matches && matches.length) {
-      gameId = matches[1];
+       gameId = matches[1];
     }
     this.setState({socket, gameId});
     window.socket = socket;
@@ -63,11 +63,11 @@ class App extends Component {
       });
       // a user should only be in one game at a time
       // but if they are in multiple, this will send them to the first one
-      if (myGames.length > 0) {
-        redirectToPath(`/game/${myGames[0]._id}`);
-      }
+      // if (myGames.length > 0) {
+      //   redirectToPath(`/game/${myGames[0]._id}`);
+      // }
     });
-    socket.on('gameStateUpdate', game => {
+    const updateGameInState = game => {
       let i;
       for (i = 0; i < this.state.games.length; i++) {
         if (this.state.games[i]._id === game._id) break;
@@ -75,9 +75,11 @@ class App extends Component {
       const newGames = [...this.state.games];
       newGames.splice(i, 1, game);
       this.setState({games: newGames});
-    });
-    socket.on('gameStarted', data => {
-      console.log(`the game has begun for`, data);
+    }
+    socket.on('gameStateUpdate', game => updateGameInState(game));
+    socket.on('gameStarted', game => {
+      console.log('gameStarted', game);
+      updateGameInState(game);
     });
     socket.on('leftGame', game => {
       console.log('finished leaving game.');

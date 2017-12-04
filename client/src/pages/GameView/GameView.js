@@ -62,7 +62,7 @@ class GameView extends Component {
               onClick={game => {
                 this.props.socket.emit('startGame', this.props.gameId);
                 // render again, to remove the startGameBox and permit play
-                window.location.reload();
+                //window.location.reload();
                 // TODO: reload just the component as it changes, not the whole page
               }}
             >Start Game</button>
