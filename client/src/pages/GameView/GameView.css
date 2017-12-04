@@ -67,3 +67,28 @@ position: fixed;
 left: 50%;
 bottom:2%;
 }
+
+/* style for start game button */
+
+.startGameBox {
+  background-color: white;
+  border: thin solid #333;
+  padding: 4em 2em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.darkenBox {
+  background-color: #000;
+  opacity: .5;
+  width: 3000px;
+  height: 3000px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 500;
+}

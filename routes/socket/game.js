@@ -54,8 +54,13 @@ module.exports = (socket, io) => {
     });
 
     socket.on('startGame', gameID => {
+      console.log(`recieved startGame event from client`);
+      console.log(`gameId`, gameID, `| userId`, socket.request.session.userId);
       Game.startGame(gameID, socket.request.session.userId)
-        .then(game => io.to(gameID).emit('gameStarted', gameID))
+        .then(game => {
+          console.log(`\n\nSending game started message\n\n\n`);
+          socket.emit('gameStarted', game)
+        })
         .catch(err => socket.emit('err', { message: err }));
     });
 
@@ -63,6 +68,7 @@ module.exports = (socket, io) => {
       if (!socket.request.session.userId)
         return socket.emit('err', { message: 'Not authenticated' });
       Game.leaveGame(gameID, socket.request.session.userId);
+      socket.emit('leftGame');
       socket.leave(gameID); // Unsubscribe the user to this game's events
     });
 

@@ -28,7 +28,7 @@ class App extends Component {
     // Redirects to the given path, if not already at that path.
     const redirectToPath = path => {
       if (window.location.pathname !== path) {
-        console.log(window.location, path);
+        // console.log(window.location, path);
         window.location.href = path;
       }
     }
@@ -76,6 +76,15 @@ class App extends Component {
       newGames.splice(i, 1, game);
       this.setState({games: newGames});
     });
+    socket.on('gameStarted', data => {
+      console.log(`the game has begun for`, data);
+    });
+    socket.on('leftGame', game => {
+      console.log('finished leaving game.');
+      gameId = null;
+      redirectToPath(`/main`);
+    });
+    socket.on('err', err => {console.log(err)})
     // Redirect user to a given url based on their userId
     // This example code always keeps a logged in user on '/main'
     // socket.on('redirect', function(destination) {

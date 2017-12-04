@@ -70,7 +70,7 @@ module.exports = {
             return reject('Game not found.');
           // if (!game.open)
           //   return reject('Cannot leave game in progress.');
-          if (!game.playerOrder.indexOf(userID) > -1)
+          if (game.playerOrder.indexOf(userID) < 0)
             return reject('Player may only leave a game they have joined.');
           // find userId in playerOrder array and remove it
           const userIDIndex = game.playerOrder.findIndex(item => {item === userID});
@@ -99,15 +99,15 @@ module.exports = {
             return reject('Game not found.');
           if (!game.open)
             return reject('Game already started.');
-          if (game.playerOrder[0] !== userID)
-            return reject('Only the originating player can start a game.');
+          if (game.playerOrder[0].toString().trim() !== userID.toString().trim())
+            return reject(`Only the originating player can start a game.`);
           game.open = false;
           game.players[game.playerOrder[0]].active = true;
           for (let p = 0; p < game.playerOrder.length; p++) {
             game.players[game.playerOrder[p]].hand = game.cards.deck.shift();
           }
           db.Game.findOneAndUpdate({ _id }, game, { new: true }, (err, newGame) => {
-            if (err) return console.log(err);
+            if (err) return reject(`failed to update game state in mongodb: ` + err);
             resolve(newGame);
           });
         })
