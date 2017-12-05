@@ -11,7 +11,6 @@ const PlayerListDetail = ({player}) => {
     <p id="player_record">Wins: 1{/*player.stats.wins*/} / Losses: 0{/*player.stats.losses*/}</p>
     <button className="green">Start Game</button>
   </div>);
-
 }
 
 export default PlayerListDetail;

@@ -6,22 +6,17 @@ import "purecss";
 
 class MainPage extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoggedIn: false
-    };
-
-    this.socket = window.socket;
-
-    // this.socket.on('userLoggedIn', function(data) {
-    //   console.log(`a user logged in:`, data);
-    // });
-    // this.socket.on('userLoggedOut', function(data) {
-    //   console.log(`a user logged out:`, data);
-    // });
+  state = {
+    isLoggedIn: false
   };
+
+
+  // socket.on('userLoggedIn', function(data) {
+  //   console.log(`a user logged in:`, data);
+  // });
+  // socket.on('userLoggedOut', function(data) {
+  //   console.log(`a user logged out:`, data);
+  // });
 
   render() {
     return (<div>
@@ -33,30 +28,56 @@ class MainPage extends Component {
 
         <div className="pure-u-1-4" id="players_main">
           <header id="players_header">Players List</header>
-          <Stats/>
+          <Stats {...this.props} />
         </div>
 
         <div className="pure-u-1-2" id="chat_main">
-          <Chat/>
+          <Chat player={this.state.user}/>
         </div>
 
         <div className="pure-u-1-4" id="games_main">
           <header id="games_header">Games List</header>
-          <p>Make mounting game component to grab stats from db, or just spot to loop through game data</p>
+          <p>
+            <button
+              onClick={() => {
+                this.props.socket.emit('newGame');
+              }}
+              >
+                Create Game
+              </button>
+          </p>
+          { this.props.games && this.props.games.map(game => this.renderGame(game)) }
+          {/*this should be top 5 users win/loss ratio*/}
+          {/*<header id="top_players_header">Top Players</header>
+          <h4>User Name</h4>
+          <p>Wins 5 / Losses 2</p>
           <hr></hr>
-          <h4>userid -vs- userid</h4>
-          <p>current round/token score from game state?</p>
-          -OR-
-          <hr></hr>
-          <p>Past Game Results displaying...</p>
-          <h4>userid -vs- userid</h4>
-          <p>current round/token score from game state?</p>
+          <h4>User Name</h4>
+          <p>Wins 4 / Losses 2</p>
+          <hr></hr>*/}
 
         </div>
 
       </div>
 
     </div>)
+  }
+
+  renderGame(game) {
+    const canJoinGame = game.open;
+    return (
+      <div className="gameListEntry" key={game._id}>
+        <div>{game.playerOrder.length} Players</div>
+        <div>{game.playerOrder.length} Players</div>
+        { canJoinGame && <div>
+          <button onClick={() => {
+            this.props.socket.emit(`joinGame`, game._id);
+            window.location.href = `game/${game._id}`
+          }}>Join Game</button>
+          <hr></hr>
+          </div> }
+      </div>
+    );
   }
 }
 export default MainPage;

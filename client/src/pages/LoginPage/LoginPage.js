@@ -35,8 +35,8 @@ class LoginPage extends Component {
                 <div className="inner_card"></div>
               </div>
             </div>
-
-            <div className="side back"></div>
+            <div className="side back">
+            </div>
           </div>
         </div>
 
