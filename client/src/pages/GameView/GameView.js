@@ -47,14 +47,6 @@ class GameView extends Component {
     active: "discardDiv"
   };
 
-  handleClick(event) {
-    console.log("wut");
-        // let active = this.state.active;
-        // let newActive = active === 'discardDiv' ? 'cheats' : 'discardDiv';
-        // this.setState({
-        //     active: newActive,
-        // });
-    }
 
     componentDidMount() {
       document.body.classList.add('body-image');
@@ -77,7 +69,6 @@ class GameView extends Component {
          <div id="user-buttons">
            <AllCardView/>
            <GameChat />
-           {/* <DiscardPile /> */}
          </div>
        </div>
 
@@ -102,9 +93,7 @@ class GameView extends Component {
             </div>
             <div className="player-side">
               <PlayerMount userId={this.state.game.playerOrder[1]} player={this.state.game.players[this.state.game.playerOrder[1]]}/>
-
             </div>
-
           </div>
         </footer>
 

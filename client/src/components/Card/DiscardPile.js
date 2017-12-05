@@ -5,34 +5,6 @@ const data = require('../../gamejson/cards.json');
 //Still need to reference the cards as they are played
 
 class DiscardPile extends Component {
-  constructor() {
-    super();
-    this.state = {
-      childVisible: false
-    }
-  }
-
-  render() {
-    return (<div>
-      <button className ="green" id="discard_button" onClick={() => this.onClick()}>
-        Discarded
-      </button>
-      {
-        this.state.childVisible
-          ? <DiscardList/>
-          : null
-      }
-    </div>)
-  }
-
-  onClick() {
-    this.setState({
-      childVisible: !this.state.childVisible
-    });
-  }
-};
-
-class DiscardList extends Component {
 
   render() {
     const discarded = data.map((card) => {
@@ -41,15 +13,20 @@ class DiscardList extends Component {
           : remaining ({card.count})</p>
       </li>);
     });
-
-    return (<div>
+    return (<div className="accordion">
+      <button className="green accordion-toggle" id="discard_button">Discarded</button>
+      <div className="accordion-content">
+        <div className="accordion-inner">
           <div className="cheatFrontSide">
             <p id="discard_top">Cards discarded this round</p>
+            <hr></hr>
             <ul id="discard_list">
               {discarded}
             </ul>
           </div>
-    </div>);
+        </div>
+      </div>
+    </div>)
   }
 }
 export default DiscardPile;

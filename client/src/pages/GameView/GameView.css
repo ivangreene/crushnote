@@ -1,6 +1,3 @@
-body{
-    background-color: #fff;
-}
 
 .body-image{
     background-image: url("../../style/img/table1 (2).png");
@@ -10,13 +7,8 @@ body{
     background-size: 100%;
 }
 
-
 #card_view{
   text-align: center;
-}
-
-.opponent-side{
-  margin-left: 25px;
 }
 
 footer{
@@ -24,10 +16,6 @@ position:absolute;
 left:0;
 bottom:0;
 right:0;
-}
-
-#show_hud_area{
-  width:100%;
 }
 
 .hud {
@@ -49,7 +37,7 @@ right:0;
   width:33%;
   float: right;
   margin-right: 25px;
-  background-color: #72dae7;
+  background-color: #c4cbcc;
   -webkit-box-shadow: 10px 10px 5px #494343
 }
 
@@ -62,6 +50,41 @@ right:0;
   font-size: 50px;
 }
 
-#user-buttons{
-
+#show_hud_area{
+  width:100%;
 }
+
+.hud {
+  width: 100%;
+  padding-right:25px;
+  padding-top: 5px;
+  bottom: 10px;
+  display:block;
+}
+
+/*==== User Side ===*/
+
+#player_name{
+  margin:0 auto;
+}
+
+#user_round_tokens {
+  padding: 7px;
+  width: 210px;
+  border-style: outset;
+  border-width: 3px;
+  margin-left: 50px;
+}
+
+#round_score {
+  float: left;
+  margin: 0 auto;
+}
+
+.no-point, .round-won {
+  color: red;
+}
+
+/*.table-button {
+  font-size: 50px;
+}*/

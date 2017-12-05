@@ -1,6 +1,4 @@
-
 #CardContainer {
-  background-image: url("../../style/img/queentest.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -42,7 +40,7 @@
 
 .card_action {
   position: absolute;
-  bottom:25%;
+  bottom: 25%;
   border-style: inset;
   background-color: #e7e5e4d6;
 }
@@ -92,64 +90,28 @@ img {
 
 /* --- Discard / Cheat Card  ----*/
 
-.cheatCard-container {
-  cursor: pointer;
-  height: 435px;
-  perspective: 600;
-  position: relative;
-}
-
-.cheatCard {
-  border: double 5px #a39999;
-  padding: 10px;
-  background: #72dae7;
+.cheatFrontSide {
+  width:80%;
+  padding:15px;
   margin: 0 auto;
-  height: 95%;
-  transform-style: preserve-3d;
-  transition: all 1s ease-in-out;
-  width: 75%;
-}
-
-.cheatCard:hover {
-  transform: rotateY(180deg);
-}
-
-.cheatCard .cheatSide {
-  background: #72dae7;
-  backface-visibility: hidden;
-  border-radius: 6px;
-  position: absolute;
-  overflow: hidden;
-}
-
-.cheatCard .back {
-  /*background-image: url("../../style/img/cardfront_placeholder2.jpg");*/
+  background-image: url("../../style/img/discardtest.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  transform: rotateY(180deg);
+  border: 5px inset;
+  box-shadow: inset 10px 10px 15px #494343;
 }
 
-.cheatFrontSide {
-  width: 80%;
-  margin: 0 auto;
-  background-color: #72dae7;
-  padding-top: 25px;
-  padding-bottom: 25px;
-}
-
-.cheatCard li, .cheatCard p {
-  font-size: 16px;
-}
-
-.cheatCard ul {
-  list-style: none;
-  text-align: left;
+#discard_top{
+    background-color:#e7e5e4ad;
+    font-weight: 600;
+    margin:0;
 }
 
 #discard_list {
   list-style: none;
   padding: 0;
+  background-color: #e7e5e4ad;
 }
 
 #discard_button {
@@ -157,4 +119,21 @@ img {
   margin-left: 25px;
 }
 
-/*   test       */
+
+
+.accordion{
+  margin-top: 10px;
+}
+
+.accordion:hover .accordion-content {
+  max-height: 500px;
+}
+.accordion-content {
+  -webkit-transition: max-height 1s;
+  -moz-transition: max-height 1s;
+  -ms-transition: max-height 1s;
+  -o-transition: max-height 1s;
+  transition: max-height 1s;
+  overflow: hidden;
+  max-height: 0;
+}
