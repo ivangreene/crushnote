@@ -21,8 +21,7 @@ class PlayerMount extends Component {
     return (<div id="opponent_mount">
       <div className="opponent_stats">
         <header>
-          <i className="material-icons">&#xE87C;</i>
-          User Name</header>
+          <i className="material-icons">&#xE87C;</i>    User Name</header>
       </div>
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
@@ -33,7 +32,7 @@ class PlayerMount extends Component {
         <i className="material-icons round-won">favorite_border</i>
       </div>
       <div id="opponent_hand">
-        <div id="hand_title">cards in hand</div>
+        <div id="hand_title">cards held</div>
         <div className="card_spacing">
           <div className="opponent_card">
             1

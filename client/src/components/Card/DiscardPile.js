@@ -1,58 +1,32 @@
-import React from "react";
+import React, {Component} from "react";
 import "./Card.css";
 const data = require('../../gamejson/cards.json');
-const cheatdata = require('../../gamejson/cheatcard.json');
 
-const DiscardPile = () => {
-  //console.log(data);
+//Still need to reference the cards as they are played
 
-  const discarded = data.map((card) => {
-    return (<li key={card.id} card={card}>
-      <p>{card.name}
-        : remaining ({card.count})</p>
-    </li>);
-  });
+class DiscardPile extends Component {
 
-  return (<div>
-
-    <div className="cheatCard-container">
-      <div className="cheatCard">
-        <div className="cheatSide">
+  render() {
+    const discarded = data.map((card) => {
+      return (<li key={card.id} card={card}>
+        <p>{card.name}
+          : remaining ({card.count})</p>
+      </li>);
+    });
+    return (<div className="accordion">
+      <button className="green accordion-toggle" id="discard_button">Discarded</button>
+      <div className="accordion-content">
+        <div className="accordion-inner">
           <div className="cheatFrontSide">
             <p id="discard_top">Cards discarded this round</p>
+            <hr></hr>
             <ul id="discard_list">
               {discarded}
             </ul>
           </div>
         </div>
-        <div className="cheatSide back">
-          <div>
-            <table>
-              <tbody>
-                <tr>
-                  <th>
-                    Card / Count
-                  </th>
-                  <th>
-                    Action
-                  </th>
-                </tr>
-                {
-                  cheatdata.map((item, i) => {
-                    return <tr key={item.id}>
-                      <td className="ellipsis">{item.name}</td>
-                      <td className="ellipsis">{item.action}</td>
-                    </tr>
-                  })
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
-    </div>
-
-  </div>);
-};
-
+    </div>)
+  }
+}
 export default DiscardPile;

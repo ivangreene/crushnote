@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-//import PlayerHud from "../../components/PlayerHud/PlayerHud";
 import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
@@ -7,6 +6,7 @@ import DiscardPile from "../../components/Card/DiscardPile";
 import TopOpponentBar from "../../components/TopOpponentBar/TopOpponentBar";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
 import GameChat from "../../components/Chat/GameChat";
+import CheatCard from "../../components/Card/CheatCard";
 import "./GameView.css";
 
 const PRINCESS = 8,
@@ -25,7 +25,7 @@ class GameView extends Component {
       playerOrder: ['userid1', 'userid2'],
       players: {
         userid1: {
-          hand: 5,
+          hand: 7,
           discarded: [],
           active: true,
           eliminated: false
@@ -42,9 +42,14 @@ class GameView extends Component {
         played: [],
         excluded: null
       }
-    }
+    },
+    active: "discardDiv"
   };
 
+  componentDidMount() {
+      document.body.classList.add('body-image');
+    }
+    
   componentWillMount() {
     console.log("joining game room", this.props.gameId);
     this.props.socket.emit('joinGameRoom', this.props.gameId);
@@ -92,6 +97,7 @@ class GameView extends Component {
     // TODO: let players switch between games freely
     const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
     if (!game) return null;
+
     return (
       <div id="game_box">
         {game.open && this.renderPreGame(game)}
@@ -100,26 +106,25 @@ class GameView extends Component {
          <div className="opponent-side">
            <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[2]]}/>
          </div>
+
          <div className="player-side">
            <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[2]]}/>
+         </div>
+         <div id="user-buttons">
+           <AllCardView/>
+           <GameChat />
          </div>
        </div>
 
         <div className="pure-g"  id="card_view">
-          <div className="pure-u-1-4" id="oppenent1_hand">
-            <p>Opponent hand</p>
-            <CardBack />
+          <div className="pure-u-1-3" id="discard">
+            <DiscardPile />
           </div>
-          <div className="pure-u-1-4" id="discard">
-            <p>Discard</p>
-              <DiscardPile />
+          <div className="pure-u-1-3" id="cards_in_play">
+            {/* <p>Card currently played</p> */}
+            <Card card={KING}/>
           </div>
-          <div className="pure-u-1-4" id="cards_in_play">
-            <p>Card currently played</p>
-            <Card card={PRINCESS}/>
-          </div>
-          <div className="pure-u-1-4"  id="player_hand">
-            <p>Player Hand </p>
+          <div className="pure-u-1-3"  id="player_hand">
             <Card card={game.players[game.playerOrder[0]].hand}/>
           </div>
         </div>
@@ -131,7 +136,6 @@ class GameView extends Component {
             </div>
             <div className="player-side">
               <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[1]]}/>
-
             </div>
             <div id="user-buttons">
               <AllCardView/>

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas';
 import CardList from "../CardList/CardList";
 import "./AllCardView.css";
-let data = require('../../gamejson/cards.json');
+// let data = require('../../gamejson/cards.json');
+let data = require('../../gamejson/cards.js');
 
 export default class AllCardView extends Component {
 

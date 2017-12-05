@@ -41,7 +41,11 @@ class SignUp extends Component {
       "email": this.state.email,
       "username": this.state.username,
       "password": this.state.password,
-      "passwordConfirm": this.state.passwordConfirm
+      "passwordConfirm": this.state.passwordConfirm,
+      // "stats":{
+      //   "losses":0,
+      //   "wins":0
+      // }
     });
     // console.log("sending user data");
   }
