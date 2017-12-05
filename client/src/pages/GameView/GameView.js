@@ -26,7 +26,7 @@ class GameView extends Component {
       playerOrder: ['userid1', 'userid2'],
       players: {
         userid1: {
-          hand: 5,
+          hand: 7,
           discarded: [],
           active: true,
           eliminated: false
@@ -87,7 +87,7 @@ class GameView extends Component {
           </div>
           <div className="pure-u-1-3" id="cards_in_play">
             {/* <p>Card currently played</p> */}
-            <Card card={PRINCESS}/>
+            <Card card={KING}/>
           </div>
           <div className="pure-u-1-3"  id="player_hand">
             {/* <p>Player Hand </p> */}

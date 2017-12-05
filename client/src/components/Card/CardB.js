@@ -1,6 +1,5 @@
 import React from "react";
 import 'bulma/css/bulma.css'
-import test2 from "../../style/img/test2.jpg";
 
 const CardB = ({card}) => {
 
@@ -16,7 +15,7 @@ const CardB = ({card}) => {
       </div>
       <div className="card-image card_top">
         <figure className="image is-4by3">
-          <img src={test2} alt="test char"/></figure>
+          <img src={} alt="test char"/></figure>
       </div>
       <div className="card_action">
         <div className="action_text">
