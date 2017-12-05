@@ -39,7 +39,6 @@ class LoginPage extends Component {
                 </div>
               </div>
             </div>
-
             <div className="side back">
             </div>
           </div>

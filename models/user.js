@@ -7,8 +7,8 @@ const userSchema = new Schema({
   password: {type: String, required: true },
   email: String,
   stats: {
-    losses: Number,
-    wins: Number
+    losses: {type: Number, default: 0},
+    wins: {type: Number, default: 0}
   }
 });
 

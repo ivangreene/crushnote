@@ -7,6 +7,11 @@ module.exports = {
     return db.User.find(query);
   },
 
+  // lists all current matching users
+  findMany: (ids, options) => {
+    return db.User.find({'_id': { $in: ids}}).select(options);
+  },
+
   // findAllUsers: (query) => {
   //   return db.users.find(query);
   // },
