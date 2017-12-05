@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-//import PlayerHud from "../../components/PlayerHud/PlayerHud";
 import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
@@ -44,7 +43,6 @@ class GameView extends Component {
         excluded: null
       }
     },
-    active: "discardDiv"
   };
 
 
@@ -53,7 +51,6 @@ class GameView extends Component {
     }
 
   render() {
-        let active = this.state.active;
 
     return (
       <div id="game_box">
