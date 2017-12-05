@@ -13,16 +13,17 @@ class App extends Component {
     // define one socket connection for the whole app
     const socket = io();
     let gameId = null;
+    let activeUsers = [];
     // Check url for game id.
     const matches = window.location.pathname.match(/\/game\/(.+)/);
     if (matches && matches.length) {
        gameId = matches[1];
     }
-    this.setState({socket, gameId});
+    this.setState({socket, gameId, activeUsers});
     window.socket = socket;
-    console.log('adding connect handler');
+    // console.log('adding connect handler');
     socket.on('connect', () => {
-      console.log('connected to socket');
+      // console.log('connected to socket');
     });
 
     // Redirects to the given path, if not already at that path.
@@ -32,20 +33,35 @@ class App extends Component {
         window.location.href = path;
       }
     }
-    // enables access to state, etc. inside of the socket functions
-    let that = this;
     // All socket handling should be added in App.componentWillMount so that
     // they are added only once per page view, otherwise we will get duplicate
     // handlers for events.
-    socket.on('loggedIn', function(data) {
-      if (!that.state.user
-        || (that.state.user && that.state.user.name && that.state.user.name !== data.username)
+    socket.on('loggedIn', data => {
+      if (!this.state.user
+        || (this.state.user && this.state.user.name && this.state.user.name !== data.username)
         ) {
-        that.setState({user: {name: data.name, id: data.id}});
+        this.setState({user: {name: data.name, id: data.id}});
       }
+      console.log(data.name, `logged in`);
       // Get the list of games on login.
       socket.emit('searchingForGame');
-      // console.log(`currently the react state.user is:`, that.state.user);
+      // Get list of all logged in users after logging in
+      socket.emit('getActiveUsers');
+      // window.location.href = '/main';
+    });
+    socket.on('setCookie', data => document.cookie = data);
+    // socket.on('recieveCookie', function(cookie) {
+    //   console.log("server sent back new cookie to client:", cookie);
+    // });
+    socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
+    socket.on('userLoggedOut', data => {
+      console.log(`a user logged out`, data);
+      socket.emit('getActiveUsers');
+      // setTimeout(() => {socket.emit('getActiveUsers')}, 600);
+    });
+    socket.on('recieveActiveUsers', users => {
+      console.log(`-------\n\nusers returned are:`, users);
+      this.setState({activeUsers: users})
     });
     // This will be emitted by the server when a user creates a new game,
     // by clicking the `Create Game` button in `MainPage.js`.
@@ -85,6 +101,12 @@ class App extends Component {
       gameId = null;
       redirectToPath(`/main`);
     });
+    // const getAllUserNames = userIds => {
+    //   for (let i = 0; i < userIds.length; i++) {
+    //     let id = userIds[i];
+    //     socket.on('findUserName', id => {});
+    //   }
+    // }
     socket.on('err', err => {console.log(err)})
     // Redirect user to a given url based on their userId
     // This example code always keeps a logged in user on '/main'

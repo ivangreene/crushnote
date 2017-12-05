@@ -1,4 +1,3 @@
-
 #main_title p{
   color:red;
   margin-left: 20%;
@@ -21,8 +20,4 @@
 
 #chat_main{
   padding-right:20px;
-}
-
-.gameListEntry {
-	border: 1px solid black;
 }

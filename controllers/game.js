@@ -68,19 +68,30 @@ module.exports = {
         .then(game => {
           if (!game)
             return reject('Game not found.');
+          console.log(userID, 'leaving', _id);
           // if (!game.open)
           //   return reject('Cannot leave game in progress.');
           if (game.playerOrder.indexOf(userID) < 0)
             return reject('Player may only leave a game they have joined.');
           // find userId in playerOrder array and remove it
-          const userIDIndex = game.playerOrder.findIndex(item => {item === userID});
+          const userIDIndex = game.playerOrder.findIndex(item => {
+            // These ids are actually objects, and will not necessarily be
+            // equal even if they have the same toString value, so we have to
+            // explicitly compare their toString values.
+            // There might be a mongoose function for comparing these in
+            // a simpler fashion.
+            return item.toString() === userID.toString();
+          });
+          console.log('user index', userIDIndex);
           // if it is the first item in the array, then close the room
           if (game.playerOrder.length <= 1 || userIDIndex === 0) {
+            // console.log("Deleting game:", _id);
             // when last player leaves then close the game
             // TODO: check the syntax here - use return or resolve?
             return db.Game.findByIdAndRemove(_id);
           }
           game.playerOrder.splice(userIDIndex, 1);
+          console.log('new order:', game.playerOrder);
           // TODO: find userID in the players hash and remove that key/value pair
           // game.players[userID] = playerSeed();
           db.Game.findOneAndUpdate({_id}, game, { new: true }, (err, newGame) => {

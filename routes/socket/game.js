@@ -3,7 +3,7 @@ const cleanGameState = require('../../lib/gameState').clean;
 const User = require('../../controllers/user');
 const chalk = require('chalk');
 
-module.exports = (socket, io) => {
+module.exports = (socket, io, userSockets) => {
   console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
     console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
 
