@@ -43,7 +43,7 @@ class GameView extends Component {
     
   componentWillMount() {
     console.log("joining game room", this.props.gameId);
-    this.props.socket.emit('joinGameRoom', this.props.gameId);
+    this.socket.emit('joinGameRoom', this.props.gameId);
   }
 
   renderPreGame(game) {
@@ -61,7 +61,7 @@ class GameView extends Component {
         { canStartGame && <div>
             <button
               onClick={game => {
-                this.props.socket.emit('startGame', this.props.gameId);
+                this.socket.emit('startGame', this.props.gameId);
                 // render again, to remove the startGameBox and permit play
                 //window.location.reload();
                 // TODO: reload just the component as it changes, not the whole page
@@ -71,7 +71,7 @@ class GameView extends Component {
         { !isOwner && <div>Waiting for other players...</div>}
         <div><button
           onClick={game => {
-            this.props.socket.emit('leaveGame', this.props.gameId);
+            this.socket.emit('leaveGame', this.props.gameId);
           }}
         >
           Abandon Game
@@ -148,7 +148,7 @@ class GameView extends Component {
     // if (!game) return null;
     return (
       <div id="game_box">
-        {game.open && this.renderPreGame(game)}
+        {/* {game.open && this.renderPreGame(game)} */}
 
         <div className="pure-u-1-1">
           <div className="opponent-side">
@@ -202,7 +202,7 @@ class GameView extends Component {
               <GameChat />
               <button
                 onClick={game => {
-                  this.props.socket.emit('leaveGame', this.props.gameId);
+                  this.socket.emit('leaveGame', this.props.gameId);
                 }}
               >
                 Abandon Game

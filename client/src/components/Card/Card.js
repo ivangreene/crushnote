@@ -23,7 +23,7 @@ const Card =({card, onClick, selected})=>{
         </div>
         <div className="card_image">
 
-          <img src={test2} alt=""/></div>
+          {/* <img src={test2} alt=""/>*/}</div>
         <div className="card_action">
           <p className="action_text">
             {data[card - 1].action}
