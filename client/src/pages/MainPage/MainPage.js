@@ -10,14 +10,6 @@ class MainPage extends Component {
     isLoggedIn: false
   };
 
-
-  // socket.on('userLoggedIn', function(data) {
-  //   console.log(`a user logged in:`, data);
-  // });
-  // socket.on('userLoggedOut', function(data) {
-  //   console.log(`a user logged out:`, data);
-  // });
-
   render() {
     return (<div>
       <div id="login_title">
@@ -47,7 +39,7 @@ class MainPage extends Component {
               </button>
           </p>
           { this.props.games && this.props.games.map(game => this.renderGame(game)) }
-          {/*this should be top 5 users win/loss ratio*/}
+          {/*TODO: this will be top 5 users win/loss ratio*/}
           {/*<header id="top_players_header">Top Players</header>
           <h4>User Name</h4>
           <p>Wins 5 / Losses 2</p>
@@ -67,7 +59,8 @@ class MainPage extends Component {
     const canJoinGame = game.open;
     return (
       <div className="gameListEntry" key={game._id}>
-        <div>{game.playerOrder.length} Players</div>
+        <div>
+        {this.getPlayerName(game.playerOrder[0])}'s game</div>
         <div>{game.playerOrder.length} Players</div>
         { canJoinGame && <div>
           <button onClick={() => {
@@ -78,6 +71,18 @@ class MainPage extends Component {
           </div> }
       </div>
     );
+  }
+
+  getPlayerName(playerId) {
+    let activeUsers = this.props.activeUsers;
+    let playerName;
+    for (let i = 0; i < activeUsers.length; i++) {
+      let user = activeUsers[i];
+      if (user._id.toString() === playerId.toString()) {
+        playerName = user.username;
+        return playerName;
+      }
+    }
   }
 }
 export default MainPage;

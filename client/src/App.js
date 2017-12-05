@@ -17,17 +17,16 @@ class App extends Component {
     if (matches && matches.length) {
        gameId = matches[1];
     }
-    this.setState({socket, gameId, activeUsers});
+    this.setState({socket, gameId, activeUsers, yourActiveGames});
     window.socket = socket;
-    // console.log('adding connect handler');
-    socket.on('connect', () => {
-      // console.log('connected to socket');
-    });
+
+    // on app loading, open a socket connection
+    // the rest of the app will use this single socket connection for this user
+    socket.on('connect', () => {});
 
     // Redirects to the given path, if not already at that path.
     const redirectToPath = path => {
       if (window.location.pathname !== path) {
-        // console.log(window.location, path);
         window.location.href = path;
       }
     }
