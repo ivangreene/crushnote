@@ -8,7 +8,9 @@ import io from "socket.io-client";
 
 class App extends Component {
   state = {
-    user: {}
+    user: {
+      stats: {}
+    }
   };
   
   componentWillMount() {
@@ -39,9 +41,8 @@ class App extends Component {
     // they are added only once per page view, otherwise we will get duplicate
     // handlers for events.
     socket.on('loggedIn', data => {
-      if (!this.state.user
-        || (this.state.user && this.state.user.name && this.state.user.name !== data.username)
-        ) {
+      if (this.state.user && this.state.user.name && this.state.user.name !== data.username)
+         {
         this.setState({user: {name: data.name, id: data.id, stats: {wins: data.stats.wins, losses: data.stats.losses}}});
       }
       console.log(data.name, `logged in`);
