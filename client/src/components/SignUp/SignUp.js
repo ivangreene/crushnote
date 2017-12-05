@@ -20,13 +20,14 @@ class SignUp extends Component {
 
     this.socket = window.socket;
 
-    this.socket.on('savedUser', function(data) {
-      // startUserSession();
-      console.log("server received data and sent it back to client:", data);
-    });
-    console.log('adding connect handler');
-    this.socket.on('connect', () => {
-      console.log('connected to socket');
+    this.socket.on('savedUser', data => {
+      this.socket.emit('authUser', {
+        "username": this.state.username,
+        "password": this.state.password,
+      });
+      this.socket.emit(`sessionCookie`, document.cookie);
+      this.setState({username: '', email: '', password: '', passwordConfirm: ''});
+    setTimeout(() => {window.location.href = '/main'}, 500);
     });
     this.socket.on('connect_error', (error) => {
       console.log(error);
@@ -46,7 +47,7 @@ class SignUp extends Component {
       //   "wins":0
       // }
     });
-    console.log("sending user data");
+    // console.log("sending user data");
   }
 
   render() {
@@ -60,6 +61,7 @@ class SignUp extends Component {
             type="email"
             hintText="Enter your Email"
             floatingLabelText="Email"
+            value={this.state.email}
             onChange={(event, newValue) => this.setState({email: newValue})}
             id="emailInput"
           />
@@ -68,6 +70,7 @@ class SignUp extends Component {
             type="username"
             hintText="Enter your Username"
             floatingLabelText="Username"
+            value={this.state.username}
             onChange={(event, newValue) => this.setState({username: newValue})}
             id="usernameInput"
           />
@@ -76,6 +79,7 @@ class SignUp extends Component {
             type="password"
             hintText="Enter your Password"
             floatingLabelText="Password"
+            value={this.state.password}
             onChange={(event, newValue) => this.setState({password: newValue})}
             id="passwordInput"
           />
@@ -84,6 +88,7 @@ class SignUp extends Component {
             type="password"
             hintText="Reenter your Password to Confirm"
             floatingLabelText="Password Confirmation"
+            value={this.state.passwordConfirm}
             onChange={(event, newValue) => this.setState({passwordConfirm: newValue})}
             id="passwordConfirmInput"
           />

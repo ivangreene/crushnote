@@ -21,23 +21,16 @@ class LogIn extends Component {
 
     this.socket = window.socket;
 
-    this.socket.on('setCookie', function(data) {
-      document.cookie = data;
-    });
-    this.socket.on('recieveCookie', function(cookie) {
-      console.log("server sent back new cookie to client:", cookie);
-    });
+    // this.socket.on('redirect', function(destination) {
+    //   if (window.location.pathname !== destination) {
+    //     window.location.href = destination;
+    //   }
+    // });
 
-    this.socket.on('redirect', function(destination) {
-      if (window.location.pathname !== destination) {
-        window.location.href = destination;
-      }
-    });
-
-    this.socket.on('connect_error', (error) => {
-      console.log(error);
-      throw error;
-    });
+    // this.socket.on('connect_error', (error) => {
+    //   console.log(error);
+    //   throw error;
+    // });
   };
   authUser(event) {
     event.preventDefault();
@@ -46,8 +39,10 @@ class LogIn extends Component {
       "username": this.state.username,
       "password": this.state.password,
     });
-    console.log(document.cookie);
+    this.setState({username: '', password: ''});
+    // console.log(document.cookie);
     this.socket.emit(`sessionCookie`, document.cookie);
+    setTimeout(() => {window.location.href = '/main'}, 500);
   }
 
   render() {
@@ -61,6 +56,7 @@ class LogIn extends Component {
             type="username"
             hintText="Enter your Username"
             floatingLabelText="Username"
+            value={this.state.username}
             onChange={(event, newValue) => this.setState({username: newValue})}
             id="usernameLogInInput"
           />
@@ -69,6 +65,7 @@ class LogIn extends Component {
             type="password"
             hintText="Enter your Password"
             floatingLabelText="Password"
+            value={this.state.password}
             onChange={(event, newValue) => this.setState({password: newValue})}
             id="passwordLogInInput"
           />
