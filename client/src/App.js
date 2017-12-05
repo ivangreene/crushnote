@@ -6,8 +6,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import io from "socket.io-client";
 //import "./App.css";
 
-//let data = require('./gamejson/cards.json');
-
 class App extends Component {
   componentWillMount() {
     // define one socket connection for the whole app
@@ -40,7 +38,7 @@ class App extends Component {
       if (!this.state.user
         || (this.state.user && this.state.user.name && this.state.user.name !== data.username)
         ) {
-        this.setState({user: {name: data.name, id: data.id}});
+        this.setState({user: {name: data.name, id: data.id, stats: {wins: data.stats.wins, losses: data.stats.losses}}});
       }
       console.log(data.name, `logged in`);
       // Get the list of games on login.
@@ -57,10 +55,9 @@ class App extends Component {
     socket.on('userLoggedOut', data => {
       console.log(`a user logged out`, data);
       socket.emit('getActiveUsers');
-      // setTimeout(() => {socket.emit('getActiveUsers')}, 600);
     });
     socket.on('recieveActiveUsers', users => {
-      console.log(`-------\n\nusers returned are:`, users);
+      // console.log(`-------\n\nusers returned are:`, users);
       this.setState({activeUsers: users})
     });
     // This will be emitted by the server when a user creates a new game,
@@ -77,11 +74,6 @@ class App extends Component {
       const myGames = games.filter(game => {
         return game.playerOrder.some(id => id === this.state.user.id);
       });
-      // a user should only be in one game at a time
-      // but if they are in multiple, this will send them to the first one
-      // if (myGames.length > 0) {
-      //   redirectToPath(`/game/${myGames[0]._id}`);
-      // }
     });
     const updateGameInState = game => {
       let i;
@@ -101,13 +93,7 @@ class App extends Component {
       gameId = null;
       redirectToPath(`/main`);
     });
-    // const getAllUserNames = userIds => {
-    //   for (let i = 0; i < userIds.length; i++) {
-    //     let id = userIds[i];
-    //     socket.on('findUserName', id => {});
-    //   }
-    // }
-    socket.on('err', err => {console.log(err)})
+    socket.on('err', err => {console.log(err)});
     // Redirect user to a given url based on their userId
     // This example code always keeps a logged in user on '/main'
     // socket.on('redirect', function(destination) {
@@ -120,7 +106,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('user state is:', this.state.user);
+    // console.log('user state is:', this.state.user);
 
     return (<Router>
       <div>

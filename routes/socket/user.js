@@ -38,7 +38,7 @@ module.exports = (socket, io, userSockets) => {
       let id = plaintext.split('-')[0].trim();
       // console.log(`${sockChalk} the id is now ${id}`);
       User.findById(id).then(user => {
-        let data = {name: user.username, id: user._id};
+        let data = {name: user.username, id: user._id, stats: {wins: user.stats.wins, losses: user.stats.losses}};
         socket.emit(`loggedIn`, data);
         io.emit(`userLoggedIn`, data);
         socket.request.session.userId = user._id;

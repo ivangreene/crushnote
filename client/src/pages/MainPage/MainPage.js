@@ -24,19 +24,6 @@ class MainPage extends Component {
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
 
-      <div>
-        <p>
-          <button
-            onClick={() => {
-              this.props.socket.emit('logOutUser');
-              window.location.href = '/';
-            }}
-            >
-              Logout {this.props.user && this.props.user.name}
-            </button>
-        </p>
-      </div>
-
       <div className="pure-g gutters" id="main_body">
 
         <div className="pure-u-1-4" id="players_main">
@@ -61,13 +48,13 @@ class MainPage extends Component {
           </p>
           { this.props.games && this.props.games.map(game => this.renderGame(game)) }
           {/*this should be top 5 users win/loss ratio*/}
-          <header id="top_players_header">Top Players</header>
+          {/*<header id="top_players_header">Top Players</header>
           <h4>User Name</h4>
           <p>Wins 5 / Losses 2</p>
           <hr></hr>
           <h4>User Name</h4>
           <p>Wins 4 / Losses 2</p>
-          <hr></hr>
+          <hr></hr>*/}
 
         </div>
 
