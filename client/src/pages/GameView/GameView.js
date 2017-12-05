@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-//import PlayerHud from "../../components/PlayerHud/PlayerHud";
 import Card from "../../components/Card/Card";
 import CardBack from "../../components/Card/CardBack";
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
@@ -9,6 +8,7 @@ import AllCardView from "../../components/TopOpponentBar/AllCardView";
 import GameChat from "../../components/Chat/GameChat";
 import Axios from "axios";
 import deepObjectAssign from '../../deepObjectAssign';
+import CheatCard from "../../components/Card/CheatCard";
 import "./GameView.css";
 
 const PRINCESS = 8,
@@ -34,8 +34,51 @@ class GameView extends Component {
         played: []
       }
     },
-    move: {
-    }
+    move: {}
+  };
+
+  componentDidMount() {
+      document.body.classList.add('body-image');
+  }
+    
+  componentWillMount() {
+    console.log("joining game room", this.props.gameId);
+    this.props.socket.emit('joinGameRoom', this.props.gameId);
+  }
+
+  renderPreGame(game) {
+    const isOwner = game.playerOrder[0] === this.props.user.id;
+    const canStartGame = isOwner && game.playerOrder.length > 1;
+    console.log(`First player is`, game.playerOrder[0], `; current user is`, this.props.user.id);
+    // console.log(`this player is the owner:`, isOwner);
+    // console.log(`this game may be started:`, canStartGame);
+    return (
+      <div>
+      <div className="darkenBox"></div>
+      <div className="startGameBox">
+        { isOwner && !canStartGame &&
+          <div>More players must join before you may start the game.</div> }
+        { canStartGame && <div>
+            <button
+              onClick={game => {
+                this.props.socket.emit('startGame', this.props.gameId);
+                // render again, to remove the startGameBox and permit play
+                //window.location.reload();
+                // TODO: reload just the component as it changes, not the whole page
+              }}
+            >Start Game</button>
+          </div> }
+        { !isOwner && <div>Waiting for other players...</div>}
+        <div><button
+          onClick={game => {
+            this.props.socket.emit('leaveGame', this.props.gameId);
+          }}
+        >
+          Abandon Game
+        </button></div>
+      </div>
+      </div>
+    );
   };
 
   componentDidMount() {
@@ -105,33 +148,35 @@ class GameView extends Component {
     // if (!game) return null;
     return (
       <div id="game_box">
+        {game.open && this.renderPreGame(game)}
 
         <div className="pure-u-1-1">
-         <div className="opponent-side">
-           { this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.state.game.players[this.playersBesidesMe()[1]]} selected={this.state.move.chosenPlayer} /> }
-         </div>
-         <div className="player-side">
-         { this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer} /> }
-         </div>
-         <button onClick={this.sendMove}>Play Card</button>
-         <button onClick={this.joinGame}>Join Game</button>
-         <button onClick={this.startGame}>Start Game</button>
-       </div>
+          <div className="opponent-side">
+            { this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.state.game.players[this.playersBesidesMe()[1]]} selected={this.state.move.chosenPlayer} /> }
+          </div>
+
+          <div className="player-side">
+            { this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer} /> }
+          </div>
+          <div id="user-buttons">
+            <AllCardView/>
+            <GameChat />
+          </div>
+          <button onClick={this.sendMove}>Play Card</button>
+          <button onClick={this.joinGame}>Join Game</button>
+          <button onClick={this.startGame}>Start Game</button>
+        </div>
 
         <div className="pure-g"  id="card_view">
-          <div className="pure-u-1-4" id="oppenent1_hand">
-            <p>Opponent hand</p>
-            <CardBack />
-          </div>
-          <div className="pure-u-1-4" id="discard">
+          <div className="pure-u-1-3" id="discard">
             <p>Discarded</p>
               <Card card={ this.state.game.cards.played[0] } />
           </div>
-          <div className="pure-u-1-4" id="cards_in_play">
+          <div className="pure-u-1-3" id="cards_in_play">
             <p>&nbsp;</p>
             <Card onClick={() => this.addToMove('card')('deck')} card={ this.state.game.cards.deck[0] } selected={this.state.move.card === 'deck'} />
           </div>
-          <div className="pure-u-1-4"  id="player_hand">
+          <div className="pure-u-1-3"  id="player_hand">
             <p>Your Hand</p>
             <Card onClick={() => this.addToMove('card')('hand')} card={this.state.game.players[this.props.user.id] && this.state.game.players[this.props.user.id].hand} selected={this.state.move.card === 'hand'} />
             
@@ -157,8 +202,7 @@ class GameView extends Component {
               <GameChat />
               <button
                 onClick={game => {
-                  console.log(`abandon this game`);
-                  // this.socket.emit('leaveGame', this.props.gameId)
+                  this.props.socket.emit('leaveGame', this.props.gameId);
                 }}
               >
                 Abandon Game
@@ -168,24 +212,6 @@ class GameView extends Component {
         </footer>
 
     </div>);
-  }
-
-  renderPreGame(game) {
-    const isOwner = game.playerOrder[0] === this.props.user.id;
-    const canStartGame = isOwner && game.playerOrder.length > 1;
-    return (
-      <div className="gameListEntry" key={game._id}>
-        <div>{game.playerOrder.length} Players</div>
-        { isOwner && <div>
-            {canStartGame ? (<button >Start Game</button>) : 'Waiting for other players...' }
-          </div>
-        }
-        { /* Currently allows leaving at any time */}
-        <button onClick={() => {
-          this.props.socket.emit(`leaveGame`, game._id);
-        }}>Leave Game</button>
-      </div>
-    );
   }
 
 }

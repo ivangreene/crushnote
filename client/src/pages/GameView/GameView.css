@@ -1,22 +1,14 @@
-body{
-    background-color: #fff;
-}
 
-#game_box{
-  background-image: url("../../style/img/table1 (2).png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: 100%;
+.body-image{
+    background-image: url("../../style/img/table1 (2).png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 100%;
 }
-
 
 #card_view{
   text-align: center;
-}
-
-.opponent-side{
-  margin-left: 25px;
 }
 
 footer{
@@ -24,10 +16,6 @@ position:absolute;
 left:0;
 bottom:0;
 right:0;
-}
-
-#show_hud_area{
-  width:100%;
 }
 
 .hud {
@@ -49,7 +37,7 @@ right:0;
   width:33%;
   float: right;
   margin-right: 25px;
-  background-color: #72dae7;
+  background-color: #c4cbcc;
   -webkit-box-shadow: 10px 10px 5px #494343
 }
 
@@ -62,8 +50,64 @@ right:0;
   font-size: 50px;
 }
 
-#user-buttons{
-position: fixed;
-left: 50%;
-bottom:2%;
+#show_hud_area{
+  width:100%;
 }
+
+.hud {
+  width: 100%;
+  padding-right:25px;
+  padding-top: 5px;
+  bottom: 10px;
+  display:block;
+}
+
+/*==== User Side ===*/
+
+#player_name{
+  margin:0 auto;
+}
+
+#user_round_tokens {
+  padding: 7px;
+  width: 210px;
+  border-style: outset;
+  border-width: 3px;
+  margin-left: 50px;
+}
+
+
+#round_score {
+  float: left;
+  margin: 0 auto;
+}
+
+.no-point, .round-won {
+  color: red;
+}
+
+/* style for start game button */
+
+.startGameBox {
+  background-color: white;
+  border: thin solid #333;
+  padding: 4em 2em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.darkenBox {
+  background-color: #000;
+  opacity: .5;
+  width: 3000px;
+  height: 3000px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 500;
+}
+

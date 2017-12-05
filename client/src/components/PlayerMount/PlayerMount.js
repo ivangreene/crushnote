@@ -7,8 +7,7 @@ class PlayerMount extends Component {
     return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" style={(this.props.userId && this.props.selected === this.props.userId) ? {backgroundColor: 'yellow'} : undefined }>
       <div className="opponent_stats">
         <header>
-          <i className="material-icons">&#xE87C;</i>
-          User Name</header>
+          <i className="material-icons">&#xE87C;</i>    User Name</header>
       </div>
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
@@ -19,7 +18,7 @@ class PlayerMount extends Component {
         <i className="material-icons round-won">favorite_border</i>
       </div>
       <div id="opponent_hand">
-        <div id="hand_title">cards in hand</div>
+        <div id="hand_title">cards held</div>
         <div className="card_spacing">
           <div className="opponent_card">
             1

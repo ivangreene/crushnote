@@ -20,9 +20,14 @@ class SignUp extends Component {
 
     this.socket = window.socket;
 
-    this.socket.on('savedUser', function(data) {
-      // startUserSession();
-      console.log("server received data and sent it back to client:", data);
+    this.socket.on('savedUser', data => {
+      this.socket.emit('authUser', {
+        "username": this.state.username,
+        "password": this.state.password,
+      });
+      this.socket.emit(`sessionCookie`, document.cookie);
+      this.setState({username: '', email: '', password: '', passwordConfirm: ''});
+    setTimeout(() => {window.location.href = '/main'}, 500);
     });
     this.socket.on('connect_error', (error) => {
       console.log(error);
@@ -36,10 +41,13 @@ class SignUp extends Component {
       "email": this.state.email,
       "username": this.state.username,
       "password": this.state.password,
-      "passwordConfirm": this.state.passwordConfirm
+      "passwordConfirm": this.state.passwordConfirm,
+      // "stats":{
+      //   "losses":0,
+      //   "wins":0
+      // }
     });
-    this.setState({username: '', email: '', password: '', passwordConfirm: ''});
-    console.log("sending user data");
+    // console.log("sending user data");
   }
 
   render() {

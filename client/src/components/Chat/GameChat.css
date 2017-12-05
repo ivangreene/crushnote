@@ -12,12 +12,13 @@
 }
 
 .ingame_messages{
-  width:89%;
+  border:inset;
   height:200px;
   padding:20px;
   overflow-y: auto;
   text-align: left;
-  background-color: #fff;
+  color:red;
+  background-color: #383636;
   margin-bottom: 10px;
 }
 

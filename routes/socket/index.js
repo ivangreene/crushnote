@@ -1,7 +1,10 @@
+
+const userSockets = {};
+
 module.exports = io => {
 	io.on('connection', socket => {
-	  require('./chat')(socket, io);
-	  require('./game')(socket, io);
-	  require('./user')(socket, io);
+	  require('./chat')(socket, io, userSockets);
+	  require('./game')(socket, io, userSockets);
+	  require('./user')(socket, io, userSockets);
 	});
 };

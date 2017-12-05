@@ -1,6 +1,5 @@
 import React from "react";
 import PlayerMount from "../PlayerMount/PlayerMount"
-import "./TopOpponentBar.css";
 
 const TopOpponentBar = () => {
 

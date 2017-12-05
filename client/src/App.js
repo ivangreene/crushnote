@@ -6,8 +6,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import io from "socket.io-client";
 //import "./App.css";
 
-//let data = require('./gamejson/cards.json');
-
 class App extends Component {
   state = {
     user: {}
@@ -17,37 +15,54 @@ class App extends Component {
     // define one socket connection for the whole app
     const socket = io();
     let gameId = null;
+    let activeUsers = [];
     // Check url for game id.
     const matches = window.location.pathname.match(/\/game\/(.+)/);
     if (matches && matches.length) {
-      gameId = matches[1];
+       gameId = matches[1];
     }
-    this.setState({socket, gameId});
+    this.setState({socket, gameId, activeUsers});
     window.socket = socket;
-    console.log('adding connect handler');
+    // console.log('adding connect handler');
     socket.on('connect', () => {
-      console.log('connected to socket');
+      // console.log('connected to socket');
     });
 
     // Redirects to the given path, if not already at that path.
-    // const redirectToPath = path => {
-    //   if (window.location.pathname !== path) {
-    //     console.log(window.location, path);
-    //     window.location.href = path;
-    //   }
-    // }
-    // enables access to state, etc. inside of the socket functions
-    let that = this;
+    const redirectToPath = path => {
+      if (window.location.pathname !== path) {
+        // console.log(window.location, path);
+        window.location.href = path;
+      }
+    }
     // All socket handling should be added in App.componentWillMount so that
     // they are added only once per page view, otherwise we will get duplicate
     // handlers for events.
-    socket.on('loggedIn', function(data) {
-      if (that.state.user.name !== data.name) {
-        that.setState({user: {name: data.name, id: data.id}});
+    socket.on('loggedIn', data => {
+      if (!this.state.user
+        || (this.state.user && this.state.user.name && this.state.user.name !== data.username)
+        ) {
+        this.setState({user: {name: data.name, id: data.id, stats: {wins: data.stats.wins, losses: data.stats.losses}}});
       }
+      console.log(data.name, `logged in`);
       // Get the list of games on login.
       socket.emit('searchingForGame');
-      // console.log(`currently the react state.user is:`, that.state.user);
+      // Get list of all logged in users after logging in
+      socket.emit('getActiveUsers');
+      // window.location.href = '/main';
+    });
+    socket.on('setCookie', data => document.cookie = data);
+    // socket.on('recieveCookie', function(cookie) {
+    //   console.log("server sent back new cookie to client:", cookie);
+    // });
+    socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
+    socket.on('userLoggedOut', data => {
+      console.log(`a user logged out`, data);
+      socket.emit('getActiveUsers');
+    });
+    socket.on('recieveActiveUsers', users => {
+      // console.log(`-------\n\nusers returned are:`, users);
+      this.setState({activeUsers: users})
     });
     // This will be emitted by the server when a user creates a new game,
     // by clicking the `Create Game` button in `MainPage.js`.
@@ -60,16 +75,11 @@ class App extends Component {
     });
     socket.on('games', games => {
       this.setState({games});
-      // const myGames = games.filter(game => {
-      //   return game.playerOrder.some(id => id === this.state.user.id);
-      // });
-      // a user should only be in one game at a time
-      // but if they are in multiple, this will send them to the first one
-      // if (myGames.length > 0) {
-      //   redirectToPath(`/game/${myGames[0]._id}`);
-      // }
+      const myGames = games.filter(game => {
+        return game.playerOrder.some(id => id === this.state.user.id);
+      });
     });
-    socket.on('gameStateUpdate', game => {
+    const updateGameInState = game => {
       let i;
       for (i = 0; i < this.state.games.length; i++) {
         if (this.state.games[i]._id === game._id) break;
@@ -77,7 +87,17 @@ class App extends Component {
       const newGames = [...this.state.games];
       newGames.splice(i, 1, game);
       this.setState({games: newGames});
+    }
+    socket.on('gameStateUpdate', game => updateGameInState(game));
+    socket.on('gameStarted', game => {
+      updateGameInState(game);
     });
+    socket.on('leftGame', game => {
+      console.log('finished leaving game.');
+      gameId = null;
+      redirectToPath(`/main`);
+    });
+    socket.on('err', err => {console.log(err)});
     // Redirect user to a given url based on their userId
     // This example code always keeps a logged in user on '/main'
     // socket.on('redirect', function(destination) {
@@ -90,7 +110,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('user state is:', this.state.user);
+    // console.log('user state is:', this.state.user);
 
     return (<Router>
       <div>
