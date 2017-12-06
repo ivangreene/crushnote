@@ -10,15 +10,46 @@ module.exports = (socket, io, userSockets) => {
     /*
     * Game logic
     */
-    socket.on('gameMove', (gameID, move) => {
+    function sendUserHand(gameId, userId, state) {
+      let partialState = {
+        players: {
+          [userId]: { hand: state.players[userId].hand }
+        }
+      };
+      if (state.players[userId].active) {
+        partialState.cards = { deck: [state.cards.deck[0]] };
+      }
+      io.to(userId).emit('partialState', gameId, partialState);
+    }
+
+    socket.on('gameMove', (gameId, move) => {
       if (!move) move = {};
       move.player = socket.request.session.userId;
-      Game.gameMove(gameID, move)
+      Game.gameMove(gameId, move)
         .then(newState => {
           let cleanState = cleanGameState(newState);
-          io.to(gameID).emit('gameStateUpdate', cleanState);
+          io.to(gameId).emit('gameStateUpdate', gameId, cleanState);
+          newState.playerOrder.map(userId => {
+            sendUserHand(gameId, userId, newState);
+          });
         })
-        .catch(err => socket.emit('gameError', { message: err }));
+        .catch(err => socket.emit('err', { message: err }));
+    });
+
+    socket.on('myHand', (gameId) => {
+      if (!socket.request.session.userId)
+        return socket.emit('err', { message: 'Not authenticated' });
+      Game.findById(gameId)
+        .then(({_doc}) => {
+          if (_doc.players[socket.request.session.userId]) {
+            sendUserHand(gameId, socket.request.session.userId, _doc);
+          }
+          else
+            return socket.emit('err', { message: 'Not a participant' });
+        })
+        .catch(err => {
+          return socket.emit('err', { message: 'Game not found' });
+        });
     });
 
     socket.on('newGame', () => {
@@ -66,6 +97,9 @@ module.exports = (socket, io, userSockets) => {
       Game.startGame(gameID, socket.request.session.userId)
         .then(game => {
           io.to(game._id).emit('gameStarted', cleanGameState(game));
+          for (let p in game.playerOrder) {
+            sendUserHand(game._id.toString(), game.playerOrder[p].toString(), game);
+          }
         })
         .catch(err => socket.emit('err', { message: err }));
     });
@@ -78,8 +112,7 @@ module.exports = (socket, io, userSockets) => {
       socket.leave(gameID); // Unsubscribe the user to this game's events
     });
 
-    socket.on('spectateGame', gameID => {
-      // TODO: Send the current game state (with sensitive details scrubbed)
+    socket.on('subscribeToGame', gameID => {
       socket.join(gameID); // Subscribe the user to this game's events
     });
 }

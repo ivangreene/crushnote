@@ -64,10 +64,10 @@
   font-size: 15px;
 }
 
-.card-magnify:hover {
-  transform: scale(1.6);
+/* .card:hover {
+  transform: scale(1.5);
   z-index: 8 !important;
-}
+} */
 
 .card {
   transition: all .4s ease-in-out;

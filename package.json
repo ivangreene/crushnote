@@ -6,7 +6,7 @@
   "scripts": {
     "build": "react-scripts build",
     "client": "npm --prefix client start",
-    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "dev": "concurrently \"nodemon --ignore client/ --inspect server.js\" \"npm run client\"",
     "eject": "react-scripts eject",
     "heroku-prebuild": "cd client/ && yarn install && yarn build; cd ../",
     "seed": "node scripts/seedDB.js",
