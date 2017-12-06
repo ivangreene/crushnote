@@ -105,6 +105,7 @@ class GameView extends Component {
       if (refresh) this.socket.emit('myHand', this.props.match.params.gameId);
     };
     this.socket.on('gameStateUpdate', stateUpdate(true));
+    this.socket.on('gameStarted', stateUpdate(true));
     this.socket.on('partialState', stateUpdate(false));
     this.socket.emit('myHand', this.props.match.params.gameId);
     this.socket.emit('subscribeToGame', this.props.match.params.gameId);
