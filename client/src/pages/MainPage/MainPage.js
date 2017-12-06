@@ -68,7 +68,6 @@ class MainPage extends Component {
     return (
       <div className="gameListEntry" key={game._id}>
         <div>{game.playerOrder.length} Players</div>
-        <div>{game.playerOrder.length} Players</div>
         { canJoinGame && <div>
           <button onClick={() => {
             this.props.socket.emit(`joinGame`, game._id);
