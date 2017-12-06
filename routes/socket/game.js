@@ -97,6 +97,9 @@ module.exports = (socket, io, userSockets) => {
       Game.startGame(gameID, socket.request.session.userId)
         .then(game => {
           io.to(game._id).emit('gameStarted', cleanGameState(game));
+          for (let p in game.playerOrder) {
+            sendUserHand(game._id.toString(), game.playerOrder[p].toString(), game);
+          }
         })
         .catch(err => socket.emit('err', { message: err }));
     });

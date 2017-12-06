@@ -117,7 +117,7 @@ module.exports = {
           for (let p = 0; p < game.playerOrder.length; p++) {
             game.players[game.playerOrder[p]].hand = game.cards.deck.shift();
           }
-          db.Game.findOneAndUpdate({ _id }, game, { new: true }, (err, newGame) => {
+          db.Game.findOneAndUpdate({ _id }, game, { returnNewDocument: true }, (err, newGame) => {
             if (err) return reject(`failed to update game state in mongodb: ` + err);
             resolve(newGame);
           });
