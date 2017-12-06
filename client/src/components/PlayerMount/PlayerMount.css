@@ -56,3 +56,15 @@
 #opponent_hand{
   padding:5px;
 }
+
+.activePlayer{
+  -webkit-animation-name: indicateTurn;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes indicateTurn {
+  from { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
+  50% { box-shadow: #91bd09; -webkit-box-shadow: 0 0 28px #0bedaf; }
+  to { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
+}
