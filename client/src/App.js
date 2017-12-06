@@ -155,7 +155,12 @@ class App extends Component {
             <MainPage {...this.state} {...props} />
           )} />
           <Route exact path="/game/:gameId" render={(props) => (
-            <GameView {...props} gameId={props.match.params.gameId} game={this.state.games[props.match.params.gameId]} user={this.state.user} />
+            <GameView
+              {...props}
+              activeUsers={this.state.activeUsers}
+              gameId={props.match.params.gameId}
+              game={this.state.games[props.match.params.gameId]}
+              user={this.state.user} />
           )} />
         </Switch>
       </div>

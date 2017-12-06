@@ -41,7 +41,7 @@ class GameView extends Component {
   renderPreGame(game) {
     const isOwner = game.playerOrder[0] === this.props.user.id;
     const canStartGame = isOwner && game.playerOrder.length > 1;
-    console.log(`First player is`, game.playerOrder[0], `; current user is`, this.props.user.id);
+    // console.log(`First player is`, game.playerOrder[0], `; current user is`, this.props.user.id);
     // console.log(`this player is the owner:`, isOwner);
     // console.log(`this game may be started:`, canStartGame);
     return (
@@ -60,7 +60,7 @@ class GameView extends Component {
               }}
             >Start Game</button>
           </div> }
-        { !isOwner && <div>Waiting for other players...</div>}
+        { !isOwner && <div>Waiting for other players...</div> }
         <div><button
           onClick={game => {
             this.socket.emit('leaveGame', this.props.gameId);
@@ -105,11 +105,24 @@ class GameView extends Component {
     return [...this.props.game.playerOrder.slice(0, index), ...this.props.game.playerOrder.slice(index + 1, this.props.game.playerOrder.length)];
   }
 
+  getPlayerName(playerId) {
+    let activeUsers = this.props.activeUsers;
+    let playerName;
+    for (let i = 0; i < activeUsers.length; i++) {
+      let user = activeUsers[i];
+      if (user._id === playerId) {
+        playerName = user.username;
+        return playerName;
+      }
+    }
+  }
+
   render() {
     // console.log(this.props.games, this.props.gameId);
     // if (!this.props.gameId || !this.props.games) return null;
     // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
     if (!this.props.game) return null;
+    console.log(`activeUsers:`, this.props.activeUsers);
     return (
       <div id="game_box">
         {this.props.game.open && this.renderPreGame(this.props.game)}
