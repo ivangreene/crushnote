@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import axios from "axios";
 import "./PlayerMount.css";
 
 class PlayerMount extends Component {
@@ -25,7 +24,7 @@ class PlayerMount extends Component {
           </div>
           { this.props.player && this.props.player.active && <div className="opponent_card">
             2
-          </div>} 
+          </div>}
         </div>
       </div>
     </a>);

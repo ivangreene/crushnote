@@ -82,6 +82,7 @@ class GameView extends Component {
   };
 
   componentDidMount() {
+       document.body.classList.add('body-image');
     Axios.get('/api/games?_id=' + this.props.match.params.gameId)
       .then(response => {
         if (response.data[0]) {
@@ -141,6 +142,10 @@ class GameView extends Component {
     return [...this.state.game.playerOrder.slice(0, index), ...this.state.game.playerOrder.slice(index + 1, this.state.game.playerOrder.length)];
   }
 
+  // guardSelection(){
+  //
+  // }
+
   render() {
     // console.log(this.props.games, this.props.gameId);
     // if (!this.props.gameId || !this.props.games) return null;
@@ -159,18 +164,17 @@ class GameView extends Component {
             { this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer} /> }
           </div>
           <div id="user-buttons">
-            <AllCardView/>
-            <GameChat />
-          </div>
-          <button onClick={this.sendMove}>Play Card</button>
-          <button onClick={this.joinGame}>Join Game</button>
-          <button onClick={this.startGame}>Start Game</button>
+            <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({cardViewOpen: !this.state.cardViewOpen})} open={this.state.cardViewOpen} />
+            {/* <GameChat /> */}
+          <button className="green" onClick={this.sendMove}>Play Card</button>
+          <button  className="green" onClick={this.startGame}>Start Game</button>
         </div>
+      </div>
 
         <div className="pure-g"  id="card_view">
           <div className="pure-u-1-3" id="discard">
             <p>Discarded</p>
-            <DiscardPile />
+            {/* <DiscardPile /> */}
               <Card card={ this.state.game.cards.played[0] } />
           </div>
           <div className="pure-u-1-3" id="cards_in_play">
@@ -180,7 +184,6 @@ class GameView extends Component {
           <div className="pure-u-1-3"  id="player_hand">
             <p>Your Hand</p>
             <Card onClick={() => this.addToMove('card')('hand')} card={this.state.game.players[this.props.user.id] && this.state.game.players[this.props.user.id].hand} selected={this.state.move.card === 'hand'} />
-
           </div>
         </div>
 
@@ -196,22 +199,9 @@ class GameView extends Component {
                   this.playersBesidesMe()[3] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[3]} player={this.state.game.players[this.playersBesidesMe()[3]]} selected={this.state.move.chosenPlayer} />
                 )
               }
-
-            </div>
-            <div id="user-buttons">
-              <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({cardViewOpen: !this.state.cardViewOpen})} open={this.state.cardViewOpen} />
-              <GameChat />
-              <button
-                onClick={game => {
-                  this.socket.emit('leaveGame', this.props.gameId);
-                }}
-              >
-                Abandon Game
-              </button>
             </div>
           </div>
         </footer>
-
     </div>);
   }
 }
