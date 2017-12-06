@@ -40,18 +40,19 @@ class LogIn extends Component {
       "password": this.state.password,
     });
     this.setState({username: '', password: ''});
-    // console.log(document.cookie);
-    this.socket.emit(`sessionCookie`, document.cookie);
-    setTimeout(() => {window.location.href = '/main'}, 500);
   }
 
   render() {
+    console.log(`value of this.props:`, this.props);
+    console.log(`value of this.props.login:`, this.props.login);
     return (<div id="login_body">
       <MuiThemeProvider>
         <div>
           <h3 id="login_head">Login</h3>
           -OR-
           <div id="signup_head" onClick={this.props.onClick}>Sign in</div>
+          {this.props.login === 'fail' &&
+            <div><h3>Incorrect username or password. Please try again.</h3></div>}
           <TextField
             type="username"
             hintText="Enter your Username"

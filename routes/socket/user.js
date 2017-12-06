@@ -93,25 +93,28 @@ module.exports = (socket, io, userSockets) => {
         let authToken = `${obfuscated}-${encrypted}`
 
         const sidCookie = "sid=" + authToken + ";expires=" + expires + ";path=/";
+        socket.emit('logInSuccess');
         socket.emit('setCookie', sidCookie);
         io.emit('userLoggedIn', userId);
         redirect(socket, userId);
       });
+    }).catch(err => {
+      socket.emit('logInFail');
+      socket.emit('err', err);
     });
   });
 
   socket.on('logOutUser', data => {
     // Do we need to do anything on the back end when a user logs out?
     console.log(`${sockChalk}: session info:`, socket.request.session);
-    socket.leave(user._id);
     // io.emit('userLoggedOut', socket.request.session.userId);
     // console.log(`${sockChalk} ${userInfoChalk} session info:`, socket.request.session);
-
     delete userSockets[socket.request.session.userId.toString()];
     user = null;
     const sidCookie = "sid=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
     socket.emit('setCookie', sidCookie);
     io.emit('userLoggedOut', [socket.request.session.userId, Object.keys(userSockets)]);
+    socket.leave(socket.request.session.userId);
     socket.disconnect(true);
     // console.log(`${sockChalk}: at logOut the cookie is:`, socket.request.session.cookie);
   });
