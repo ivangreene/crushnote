@@ -3,22 +3,8 @@ import axios from "axios";
 import "./PlayerMount.css";
 
 class PlayerMount extends Component {
-
-  state = {
-    players: []
-  };
-
-  componentWillMount() {
-    axios.get('/api/users')
-      .then(users => {
-        this.setState({
-          players: users.data
-        });
-      });
-  }
-
   render() {
-    return (<div id="opponent_mount">
+    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" style={(this.props.userId && this.props.selected === this.props.userId) ? {backgroundColor: 'yellow'} : undefined }>
       <div className="opponent_stats">
         <header>
           <i className="material-icons">&#xE87C;</i>    User Name</header>
@@ -37,12 +23,12 @@ class PlayerMount extends Component {
           <div className="opponent_card">
             1
           </div>
-          <div className="opponent_card">
+          { this.props.player && this.props.player.active && <div className="opponent_card">
             2
-          </div>
+          </div>} 
         </div>
       </div>
-    </div>);
+    </a>);
   };
 
 }

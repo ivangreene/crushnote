@@ -20,7 +20,7 @@ class MainPage extends Component {
 
   render() {
     return (<div>
-      <div id="login_title" className="fade hide">
+      <div id="login_title" /*className="fade hide"*/>
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
 

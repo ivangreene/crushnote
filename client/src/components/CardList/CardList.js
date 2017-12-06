@@ -6,6 +6,7 @@ const CardList =(props)=>{
   const cardItems = props.cards.map((card)=>{
     return(
       <CardListItem
+        onClick={props.onClick}
         key={card.id}
         card={card}/>);
   });

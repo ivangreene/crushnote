@@ -39,6 +39,7 @@ module.exports = (socket, io, userSockets) => {
       // console.log(`${sockChalk} the id is now ${id}`);
       User.findById(id).then(user => {
         let data = {name: user.username, id: user._id, stats: {wins: user.stats.wins, losses: user.stats.losses}};
+        socket.join(user._id);
         socket.emit(`loggedIn`, data);
         io.emit(`userLoggedIn`, data);
         socket.request.session.userId = user._id;
@@ -101,6 +102,9 @@ module.exports = (socket, io, userSockets) => {
 
   socket.on('logOutUser', data => {
     // Do we need to do anything on the back end when a user logs out?
+    console.log(`${sockChalk}: session info:`, socket.request.session);
+    socket.leave(user._id);
+    // io.emit('userLoggedOut', socket.request.session.userId);
     // console.log(`${sockChalk} ${userInfoChalk} session info:`, socket.request.session);
 
     delete userSockets[socket.request.session.userId.toString()];
