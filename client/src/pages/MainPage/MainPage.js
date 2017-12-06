@@ -46,7 +46,13 @@ class MainPage extends Component {
                 Create Game
               </button>
           </p>
-          { this.props.games && this.props.games.map(game => this.renderGame(game)) }
+          { this.props.games && this.props.games.sort((a, b) => {
+            if (a.open && !b.open)
+              return -1;
+            if (!a.open && b.open)
+              return 1;
+            return 0;
+          }).map(game => this.renderGame(game)) }
           {/*this should be top 5 users win/loss ratio*/}
           {/*<header id="top_players_header">Top Players</header>
           <h4>User Name</h4>
@@ -65,6 +71,7 @@ class MainPage extends Component {
 
   renderGame(game) {
     const canJoinGame = game.open;
+    // if (!canJoinGame) return undefined;
     return (
       <div className="gameListEntry" key={game._id}>
         <div>{game.playerOrder.length} Players</div>
