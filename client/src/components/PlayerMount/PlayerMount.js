@@ -4,7 +4,7 @@ import "./PlayerMount.css";
 class PlayerMount extends Component {
 
   render() {
-    return(<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(this.props.player.active) ? 'activePlayer' : (this.props.selected) ? 'selectedOpponent' : undefined
+    return(<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(this.props.player.active ? 'activePlayer' : '') + (this.props.selected ? 'selectedOpponent' : '')
       }>
       <div className="opponent_stats">
         <header>
