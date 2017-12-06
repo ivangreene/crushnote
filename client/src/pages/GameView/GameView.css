@@ -9,6 +9,8 @@
 
 #card_view{
   text-align: center;
+  clear:both;
+  margin-bottom: 10px;
 }
 
 footer{
@@ -113,4 +115,8 @@ right:0;
 
 #user-buttons{
   float:left;
+}
+
+.player-active{
+  border: 5px solid red;
 }

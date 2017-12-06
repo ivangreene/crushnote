@@ -12,7 +12,7 @@ const cardImage = {
   backgroundImage: 'url(' + card.image + ')'
 }
     return (
-      <a id="CardContainer" className="card card-magnify green" style={cardImage} onClick={() => onClick(card.id)}>
+      <a id="CardContainer" className="card card-magnify" style={cardImage} onClick={() => onClick(card.id)}>
         <div id="card_gutters">
           <div className="card_top">
             <p className="card_value">{card.id}</p>

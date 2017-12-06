@@ -2,11 +2,14 @@ import React, {Component} from "react";
 import "./PlayerMount.css";
 
 class PlayerMount extends Component {
+
   render() {
-    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" style={this.props.selected ? {backgroundColor: 'yellow'} : undefined }>
+    return(<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(this.props.player.active ? 'activePlayer' : '') + (this.props.selected ? 'selectedOpponent' : '')
+      }>
       <div className="opponent_stats">
         <header>
-          <i className="material-icons">&#xE87C;</i>    User Name</header>
+          <i className="material-icons">&#xE87C;</i>
+          {this.props.userId}</header>
       </div>
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
@@ -22,9 +25,11 @@ class PlayerMount extends Component {
           <div className="opponent_card">
             1
           </div>
-          { this.props.player && this.props.player.active && <div className="opponent_card">
-            2
-          </div>}
+          {
+            this.props.player && this.props.player.active && <div className="opponent_card">
+                2
+              </div>
+          }
         </div>
       </div>
     </a>);

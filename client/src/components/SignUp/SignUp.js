@@ -25,9 +25,7 @@ class SignUp extends Component {
         "username": this.state.username,
         "password": this.state.password,
       });
-      this.socket.emit(`sessionCookie`, document.cookie);
       this.setState({username: '', email: '', password: '', passwordConfirm: ''});
-    setTimeout(() => {window.location.href = '/main'}, 500);
     });
     this.socket.on('connect_error', (error) => {
       console.log(error);
