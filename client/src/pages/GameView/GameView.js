@@ -110,7 +110,6 @@ class GameView extends Component {
     // if (!this.props.gameId || !this.props.games) return null;
     // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
     if (!this.props.game) return null;
-    console.log(`activeUsers:`, this.props.activeUsers);
     return (
       <div id="game_box">
         {this.props.game.open && this.renderPreGame(this.props.game)}

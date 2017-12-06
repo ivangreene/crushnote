@@ -108,7 +108,9 @@ class App extends Component {
       games[gameId] = deepObjectAssign(games[gameId], game);
       for (var i = 0; i < games[gameId].playerOrder.length; i++) {
         let userId = games[gameId].playerOrder[i];
-        games[gameId].players[userId].name = getPlayerName(userId);
+        if (!games[gameId].players[userId].name) {
+          games[gameId].players[userId].name = getPlayerName(userId);
+        }
       }
       this.setState({ games });
       if (refresh) socket.emit('myHand', gameId);
@@ -138,7 +140,6 @@ class App extends Component {
           <Route exact path="/game/:gameId" render={(props) => (
             <GameView
               {...props}
-              activeUsers={this.state.activeUsers}
               gameId={props.match.params.gameId}
               game={this.state.games[props.match.params.gameId]}
               user={this.state.user} />
