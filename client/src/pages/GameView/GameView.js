@@ -101,6 +101,7 @@ class GameView extends Component {
           game.cards.deck = [];
         }
         this.setState({game});
+        //console.log(game)
       }
       if (refresh) this.socket.emit('myHand', this.props.match.params.gameId);
     };
@@ -143,9 +144,6 @@ class GameView extends Component {
     return [...this.state.game.playerOrder.slice(0, index), ...this.state.game.playerOrder.slice(index + 1, this.state.game.playerOrder.length)];
   }
 
-  // guardSelection(){
-  //
-  // }
 
   render() {
     // console.log(this.props.games, this.props.gameId);
