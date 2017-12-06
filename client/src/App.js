@@ -37,15 +37,25 @@ class App extends Component {
         window.location.href = path;
       }
     }
+    socket.on('logInFail', data => {
+      // when password or username are wrong, alert user
+      // console.log('user failed to login, setting state to reflect this');
+      if (!this.state.login) setTimeout(() => {this.setState({login: ''})}, 6000);
+      this.setState({login: 'fail'});
+    });
+    socket.on('createUserFail', data => {
+      // when user cannot be created, alert user
+    });
+    socket.on('logInSuccess', () => {
+      this.setState({login: 'success'});
+      socket.emit(`sessionCookie`, document.cookie);
+      setTimeout(() => {window.location.href = '/main'}, 500);
+    });
     // All socket handling should be added in App.componentWillMount so that
     // they are added only once per page view, otherwise we will get duplicate
     // handlers for events.
     socket.on('loggedIn', data => {
-      // if (this.state.user && this.state.user.name !== data.username)
-      //    {
       this.setState({user: {name: data.name, id: data.id, stats: {wins: data.stats.wins, losses: data.stats.losses}}});
-      // }
-      console.log(data.name, `logged in`);
       // Get the list of games on login.
       socket.emit('searchingForGame');
       // Get list of all logged in users after logging in
@@ -53,12 +63,9 @@ class App extends Component {
       // window.location.href = '/main';
     });
     socket.on('setCookie', data => document.cookie = data);
-    // socket.on('recieveCookie', function(cookie) {
-    //   console.log("server sent back new cookie to client:", cookie);
-    // });
     socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
     socket.on('userLoggedOut', data => {
-      console.log(`a user logged out`, data);
+      // console.log(`a user logged out`, data);
       socket.emit('getActiveUsers');
     });
     socket.on('recieveActiveUsers', users => {
@@ -116,7 +123,9 @@ class App extends Component {
     return (<Router>
       <div>
         <Switch>
-          <Route exact path="/" component={LoginPage}/>
+          <Route exact path="/" render={(props) => (
+            <LoginPage {...this.state} {...props} />
+          )} />/>
           <Route exact path="/main" render={(props) => (
             <MainPage {...this.state} {...props} />
           )} />

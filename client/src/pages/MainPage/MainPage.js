@@ -90,7 +90,6 @@ renderGame(game) {
    let playerName;
    for (let i = 0; i < activeUsers.length; i++) {
      let user = activeUsers[i];
-     console.log(user);
      if (user._id === playerId) {
        playerName = user.username;
        return playerName;
