@@ -4,31 +4,45 @@ import GameView from "./pages/GameView/GameView";
 import MainPage from "./pages/MainPage/MainPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import io from "socket.io-client";
+import deepObjectAssign from './deepObjectAssign';
 //import "./App.css";
 
 class App extends Component {
   state = {
     user: {
       stats: {}
-    }
+    },
+    games: {}
   };
 
   componentWillMount() {
     // define one socket connection for the whole app
     const socket = io();
-    let gameId = null;
+    // let gameId = null;
     let activeUsers = [];
-    // Check url for game id.
-    const matches = window.location.pathname.match(/\/game\/(.+)/);
-    if (matches && matches.length) {
-       gameId = matches[1];
-    }
-    this.setState({socket, gameId, activeUsers});
+    // // Check url for game id.
+    // const matches = window.location.pathname.match(/\/game\/(.+)/);
+    // if (matches && matches.length) {
+    //    gameId = matches[1];
+    // }
+    this.setState({socket, /*gameId,*/ activeUsers});
     window.socket = socket;
     // console.log('adding connect handler');
     socket.on('connect', () => {
       // console.log('connected to socket');
     });
+
+    // Axios.get('/api/games')
+    // .then(response => {
+    //   if (response.data) {
+    //     let games = {...this.state.games};
+    //     for (let g = 0; g < response.data.length; g++) {
+    //       games[response.data[g]._id] = response.data[g];
+    //     }
+    //     this.setState({ games });
+    //   }
+    // })
+    // .catch(err => console.log(err));
 
     // Redirects to the given path, if not already at that path.
     const redirectToPath = path => {
@@ -69,33 +83,44 @@ class App extends Component {
     // by clicking the `Create Game` button in `MainPage.js`.
     socket.on('openGame', game => {
       // Append the new game to the end of the list of games.
-      this.setState({games: [...this.state.games, game]});
-      if (game.playerOrder[0] === this.state.user.id) {
-        // redirectToPath(`/game/${game._id}`);
-      }
+      let games = {...this.state.games};
+      games[game._id] = game;
+      this.setState({ games });
+      // if (game.playerOrder[0] === this.state.user.id) {
+      //   // redirectToPath(`/game/${game._id}`);
+      // }
     });
-    socket.on('games', games => {
-      this.setState({games});
-      const myGames = games.filter(game => {
-        return game.playerOrder.some(id => id === this.state.user.id);
-      });
-    });
-    const updateGameInState = game => {
-      let i;
-      for (i = 0; i < this.state.games.length; i++) {
-        if (this.state.games[i]._id === game._id) break;
+    socket.on('games', newGames => {
+      let games = {...this.state.games};
+      for (let g = 0; g < newGames.length; g++) {
+        games[newGames[g]._id] = deepObjectAssign(games[newGames[g]._id] || {}, newGames[g]);
+        socket.emit('myHand', newGames[g]._id);
       }
-      const newGames = [...this.state.games];
-      newGames.splice(i, 1, game);
-      this.setState({games: newGames});
+      this.setState({ games });
+      // const myGames = games.filter(game => {
+      //   return game.playerOrder.some(id => id === this.state.user.id);
+      // });
+    });
+    let updateGameInState = ({ refresh }) => (gameId, game) => {
+      // let i;
+      // for (i = 0; i < this.state.games.length; i++) {
+      //   if (this.state.games[i]._id === game._id) break;
+      // }
+      // const newGames = [...this.state.games];
+      // newGames.splice(i, 1, game);
+      // this.setState({games: newGames});
+      let games = {...this.state.games};
+      games[gameId] = deepObjectAssign(games[gameId], game);
+      this.setState({ games });
+      // debugger;
+      if (refresh) socket.emit('myHand', gameId);
     }
-    socket.on('gameStateUpdate', game => updateGameInState(game));
-    socket.on('gameStarted', game => {
-      updateGameInState(game);
-    });
+    socket.on('gameStateUpdate', updateGameInState({ refresh: true }));
+    socket.on('gameStarted', updateGameInState({ refresh: true }));
+    socket.on('partialState', updateGameInState({ refresh: false }));
     socket.on('leftGame', game => {
       console.log('finished leaving game.');
-      gameId = null;
+      // gameId = null;
       redirectToPath(`/main`);
     });
     socket.on('err', err => {console.log(err)});
@@ -121,7 +146,7 @@ class App extends Component {
             <MainPage {...this.state} {...props} />
           )} />
           <Route exact path="/game/:gameId" render={(props) => (
-            <GameView {...props} user={this.state.user} />
+            <GameView {...props} gameId={props.match.params.gameId} game={this.state.games[props.match.params.gameId]} user={this.state.user} />
           )} />
         </Switch>
       </div>

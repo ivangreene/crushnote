@@ -86,7 +86,7 @@ module.exports = (socket, io, userSockets) => {
       Game.joinGame(gameID, socket.request.session.userId)
         .then(joinedGame => {
           socket.join(joinedGame._id);
-          io.emit('gameStateUpdate', cleanGameState(joinedGame));
+          io.to(joinedGame._id).emit('gameStateUpdate', joinedGame._id, cleanGameState(joinedGame));
         })
         .catch(err => socket.emit('err', { message: err }));
     });
@@ -96,7 +96,7 @@ module.exports = (socket, io, userSockets) => {
       console.log(`gameId`, gameID, `| userId`, socket.request.session.userId);
       Game.startGame(gameID, socket.request.session.userId)
         .then(game => {
-          io.to(game._id).emit('gameStarted', cleanGameState(game));
+          io.to(game._id).emit('gameStarted', game._id, cleanGameState(game));
         })
         .catch(err => socket.emit('err', { message: err }));
     });
