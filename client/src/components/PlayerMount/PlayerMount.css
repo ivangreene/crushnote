@@ -15,6 +15,7 @@
 }
 
 .opponent-side {
+  position: relative;
   margin-left: 25px;
   height: 125px;
   width: 33%;
@@ -55,6 +56,13 @@
 
 #opponent_hand{
   padding:5px;
+}
+
+#moveIndicator{
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  margin-bottom: 10px;
 }
 
 .activePlayer{

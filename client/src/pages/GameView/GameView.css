@@ -1,48 +1,47 @@
-
-.body-image{
-    background-image: url("../../style/img/table1 (2).png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: 100%;
+.body-image {
+  background-image: url("../../style/img/table1 (2).png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: 100%;
 }
 
-#card_view{
+#card_view {
   text-align: center;
-  clear:both;
+  clear: both;
   margin-bottom: 10px;
 }
 
-footer{
-position:absolute;
-left:0;
-bottom:0;
-right:0;
-}
+/*footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}*/
 
 .hud {
   width: 100%;
-  padding-right:25px;
+  padding-right: 25px;
   padding-top: 5px;
   bottom: 10px;
-  display:block;
+  display: block;
 }
 
 /*==== User Side ===*/
 
-#player_name{
-  margin:0 auto;
+#player_name {
+  margin: 0 auto;
 }
 
 .player-side {
-  height:100%;
-  width:33%;
+  position: relative;
+  height: 100%;
+  width: 33%;
   float: right;
   margin-right: 25px;
   background-color: #c4cbcc;
   -webkit-box-shadow: 10px 10px 5px #494343
 }
-
 
 .no-point, .round-won {
   color: red;
@@ -52,22 +51,22 @@ right:0;
   font-size: 50px;
 }
 
-#show_hud_area{
-  width:100%;
+#show_hud_area {
+  width: 100%;
 }
 
 .hud {
   width: 100%;
-  padding-right:25px;
+  padding-right: 25px;
   padding-top: 5px;
   bottom: 10px;
-  display:block;
+  display: block;
 }
 
 /*==== User Side ===*/
 
-#player_name{
-  margin:0 auto;
+#player_name {
+  margin: 0 auto;
 }
 
 #user_round_tokens {
@@ -77,7 +76,6 @@ right:0;
   border-width: 3px;
   margin-left: 50px;
 }
-
 
 #round_score {
   float: left;
@@ -113,10 +111,12 @@ right:0;
   z-index: 500;
 }
 
-#user-buttons{
-  float:left;
+#user-buttons {
+  width: 33.333%;
+  float: left;
+  text-align: center;
 }
 
-.player-active{
+.player-active {
   border: 5px solid red;
 }
