@@ -105,18 +105,6 @@ class GameView extends Component {
     return [...this.props.game.playerOrder.slice(0, index), ...this.props.game.playerOrder.slice(index + 1, this.props.game.playerOrder.length)];
   }
 
-  getPlayerName(playerId) {
-    let activeUsers = this.props.activeUsers;
-    let playerName;
-    for (let i = 0; i < activeUsers.length; i++) {
-      let user = activeUsers[i];
-      if (user._id === playerId) {
-        playerName = user.username;
-        return playerName;
-      }
-    }
-  }
-
   render() {
     // console.log(this.props.games, this.props.gameId);
     // if (!this.props.gameId || !this.props.games) return null;
