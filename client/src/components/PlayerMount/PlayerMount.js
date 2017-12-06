@@ -3,7 +3,7 @@ import "./PlayerMount.css";
 
 class PlayerMount extends Component {
   render() {
-    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" style={(this.props.userId && this.props.selected === this.props.userId) ? {backgroundColor: 'yellow'} : undefined }>
+    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" style={this.props.selected ? {backgroundColor: 'yellow'} : undefined }>
       <div className="opponent_stats">
         <header>
           <i className="material-icons">&#xE87C;</i>    User Name</header>
