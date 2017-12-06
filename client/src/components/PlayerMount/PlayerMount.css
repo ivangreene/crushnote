@@ -63,8 +63,21 @@
   -webkit-animation-iteration-count: infinite;
 }
 
+.selectedOpponent{
+  -webkit-animation-name: indicateOpponent;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+
 @-webkit-keyframes indicateTurn {
   from { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
   50% { box-shadow: #91bd09; -webkit-box-shadow: 0 0 28px #0bedaf; }
+  to { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
+}
+
+@-webkit-keyframes indicateOpponent {
+  from { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
+  50% { box-shadow: #91bd09; -webkit-box-shadow: 0 0 28px red; }
   to { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
 }

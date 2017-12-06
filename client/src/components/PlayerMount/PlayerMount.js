@@ -4,12 +4,8 @@ import "./PlayerMount.css";
 class PlayerMount extends Component {
 
   render() {
-    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" style={(
-        this.props.userId && this.props.selected === this.props.userId)
-        ? {
-          backgroundColor: 'yellow'
-        }
-        : undefined}  className={(this.props.player && this.props.player.active) ? 'activePlayer' : undefined}>
+    return(<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(this.props.player.active) ? 'activePlayer' : (this.props.selected) ? 'selectedOpponent' : undefined
+      }>
       <div className="opponent_stats">
         <header>
           <i className="material-icons">&#xE87C;</i>
