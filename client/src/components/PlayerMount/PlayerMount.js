@@ -23,9 +23,9 @@ class PlayerMount extends Component {
           <div className="opponent_card">
             1
           </div>
-          <div className="opponent_card">
+          { this.props.player && this.props.player.active && <div className="opponent_card">
             2
-          </div>
+          </div>} 
         </div>
       </div>
     </a>);
