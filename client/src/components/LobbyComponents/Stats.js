@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PlayerListDetail from "./PlayerListDetail";
-import axios from 'axios';
+
 
 class Stats extends Component {
 

@@ -39,7 +39,6 @@ module.exports=[
     id: "6",
     count: "1",
     action: "When this card is played, its player trades hands with any other player.",
-    image:"../style/img/kingtest.jpg",
     image: require("../style/img/king.jpg")
   },
   {

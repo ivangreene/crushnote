@@ -1,12 +1,8 @@
-<<<<<<< Updated upstream
+
 #login_body {
   width: 100%;
-  float:left;
   position: absolute;
-  top:25%;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  text-align: center;
   margin: auto;
 }
 
@@ -20,4 +16,5 @@ svg {
   width: 100%;
   color: white;
   background-color: #3c5b75;
+  padding:10px;
 }

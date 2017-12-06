@@ -112,12 +112,19 @@ class GameView extends Component {
          <div id="user-buttons">
            <AllCardView/>
            <GameChat />
+           <button
+             onClick={game => {
+               this.props.socket.emit('leaveGame', this.props.gameId);
+             }}
+           >
+             Abandon Game
+           </button>
          </div>
        </div>
 
         <div className="pure-g"  id="card_view">
           <div className="pure-u-1-3" id="discard">
-            <DiscardPile />
+             <DiscardPile />
           </div>
           <div className="pure-u-1-3" id="cards_in_play">
             {/* <p>Card currently played</p> */}
@@ -136,23 +143,12 @@ class GameView extends Component {
             <div className="player-side">
               <PlayerMount userId={game.playerOrder[1]} player={game.players[game.playerOrder[1]]}/>
             </div>
-            <div id="user-buttons">
-              <AllCardView/>
-              <GameChat />
-              <button
-                onClick={game => {
-                  this.props.socket.emit('leaveGame', this.props.gameId);
-                }}
-              >
-                Abandon Game
-              </button>
-            </div>
+
           </div>
         </footer>
 
     </div>);
   }
-
 }
 
 export default GameView;

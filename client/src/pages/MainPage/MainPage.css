@@ -20,6 +20,10 @@
   height:auto;
 }
 
+.gameListEntry{
+  border: 1px outset;
+}
+
 .fade {
   animation: fade 2s steps(90) forwards;
   -webkit-animation: fade 2s steps(90) forwards;

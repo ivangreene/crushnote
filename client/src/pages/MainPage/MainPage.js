@@ -10,7 +10,6 @@ class MainPage extends Component {
     isLoggedIn: false
   };
 
-
   // socket.on('userLoggedIn', function(data) {
   //   console.log(`a user logged in:`, data);
   // });
@@ -20,9 +19,9 @@ class MainPage extends Component {
 
   render() {
     return (<div>
-      <div id="login_title" className="fade hide">
+      {/* <div id="login_title" className="fade hide">
         <h1 className='elegantshadow'>Crush Note</h1>
-      </div>
+      </div> */}
 
       <div className="pure-g gutters" id="main_body">
 
@@ -64,17 +63,17 @@ class MainPage extends Component {
   }
 
   renderGame(game) {
+    console.log(game)
     const canJoinGame = game.open;
     return (
       <div className="gameListEntry" key={game._id}>
-        <div>{game.playerOrder.length} Players</div>
+        <p>Need to bring player name in from unique id sent back </p>
         <div>{game.playerOrder.length} Players</div>
         { canJoinGame && <div>
           <button onClick={() => {
             this.props.socket.emit(`joinGame`, game._id);
             window.location.href = `game/${game._id}`
           }}>Join Game</button>
-          <hr></hr>
           </div> }
       </div>
     );
