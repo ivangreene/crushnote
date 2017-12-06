@@ -45,13 +45,13 @@ class MainPage extends Component {
                 Create Game
               </button>
           </p>
-          { this.props.games && this.props.games.sort((a, b) => {
-            if (a.open && !b.open)
+          { this.props.games && Object.keys(this.props.games).sort((a, b) => {
+            if (this.props.games[a].open && !this.props.games[b].open)
               return -1;
-            if (!a.open && b.open)
+            if (!this.props.games[a].open && this.props.games[b].open)
               return 1;
             return 0;
-          }).map(game => this.renderGame(game)) }
+          }).map(gameId => this.renderGame(this.props.games[gameId])) }
           {/*this should be top 5 users win/loss ratio*/}
           {/*<header id="top_players_header">Top Players</header>
           <h4>User Name</h4>
@@ -90,7 +90,6 @@ renderGame(game) {
    let playerName;
    for (let i = 0; i < activeUsers.length; i++) {
      let user = activeUsers[i];
-     console.log(user);
      if (user._id === playerId) {
        playerName = user.username;
        return playerName;
