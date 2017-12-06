@@ -136,10 +136,10 @@ module.exports = {
             return game;
         })
         .then(game => moveEngine(game._doc, move))
-        .then(newState => {
+        .then(([newState, showHand]) => {
           db.Game.findOneAndUpdate({_id}, newState)
             .then(() => { });
-          resolve(newState);
+          resolve([newState, showHand]);
         }, err => reject(err))
         .catch(err => console.log(err));
     });

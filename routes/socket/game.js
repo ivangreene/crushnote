@@ -10,7 +10,7 @@ module.exports = (socket, io, userSockets) => {
     /*
     * Game logic
     */
-    function sendUserHand(gameId, userId, state) {
+    function sendUserHand(gameId, userId, state, showHand) {
       let partialState = {
         players: {
           [userId]: { hand: state.players[userId].hand }
@@ -19,6 +19,10 @@ module.exports = (socket, io, userSockets) => {
       if (state.players[userId].active) {
         partialState.cards = { deck: [state.cards.deck[0]] };
       }
+      debugger;
+      if (showHand && showHand.to.toString() === userId.toString()) {
+        partialState.players[showHand.from] = { hand: state.players[showHand.from].hand };
+      }
       io.to(userId).emit('partialState', gameId, partialState);
     }
 
@@ -26,11 +30,11 @@ module.exports = (socket, io, userSockets) => {
       if (!move) move = {};
       move.player = socket.request.session.userId;
       Game.gameMove(gameId, move)
-        .then(newState => {
+        .then(([newState, showHand]) => {
           let cleanState = cleanGameState(newState);
           io.to(gameId).emit('gameStateUpdate', gameId, cleanState);
           newState.playerOrder.map(userId => {
-            sendUserHand(gameId, userId, newState);
+            sendUserHand(gameId, userId, newState, showHand);
           });
         })
         .catch(err => socket.emit('err', { message: err }));
