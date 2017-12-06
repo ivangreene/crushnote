@@ -12,7 +12,7 @@ class App extends Component {
       stats: {}
     }
   };
-  
+
   componentWillMount() {
     // define one socket connection for the whole app
     const socket = io();
@@ -118,7 +118,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={LoginPage}/>
           <Route exact path="/main" render={(props) => (
-            <MainPage {...this.state} />
+            <MainPage {...this.state} {...props} />
           )} />
           <Route exact path="/game/:gameId" render={(props) => (
             <GameView {...props} user={this.state.user} />

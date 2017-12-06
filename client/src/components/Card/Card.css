@@ -64,10 +64,10 @@
   font-size: 15px;
 }
 
-/* .card:hover {
+ .card-magnify:hover {
   transform: scale(1.5);
   z-index: 8 !important;
-} */
+}
 
 .card {
   transition: all .4s ease-in-out;
@@ -75,7 +75,7 @@
   z-index: 2;
 }
 
-#player_hand:hover, #cards_in_play:hover {
+#player_hand:hover {
   z-index: 8 !important;
 }
 
@@ -89,7 +89,6 @@ img {
 }
 
 /* --- Discard / Cheat Card  ----*/
-
 .cheatFrontSide {
   width:80%;
   padding:15px;
@@ -118,8 +117,6 @@ img {
   float: left;
   margin-left: 25px;
 }
-
-
 
 .accordion{
   margin-top: 10px;

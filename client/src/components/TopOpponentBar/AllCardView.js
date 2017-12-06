@@ -11,7 +11,7 @@ export default class AllCardView extends Component {
     return (
       <OffCanvas width={1200} transitionDuration={300} isMenuOpened={this.props.open} position={"right"}>
         <OffCanvasBody className="not-sure">
-          <button onClick={this.props.onClick} id="show_card_btn">Show Cards</button>
+          <button onClick={this.props.onClick} className="green"  id="show_card_btn">Show Cards</button>
         </OffCanvasBody>
         <OffCanvasMenu className="nav-menu">
             {/* <button id="hide_cards_btn" onClick={this.handleClick.bind(this)}>Hide Cards</button> */}

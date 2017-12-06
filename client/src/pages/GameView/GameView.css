@@ -111,3 +111,6 @@ right:0;
   z-index: 500;
 }
 
+#user-buttons{
+  float:left;
+}

@@ -10,7 +10,6 @@ class MainPage extends Component {
     isLoggedIn: false
   };
 
-
   // socket.on('userLoggedIn', function(data) {
   //   console.log(`a user logged in:`, data);
   // });
@@ -20,7 +19,7 @@ class MainPage extends Component {
 
   render() {
     return (<div>
-      <div id="login_title" /*className="fade hide"*/>
+      <div id="login_title">
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
 
@@ -69,21 +68,34 @@ class MainPage extends Component {
     </div>)
   }
 
-  renderGame(game) {
-    const canJoinGame = game.open;
-    // if (!canJoinGame) return undefined;
-    return (
-      <div className="gameListEntry" key={game._id}>
-        <div>{game.playerOrder.length} Players</div>
-        { canJoinGame && <div>
-          <button onClick={() => {
-            this.props.socket.emit(`joinGame`, game._id);
-            window.location.href = `game/${game._id}`
-          }}>Join Game</button>
-          <hr></hr>
-          </div> }
-      </div>
-    );
-  }
+renderGame(game) {
+   const canJoinGame = game.open;
+   return (
+     <div className="gameListEntry" key={game._id}>
+       <div>
+       {this.getPlayerName(game.playerOrder[0])}'s game</div>
+       <div>{game.playerOrder.length} Players</div>
+       { canJoinGame && <div>
+         <button onClick={() => {
+           this.props.socket.emit(`joinGame`, game._id);
+           window.location.href = `game/${game._id}`
+         }}>Join Game</button>
+         <hr></hr>
+         </div> }
+     </div>
+   );
+ }
+ getPlayerName(playerId) {
+   let activeUsers = this.props.activeUsers;
+   let playerName;
+   for (let i = 0; i < activeUsers.length; i++) {
+     let user = activeUsers[i];
+     console.log(user);
+     if (user._id === playerId) {
+       playerName = user.username;
+       return playerName;
+     }
+   }
+ }
 }
 export default MainPage;
