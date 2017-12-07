@@ -5,6 +5,9 @@
   background-position: center;
   background-size: 100%;
 }
+#game_box{
+  padding:25px;
+}
 
 #card_view {
   text-align: center;
@@ -12,35 +15,10 @@
   margin-bottom: 10px;
 }
 
-/*footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}*/
-
-.hud {
-  width: 100%;
-  padding-right: 25px;
-  padding-top: 5px;
-  bottom: 10px;
-  display: block;
-}
-
 /*==== User Side ===*/
 
 #player_name {
   margin: 0 auto;
-}
-
-.player-side {
-  position: relative;
-  height: 100%;
-  width: 33%;
-  float: right;
-  margin-right: 25px;
-  background-color: #c4cbcc;
-  -webkit-box-shadow: 10px 10px 5px #494343
 }
 
 .no-point, .round-won {
@@ -51,17 +29,6 @@
   font-size: 50px;
 }
 
-#show_hud_area {
-  width: 100%;
-}
-
-.hud {
-  width: 100%;
-  padding-right: 25px;
-  padding-top: 5px;
-  bottom: 10px;
-  display: block;
-}
 
 /*==== User Side ===*/
 
@@ -89,12 +56,6 @@
 /* style for start game button */
 
 .startGameBox {
-  /*background-image: -webkit-linear-gradient(left, #fade7c 10%, #faebc9 80%);
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  -webkit-animation: stripes 3s ease-in-out infinite;
-  animation: stripes 3s ease-in-out infinite;*/
-
   border: 1px solid red;
   background-color: #ffffff;
   padding: 4em 2em;
@@ -132,11 +93,15 @@
 /*-----------------------*/
 
 #user-buttons {
-  width: 33.333%;
+  /*width: 33.333%;*/
   float: left;
   text-align: center;
 }
 
 #startNewGameBtn{
   margin-bottom: 15px;
+}
+
+#game_buttons{
+  list-style: none;
 }
