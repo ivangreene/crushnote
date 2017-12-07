@@ -4,6 +4,8 @@ const gameSeed = () => require('../lib/seeds/game');
 const playerSeed = () => require('../lib/seeds/player');
 const moveEngine = require('../lib/engine/move');
 
+const ROUNDS = [7, 7, 7, 5, 4];
+
 // used in controllers/gamesController.js
 module.exports = {
   // lists all current matching games: for joining/watching games
@@ -108,11 +110,12 @@ module.exports = {
         .then(game => {
           if (!game)
             return reject('Game not found.');
-          if (!game.open)
+          if (!game.open && !game.waiting)
             return reject('Game already started.');
           if (game.playerOrder[0].toString().trim() !== userID.toString().trim())
             return reject(`Only the originating player can start a game.`);
           game.open = false;
+          game.waiting = false;
           game.players[game.playerOrder[0]].active = true;
           for (let p = 0; p < game.playerOrder.length; p++) {
             game.players[game.playerOrder[p]].hand = game.cards.deck.shift();
@@ -130,7 +133,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.Game.findById(_id)
         .then(game => {
-          debugger;
           if (!game)
             return new Error(reject('Game not found.'));
           else
@@ -139,15 +141,29 @@ module.exports = {
         .then(game => moveEngine(game._doc, move))
         .then(([newState, showHand, roundComplete]) => {
           if (roundComplete) {
-            let seeded = gameSeed();
-            seeded.cards.deck = shuffle(shuffle(seeded.cards.deck));
-            seeded.players = newState.players;
-            seeded.playerOrder = newState.playerOrder;
-            seeded.playerOrder.map(p => {
-              seeded.players[p].eliminated = false;
-              seeded.players[p].active = false;
+            debugger;
+            let gameOver = false;
+            let rounds = ROUNDS[newState.playerOrder.length];
+            newState.playerOrder.map(p => {
+              if (newState.players[p].hearts >= rounds) {
+                gameOver = true;
+                newState.winner = p;
+                newState.completed = true;
+              }
             });
-            newState = seeded;
+            if (!gameOver) {
+              let seeded = gameSeed();
+              seeded.cards.deck = shuffle(shuffle(seeded.cards.deck));
+              seeded.players = newState.players;
+              seeded.open = false;
+              seeded.waiting = true;
+              seeded.playerOrder = newState.playerOrder;
+              seeded.playerOrder.map(p => {
+                seeded.players[p].eliminated = false;
+                seeded.players[p].active = false;
+              });
+              newState = seeded;
+            }
           }
           db.Game.findOneAndUpdate({_id}, newState)
             .then(() => { });

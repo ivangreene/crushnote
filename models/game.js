@@ -15,7 +15,9 @@ const gameSchema = new Schema({
     excluded: Number
   },
   open: Boolean,
-  completed: Boolean
+  completed: Boolean,
+  waiting: Boolean,
+  winner: { type: Schema.Types.ObjectId, ref: 'User' }
 }, { minimize: false });
 
 const Game = mongoose.model("Game", gameSchema);

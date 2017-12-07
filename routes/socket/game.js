@@ -19,7 +19,6 @@ module.exports = (socket, io, userSockets) => {
       if (state.players[userId].active) {
         partialState.cards = { deck: [state.cards.deck[0]] };
       }
-      debugger;
       if (showHand && showHand.to.toString() === userId.toString()) {
         partialState.players[showHand.from] = { hand: state.players[showHand.from].hand };
       }
