@@ -10,16 +10,17 @@ let data = require('../../gamejson/cards.js');
 export default class AllCardView extends Component {
 
   render() {
+    console.log(this.props)
     return (
       <MuiThemeProvider>
       <OffCanvas width={1200} transitionDuration={300} isMenuOpened={this.props.open} position={"right"}>
         <OffCanvasBody className="not-sure">
-          <RaisedButton label="Show Cards" primary={true} onClick={this.props.onClick} className="green" />
+          <RaisedButton   label="Show Cards" primary={true} onClick={this.props.onClick} className="green" />
         </OffCanvasBody>
         <OffCanvasMenu className="nav-menu">
             {/* <button id="hide_cards_btn" onClick={this.handleClick.bind(this)}>Hide Cards</button> */}
             <i className="material-icons md-48"  id="hide_cards_btn" onClick={this.props.onClick}>done</i>
-              <CardList onClick={this.props.chooseCard} cards={data} />
+              <CardList onClick={this.props.chooseCard} cards={data} HideGuard={this.props.hideGuard}/>
         </OffCanvasMenu>
       </OffCanvas>
     </MuiThemeProvider>

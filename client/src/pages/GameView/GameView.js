@@ -26,11 +26,16 @@ class GameView extends Component {
 
   state = {
     cardViewOpen: false,
+    hideGuard: false,
     move: {}
   };
 
   openCardView() {
     this.setState({ cardViewOpen: true });
+  }
+
+  openGuardCardView(){
+    this.setState({ cardViewOpen: true, hideGuard: true});
   }
 
   closeCardView() {
@@ -98,7 +103,7 @@ class GameView extends Component {
     if (attr === 'guessedCard')
       this.closeCardView();
     else if (move.card === GUARD && move.chosenPlayer)
-      this.openCardView();
+      this.openGuardCardView();
     this.setState({ move });
   }
 
@@ -167,7 +172,7 @@ class GameView extends Component {
         <div className="pure-u-1-3" id="top_buttons">
           <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
               cardViewOpen: !this.state.cardViewOpen
-            })} open={this.state.cardViewOpen}/>
+            })} open={this.state.cardViewOpen} hideGuard={this.state.hideGuard}/>
         </div>
 
         <div className="player-mount pure-u-1-3">
@@ -184,7 +189,7 @@ class GameView extends Component {
 
       <div className="pure-g" id="card_view">
 
-        <div className="pure-u-1-4">
+        <div className="pure-u-1-4" id="disList">
           <DiscardPile discarded={this.props.game.cards.played}/>
         </div>
 
