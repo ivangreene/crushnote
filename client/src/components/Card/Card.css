@@ -12,6 +12,10 @@
   border-radius: 10px;
 }
 
+#CardContainer:hover{
+  cursor:pointer;
+}
+
 .card_value {
   font-weight: 600;
   font-size: 25px;
@@ -113,16 +117,16 @@ img {
   background-color: #e7e5e4ad;
 }
 
-#discard_button {
+/*#discard_button {
   float: left;
   margin-left: 25px;
-}
+}*/
 
-.accordion{
+/*.accordion{
   margin-top: 10px;
-}
+}*/
 
-.accordion:hover .accordion-content {
+/*.accordion-toggle:hover .accordion-content {
   max-height: 500px;
 }
 .accordion-content {
@@ -133,4 +137,4 @@ img {
   transition: max-height 1s;
   overflow: hidden;
   max-height: 0;
-}
+}*/

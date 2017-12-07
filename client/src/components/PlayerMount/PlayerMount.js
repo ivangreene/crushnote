@@ -12,13 +12,13 @@ class PlayerMount extends Component {
   }
 
   render() {
-    console.log(this.props.player.hand)
+    console.log(this.props.player)
     return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
         this.props.player.active
         ? 'activePlayer'
         : '') + (
         this.props.selected
-        ? 'selectedOpponent'
+        ? ' selectedOpponent'
         : '')}>
       <div className="opponent_stats">
         <header>
@@ -35,7 +35,7 @@ class PlayerMount extends Component {
         <div id="hand_title">cards held</div>
         <div className="card_spacing">
           <div className="opponent_card">
-            1
+            1 {this.props.player.hand}
           </div>
           {
             this.props.player && this.props.player.active && <div className="opponent_card">
