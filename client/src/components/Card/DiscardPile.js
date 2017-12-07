@@ -40,19 +40,17 @@ class DiscardList extends Component {
   }
 
   render() {
-  //  console.log(this.props.discardlist)
 
     const discarded = data.map((card) => {
       let discardedThisRound = 0;
       for(let i=0; i < this.props.discardlist.length; i++){
       if(card.id === this.props.discardlist[i]){
-        console.log(true)
         discardedThisRound ++;
       }
     }
       return (<li key={card.id} card={card}>
         <p>{card.name}
-          : {discardedThisRound}</p>
+          : ({discardedThisRound}) Total in deck: ({card.count})</p>
       </li>);
     });
 
