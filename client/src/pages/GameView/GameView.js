@@ -29,6 +29,14 @@ class GameView extends Component {
     move: {}
   };
 
+  openCardView() {
+    this.setState({ cardViewOpen: true });
+  }
+
+  closeCardView() {
+    this.setState({ cardViewOpen: false });
+  }
+
   componentDidMount() {
       document.body.classList.add('body-image');
     }
@@ -75,18 +83,23 @@ class GameView extends Component {
 
   sendMove = () => {
     let move = {...this.state.move};
-    if (move.card === 'deck') {
-      move.card = this.props.game.cards.deck[0];
-    } else if (move.card === 'hand') {
-      move.card = this.props.game.players[this.props.user.id].hand;
-    }
     this.socket.emit('gameMove', this.props.gameId, move);
     this.setState({ move: {} });
   }
 
   addToMove = attr => val => {
-    let move = JSON.parse(JSON.stringify(this.state.move));
+    let move = {...this.state.move};
+    if (attr === 'cardSelect') {
+      if (val === 'deck')
+        move.card = this.props.game.cards.deck[0];
+      else if (val === 'hand')
+        move.card = this.props.game.players[this.props.user.id].hand;  
+    }
     move[attr] = val;
+    if (attr === 'guessedCard')
+      this.closeCardView();
+    else if (move.card === GUARD && move.chosenPlayer)
+      this.openCardView();
     this.setState({ move });
   }
 
@@ -154,11 +167,11 @@ class GameView extends Component {
           </div>
           <div className="pure-u-1-3" id="cards_in_play">
             <p>&nbsp;</p>
-            <Card onClick={() => this.addToMove('card')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.card === 'deck'} />
+            <Card onClick={() => this.addToMove('cardSelect')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} />
           </div>
           <div className="pure-u-1-3"  id="player_hand">
             <p>Your Hand</p>
-            <Card onClick={() => this.addToMove('card')('hand')} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.card === 'hand'} />
+            <Card onClick={() => this.addToMove('cardSelect')('hand')} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} />
           </div>
         </div>
 
