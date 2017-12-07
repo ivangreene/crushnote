@@ -31,6 +31,7 @@ module.exports = (socket, io, userSockets) => {
       Game.gameMove(gameId, move)
         .then(([newState, showHand]) => {
           let cleanState = cleanGameState(newState);
+          cleanState.players[socket.request.session.userId].hand = null;
           io.to(gameId).emit('gameStateUpdate', gameId, cleanState);
           newState.playerOrder.map(userId => {
             sendUserHand(gameId, userId, newState, showHand);
