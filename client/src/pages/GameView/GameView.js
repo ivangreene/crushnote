@@ -221,11 +221,11 @@ class GameView extends Component {
           </div>
 
           <div className="pure-u-1-3" id="bottom_buttons">
-            <RaisedButton  label="Quit Game" onClick={game => {
+            <RaisedButton secondary={true} label="Quit Game" onClick={game => {
                 this.socket.emit('leaveGame', this.props.gameId);
               }} />
               <span id="bottom_fix"></span>
-              <RaisedButton label="Lobby" href="/main" target="blank"/>
+              <RaisedButton primary={true} label="Lobby" href="/main" target="blank"/>
           </div>
 
           <div className="player-mount pure-u-1-3">

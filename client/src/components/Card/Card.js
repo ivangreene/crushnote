@@ -48,8 +48,8 @@ const Card =({card, isHeld, onClick, playCard, selected, ready })=>{
           { isHeld && (
             ready(card) && ready(card) !== 'guard' ?
               <RaisedButton onClick={playCard} label="Play Card" primary={true} />
-              : ready(card) === 'guard' ? <RaisedButton label="Guess Card" />
-              : <RaisedButton label="Select Target" /> ) }
+              : ready(card) === 'guard' ? <RaisedButton seondary={true} label="Guess Card" />
+              : <RaisedButton secondary={true} label="Select Target" /> ) }
         </div>
         </div>
       </a></div></MuiThemeProvider>

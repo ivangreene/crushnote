@@ -121,5 +121,6 @@ img {
 #cardPlayButton{
   position:absolute;
   bottom:10%;
-  left:20%;
+  left:0;
+  right:0;
 }
