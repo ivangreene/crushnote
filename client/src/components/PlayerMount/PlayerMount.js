@@ -3,6 +3,14 @@ import "./PlayerMount.css";
 
 class PlayerMount extends Component {
 
+  hearts() {
+    let icons = [];
+    for (let i = 1; i <= 4; i++) {
+      icons.push(<i key={i} className="material-icons no-point">{this.props.player.hearts >= i ? 'favorite' : 'favorite_border'}</i>);
+    }
+    return icons;
+  }
+
   render() {
     return(
       <a
@@ -20,10 +28,7 @@ class PlayerMount extends Component {
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
         </h4>
-        <i className="material-icons no-point">&#xE87D;</i>
-        <i className="material-icons no-point">&#xE87D;</i>
-        <i className="material-icons round-won">favorite_border</i>
-        <i className="material-icons round-won">favorite_border</i>
+        { this.hearts() }
       </div>
       <div id="opponent_hand">
         <div id="hand_title">cards held</div>
