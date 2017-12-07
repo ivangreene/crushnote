@@ -178,6 +178,7 @@ class GameView extends Component {
                 ? <PlayerMount
                     onClick={this.addToMove('chosenPlayer')}
                     userId={this.props.user.id}
+                    currentUser={true}
                     player={this.props.game.players[this.props.user.id]}
                     selected={this.state.move.chosenPlayer === this.props.user.id}
                   />
