@@ -3,14 +3,19 @@ import "./PlayerMount.css";
 
 class PlayerMount extends Component {
 
-
   render() {
 
-    return(<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(this.props.player.active ? 'activePlayer' : '') + (this.props.selected ? 'selectedOpponent' : '')
-      }>
+    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
+        this.props.player.active
+        ? 'activePlayer'
+        : '') + (
+        this.props.selected
+        ? 'selectedOpponent'
+        : '')}>
       <div className="opponent_stats">
         <header>
-          <i className="material-icons">&#xE87C;</i>       {this.props.name}</header>
+          <i className="material-icons">&#xE87C;</i>
+          {this.props.name}</header>
       </div>
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
@@ -33,7 +38,13 @@ class PlayerMount extends Component {
           }
         </div>
       </div>
-      <p id="moveIndicator">{(this.props.player.active) ? "player's turn" : (this.props.selected) ? "selected opponent" : ""}</p>
+      <p id="moveIndicator">{
+          (this.props.player.active)
+            ? "player's turn"
+            : (this.props.selected)
+              ? "selected opponent"
+              : ""
+        }</p>
     </a>);
   };
 
