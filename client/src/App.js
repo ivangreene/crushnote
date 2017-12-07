@@ -72,7 +72,6 @@ class App extends Component {
       socket.emit('getActiveUsers');
     });
     socket.on('recieveActiveUsers', users => {
-      // console.log(`-------\n\nusers returned are:`, users);
       this.setState({activeUsers: users})
     });
     // This will be emitted by the server when a user creates a new game,
@@ -93,9 +92,6 @@ class App extends Component {
         socket.emit('myHand', newGames[g]._id);
       }
       this.setState({ games });
-      // const myGames = games.filter(game => {
-      //   return game.playerOrder.some(id => id === this.state.user.id);
-      // });
     });
 
     let getPlayerName = playerId => {
@@ -125,9 +121,12 @@ class App extends Component {
     socket.on('gameStateUpdate', updateGameInState({ refresh: true }));
     socket.on('gameStarted', updateGameInState({ refresh: true }));
     socket.on('partialState', updateGameInState({ refresh: false }));
-    socket.on('leftGame', game => {
-      console.log('finished leaving game.');
-      redirectToPath(`/main`);
+    socket.on('leftGame', () => redirectToPath(`/main`));
+    socket.on('updateGameList', gameId => {
+      console.log('a user abandoned a game, so update game list');
+      let games = {...this.state.games};
+      delete games[gameId];
+      this.setState({ games });
     });
     socket.on('err', err => {console.log(err)});
   }

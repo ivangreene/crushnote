@@ -69,7 +69,7 @@ class MainPage extends Component {
   }
 
 renderGame(game) {
-   const canJoinGame = game.open;
+   const canJoinGame = game.open || game.playerOrder.some(id => id === this.props.user.id);
    return (
      <div className="gameListEntry" key={game._id}>
        <div>
