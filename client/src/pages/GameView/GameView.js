@@ -155,12 +155,9 @@ class GameView extends Component {
             })} open={this.state.cardViewOpen}/>
              {/* <GameChat /> */}
           <button className="green" onClick={this.sendMove}>Play Card</button>
-          <button className="green" onClick={this.startGame}>Start Game</button>
-          <button onClick={game => {
-              this.socket.emit('leaveGame', this.props.gameId);
-            }}>
-            Abandon Game
-          </button>
+          <button onClick={
+            game => this.socket.emit('leaveGame', this.props.gameId)
+          }>Abandon Game</button>
         </div>
         <div className="player-side pure-u-1-3">
           {this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.props.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[2]}/>}
