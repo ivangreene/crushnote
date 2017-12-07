@@ -41,6 +41,13 @@ class App extends Component {
     });
     socket.on('createUserFail', data => {
       // when user cannot be created, alert user
+      this.setState({
+        userCreationError: data,
+        userCreationErrorTimeoutId: setTimeout(() => {
+          clearInterval(this.state.userCreationErrorTimeoutId);
+          this.setState({userCreationError: null});
+        }, 7000)
+      });
     });
     socket.on('logInSuccess', () => {
       this.setState({login: 'success'});
