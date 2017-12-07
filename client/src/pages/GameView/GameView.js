@@ -18,6 +18,8 @@ const PRINCESS = 8,
   BARON = 3,
   PRIEST = 2,
   GUARD = 1;
+const requiresTarget = card => [KING, PRINCE, BARON, PRIEST, GUARD].indexOf(parseInt(card)) > -1;
+const requiresGuess = card => [GUARD].indexOf(parseInt(card)) > -1;
 /* eslint-enable no-unused-vars */
 
 class GameView extends Component {
@@ -39,7 +41,7 @@ class GameView extends Component {
   }
 
   closeCardView() {
-    this.setState({ cardViewOpen: false });
+    this.setState({ cardViewOpen: false, hideGuard: false });
   }
 
   componentDidMount() {
@@ -91,7 +93,7 @@ class GameView extends Component {
     this.setState({move: {}});
   }
 
-  addToMove = attr => val => {
+  addToMove = (attr, send) => val => {
     let move = { ...this.state.move };
     if (attr === 'cardSelect') {
       if (val === 'deck')
@@ -102,9 +104,17 @@ class GameView extends Component {
     move[attr] = val;
     if (attr === 'guessedCard')
       this.closeCardView();
-    else if (move.card === GUARD && move.chosenPlayer)
+    else if (move.card === GUARD && move.chosenPlayer && !send)
       this.openGuardCardView();
-    this.setState({ move });
+    this.setState({ move }, send ? this.sendMove : () => {});
+  }
+
+  readyToPlay = card => {
+    card = card || this.state.move.card;
+    if (requiresTarget(card)) {
+      return this.state.move.chosenPlayer && (!requiresGuess(card) || this.state.move.guessedCard || 'guard');
+    }
+    return true;
   }
 
   joinGame = () => {
@@ -113,17 +123,6 @@ class GameView extends Component {
 
   startGame = () => {
     this.socket.emit('startGame', this.props.gameId);
-  }
-
-  playersBesidesMe() {
-    // Returns a playerOrder array, excluding this player
-    let index = this.props.game.playerOrder.indexOf(this.props.user.id);
-    if (index <= -1)
-      return this.props.game.playerOrder;
-    return [
-      ...this.props.game.playerOrder.slice(0, index),
-      ...this.props.game.playerOrder.slice(index + 1, this.props.game.playerOrder.length)
-    ];
   }
 
   getPlayerName(playerId) {
@@ -171,7 +170,7 @@ class GameView extends Component {
 
         <div className="pure-u-1-3" id="top_buttons">
           <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
-              cardViewOpen: !this.state.cardViewOpen
+              cardViewOpen: !this.state.cardViewOpen, hideGuard: false
             })} open={this.state.cardViewOpen} hideGuard={this.state.hideGuard}/>
         </div>
 
@@ -201,9 +200,9 @@ class GameView extends Component {
         <div className="pure-u-1-2" id="player_hand">
           <p>Your Hand</p>
           <div id="player_cards">
-          <Card playCard={this.sendMove} onClick={() => this.addToMove('cardSelect')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={true} />
+          <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('deck')}} onClick={() => this.addToMove('cardSelect')('deck')} ready={this.readyToPlay} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />
 
-          <Card playCard={this.sendMove} onClick={() => this.addToMove('cardSelect')('hand')} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={true} />
+          <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('hand')}} onClick={() => this.addToMove('cardSelect')('hand')} ready={this.readyToPlay} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />
         </div>
         </div>
       </div>

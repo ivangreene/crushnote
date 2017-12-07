@@ -35,12 +35,12 @@ class PlayerMount extends Component {
       <div id="opponent_hand">
         <div id="hand_title">cards held</div>
         <div className="card_spacing">
-          <div className="opponent_card">
-            1 {this.props.player.hand}
-          </div>
+          { this.props.player && !this.props.player.eliminated && <div className="opponent_card">
+            {!this.props.currentUser && this.props.player.hand}
+          </div> }
           {
             this.props.player && this.props.player.active && <div className="opponent_card">
-                2
+                
               </div>
           }
         </div>
