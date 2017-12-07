@@ -15,3 +15,8 @@ svg {
   background-color: #3c5b75;
   padding: 10px;
 }
+
+#signup_error_message {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}

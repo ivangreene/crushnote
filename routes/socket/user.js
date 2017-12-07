@@ -71,7 +71,15 @@ module.exports = (socket, io, userSockets) => {
     2: store username and userId on session */
 
   socket.on('saveNewUser', userData => {
-    User.create(userData).then(() => socket.emit('savedUser', userData));
+    User.create(userData)
+    .then(data => {
+      console.log('data:', data);
+      socket.emit('savedUser', userData)
+    })
+    .catch(err => {
+      console.log(`error:`, err);
+      socket.emit('createUserFail', err)
+    });
   });
 
   socket.on('authUser', userData => {

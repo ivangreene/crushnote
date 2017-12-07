@@ -46,17 +46,25 @@ module.exports = {
   // https://github.com/Automattic/mongoose/issues/5022
   create: (userData) => {
     console.log(`user data in usersDbCalls.js:`, userData);
-    if (userData.email &&
-      userData.username &&
-      userData.password &&
-      (userData.password === userData.passwordConfirm)) {
-      const data = {
-        email: userData.email,
-        username: userData.username,
-        password: userData.password
-      }
-      return db.User.create(data);
-    }
+    return new Promise((resolve, reject) => {
+      if (userData.email &&
+        userData.username &&
+        userData.password &&
+        (userData.password === userData.passwordConfirm)) {
+        const data = {
+          email: userData.email,
+          username: userData.username,
+          password: userData.password
+        }
+        return db.User.find({username: data.username})
+        .then(foundUser => {
+          if (foundUser.length > 0) reject('Please try a different username.');
+          if (foundUser.length === 0) {
+            resolve(db.User.create(data));
+          }
+        }).catch(err => reject(err));
+      } else reject('Please enter a username and password.');
+    });
   },
   // for editing existing user info: name, email, etc.
   update: (id, newState) => {
