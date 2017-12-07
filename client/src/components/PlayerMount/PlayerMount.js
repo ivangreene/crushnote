@@ -5,6 +5,8 @@ class PlayerMount extends Component {
 
 
   render() {
+    // console.log(this.props.player.hand)
+    // console.log(this.props.player.deck)
     return(<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(this.props.player.active ? 'activePlayer' : '') + (this.props.selected ? 'selectedOpponent' : '')
       }>
       <div className="opponent_stats">

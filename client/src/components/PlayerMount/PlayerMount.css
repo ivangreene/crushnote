@@ -71,7 +71,7 @@
   -webkit-animation-iteration-count: infinite;
 }
 
-.selectedOpponent{
+.selectedOpponent,  .card-magnify:hover{
   -webkit-animation-name: indicateOpponent;
   -webkit-animation-duration: 1.5s;
   -webkit-animation-iteration-count: infinite;

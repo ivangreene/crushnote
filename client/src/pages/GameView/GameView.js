@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Card from "../../components/Card/Card";
 // import CardBack from "../../components/Card/CardBack";
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
-// import DiscardPile from "../../components/Card/DiscardPile";
+import DiscardPile from "../../components/Card/DiscardPile";
 // import TopOpponentBar from "../../components/TopOpponentBar/TopOpponentBar";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
 // import GameChat from "../../components/Chat/GameChat";
@@ -85,9 +85,16 @@ class GameView extends Component {
   }
 
   addToMove = attr => val => {
-    console.log(this.state.game.players[this.props.user.id].deck)
     let move = JSON.parse(JSON.stringify(this.state.move));
     move[attr] = val;
+    if (move.card === 'deck') {
+    move.card = this.props.game.cards.deck[0];
+    } else if (move.card === 'hand') {
+      move.card = this.props.game.players[this.props.user.id].hand;
+    } if (move.card === GUARD){
+      //console.log("guard")
+      this.setState({cardViewOpen: !this.state.cardViewOpen});
+    }
     this.setState({ move });
   }
 
@@ -117,7 +124,7 @@ class GameView extends Component {
 
         <div className="pure-g" >
           <div className="opponent-side pure-u-1-3">
-            { this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.state.game.players[this.playersBesidesMe()[1]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[1]} /> }
+            { this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.props.game.players[this.playersBesidesMe()[1]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[1]} /> }
           </div>
           <div id="user-buttons" className="pure-u-1-3">
             <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({cardViewOpen: !this.state.cardViewOpen})} open={this.state.cardViewOpen} />
@@ -126,23 +133,25 @@ class GameView extends Component {
           <button  className="green" onClick={this.startGame}>Start Game</button>
         </div>
           <div className="player-side pure-u-1-3">
-            { this.playersBesidesMe()[2] && <PlayerMount  onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.state.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[2]} /> }
+            { this.playersBesidesMe()[2] && <PlayerMount  onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.props.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[2]} /> }
           </div>
 
       </div>
 
         <div className="pure-g"  id="card_view">
-          <div className="pure-u-1-3" id="discard">
+          <div className="pure-u-1-4" id="discard">
             <p>Discarded</p>
-            {/* <DiscardPile /> */}
+
               <Card onClick={() => {}} card={ this.props.game.cards.played[0] } />
           </div>
-          <div className="pure-u-1-3" id="cards_in_play">
+          <div className="pure-u-1-4" id="cards_in_play">
             <p>&nbsp;</p>
-            <Card onClick={() => this.addToMove('card')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.card === 'deck'} />
+            <DiscardPile />
           </div>
-          <div className="pure-u-1-3"  id="player_hand">
+          <div className="pure-u-1-2"  id="player_hand">
             <p>Your Hand</p>
+            <Card onClick={() => this.addToMove('card')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.card === 'deck'} />
+
             <Card onClick={() => this.addToMove('card')('hand')} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.card === 'hand'} />
           </div>
         </div>
@@ -153,10 +162,10 @@ class GameView extends Component {
               { this.playersBesidesMe()[0] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[0]} player={this.props.game.players[this.playersBesidesMe()[0]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[0]} /> }
             </div>
             <div className="player-side">
-              { this.state.game.playerOrder.indexOf(this.props.user.id) > -1
-                ? <PlayerMount name={this.props.user.name} onClick={this.addToMove('chosenPlayer')} userId={this.props.user.id} player={this.state.game.players[this.props.user.id]} selected={this.state.move.chosenPlayer === this.props.user.id} />
+              { this.props.game.playerOrder.indexOf(this.props.user.id) > -1
+                ? <PlayerMount name={this.props.user.name} onClick={this.addToMove('chosenPlayer')} userId={this.props.user.id} player={this.props.game.players[this.props.user.id]} selected={this.state.move.chosenPlayer === this.props.user.id} />
                 : (
-                  this.playersBesidesMe()[3] && <PlayerMount  name={this.props.user.name} onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[3]} player={this.state.game.players[this.playersBesidesMe()[3]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[3]} />
+                  this.playersBesidesMe()[3] && <PlayerMount  name={this.props.user.name} onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[3]} player={this.props.game.players[this.playersBesidesMe()[3]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[3]} />
                 )
               }
             </div>
