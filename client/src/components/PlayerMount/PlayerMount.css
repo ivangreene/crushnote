@@ -1,27 +1,24 @@
 #opponent_mount {
+  position: relative;
   border: 3px double #97881b;
   text-align: center;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: 120px;
+  background-color: #c4cbcc;
+  -webkit-box-shadow: 10px 10px 5px #494343;
 }
 
 #opponent_mount>div {
-  /*flex: 1 0 50px;*/
   margin: 5px;
   box-sizing: border-box;
-  /*border: 1px inset;*/
 }
 
 .opponent-side {
   position: relative;
-  margin-left: 25px;
   height: 125px;
   width: 33%;
-  float: left;
-  background-color: #c4cbcc;
-  -webkit-box-shadow: 10px 10px 5px #494343;
 }
 
 .card_spacing{

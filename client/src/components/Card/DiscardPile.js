@@ -6,6 +6,39 @@ const data = require('../../gamejson/cards.json');
 
 class DiscardPile extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isHidden: true,
+    };
+  }
+
+  toggleHidden() {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
+  }
+
+  render() {
+    return (<div>
+      <button onClick={this.toggleHidden.bind(this)}>Discarded</button>
+      {!this.state.isHidden && <DiscardList/>}
+    </div>)
+  }
+}
+
+class DiscardList extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isHidden: false,
+    };
+
+}
+
   render() {
     const discarded = data.map((card) => {
       return (<li key={card.id} card={card}>
@@ -13,8 +46,9 @@ class DiscardPile extends Component {
           : remaining ({card.count})</p>
       </li>);
     });
-    return (<div className="accordion">
-      <button className="green accordion-toggle" id="discard_button">Discarded</button>
+
+    return (<div>
+      {/* <button className="green accordion-toggle" id="discard_button">Discarded</button> */}
       <div className="accordion-content">
         <div className="accordion-inner">
           <div className="cheatFrontSide">
@@ -29,4 +63,5 @@ class DiscardPile extends Component {
     </div>)
   }
 }
+
 export default DiscardPile;
