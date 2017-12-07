@@ -39,13 +39,8 @@ class SignUp extends Component {
       "email": this.state.email,
       "username": this.state.username,
       "password": this.state.password,
-      "passwordConfirm": this.state.passwordConfirm,
-      // "stats":{
-      //   "losses":0,
-      //   "wins":0
-      // }
+      "passwordConfirm": this.state.passwordConfirm
     });
-    // console.log("sending user data");
   }
 
   render() {
@@ -55,6 +50,8 @@ class SignUp extends Component {
           <h3 id="signup_head">Create a New Player</h3>
           -OR-
           <div id="signup_head" onClick={this.props.onClick}>Log in</div>
+          {this.props.userCreationError &&
+            <div><h5 id="signup_error_message">{this.props.userCreationError}</h5></div>}
           <TextField
             type="email"
             hintText="Enter your Email"
