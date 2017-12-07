@@ -16,7 +16,8 @@ const Card =({card, onClick, selected})=>{
     }
   
     return (
-      <a onClick={() => onClick()} id="CardContainer" className="card" style={ Object.assign(cardImage, selected ? { backgroundColor: 'yellow' } : undefined) } >
+      <a onClick={() => onClick()} id="CardContainer" style={cardImage}
+      className={'card' + (selected ? ' selectedOpponent' : '')} >
         <div id="card_gutters">
           <div className="card_top">
             <p className="card_value">{card}</p>
