@@ -4,7 +4,7 @@ import "./PlayerMount.css";
 class PlayerMount extends Component {
 
   render() {
-
+    console.log(this.props.player.hand)
     return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
         this.props.player.active
         ? 'activePlayer'
@@ -16,7 +16,7 @@ class PlayerMount extends Component {
         <header>
           {this.props.currentUser && <span>YOU:</span>}
           <i className="material-icons">&#xE87C;</i>
-          {this.props.name}</header>
+          {this.props.player.name}</header>
       </div>
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
