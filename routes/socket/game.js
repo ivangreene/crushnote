@@ -4,8 +4,8 @@ const User = require('../../controllers/user');
 const chalk = require('chalk');
 
 module.exports = (socket, io, userSockets) => {
-  console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
-    console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
+  // console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
+  //   console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
 
     /*
     * Game logic
@@ -19,7 +19,6 @@ module.exports = (socket, io, userSockets) => {
       if (state.players[userId].active) {
         partialState.cards = { deck: [state.cards.deck[0]] };
       }
-      debugger;
       if (showHand && showHand.to.toString() === userId.toString()) {
         partialState.players[showHand.from] = { hand: state.players[showHand.from].hand };
       }
@@ -32,6 +31,7 @@ module.exports = (socket, io, userSockets) => {
       Game.gameMove(gameId, move)
         .then(([newState, showHand]) => {
           let cleanState = cleanGameState(newState);
+          cleanState.players[socket.request.session.userId].hand = null;
           io.to(gameId).emit('gameStateUpdate', gameId, cleanState);
           newState.playerOrder.map(userId => {
             sendUserHand(gameId, userId, newState, showHand);
@@ -110,6 +110,7 @@ module.exports = (socket, io, userSockets) => {
         return socket.emit('err', { message: 'Not authenticated' });
       Game.leaveGame(gameID, socket.request.session.userId);
       socket.emit('leftGame');
+      io.emit('updateGameList', gameID);
       socket.leave(gameID); // Unsubscribe the user to this game's events
     });
 
