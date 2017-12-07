@@ -1,18 +1,18 @@
 import React, {Component} from "react";
 import "./PlayerMount.css";
+const ROUNDS = [7, 7, 7, 5, 4];
 
 class PlayerMount extends Component {
 
   hearts() {
     let icons = [];
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= ROUNDS[this.props.count]; i++) {
       icons.push(<i key={i} className="material-icons no-point">{this.props.player.hearts >= i ? 'favorite' : 'favorite_border'}</i>);
     }
     return icons;
   }
 
   render() {
-    console.log(this.props.player.hand)
     return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
         this.props.player.active
         ? 'activePlayer'
