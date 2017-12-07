@@ -81,6 +81,9 @@ class App extends Component {
       let games = {...this.state.games};
       games[game._id] = game;
       this.setState({ games });
+      if (game.playerOrder[0] === this.state.user.id) {
+        redirectToPath(`/game/${game._id}`);
+      }
     });
     socket.on('games', newGames => {
       let games = {...this.state.games};
