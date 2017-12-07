@@ -18,6 +18,8 @@ const PRINCESS = 8,
   BARON = 3,
   PRIEST = 2,
   GUARD = 1;
+const requiresTarget = card => [KING, PRINCE, BARON, PRIEST, GUARD].indexOf(parseInt(card)) > -1;
+const requiresGuess = card => [GUARD].indexOf(parseInt(card)) > -1;
 /* eslint-enable no-unused-vars */
 
 class GameView extends Component {
@@ -86,7 +88,7 @@ class GameView extends Component {
     this.setState({move: {}});
   }
 
-  addToMove = attr => val => {
+  addToMove = (attr, send) => val => {
     let move = { ...this.state.move };
     if (attr === 'cardSelect') {
       if (val === 'deck')
@@ -97,9 +99,17 @@ class GameView extends Component {
     move[attr] = val;
     if (attr === 'guessedCard')
       this.closeCardView();
-    else if (move.card === GUARD && move.chosenPlayer)
+    else if (move.card === GUARD && move.chosenPlayer && !send)
       this.openCardView();
-    this.setState({ move });
+    this.setState({ move }, send ? this.sendMove : () => {});
+  }
+
+  readyToPlay = card => {
+    card = card || this.state.move.card;
+    if (requiresTarget(card)) {
+      return this.state.move.chosenPlayer && (!requiresGuess(card) || this.state.move.guessedCard || 'guard');
+    }
+    return true;
   }
 
   joinGame = () => {
@@ -196,9 +206,9 @@ class GameView extends Component {
         <div className="pure-u-1-2" id="player_hand">
           <p>Your Hand</p>
           <div id="player_cards">
-          <Card playCard={this.sendMove} onClick={() => this.addToMove('cardSelect')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={true} />
+          <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('deck')}} onClick={() => this.addToMove('cardSelect')('deck')} ready={this.readyToPlay} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={true} />
 
-          <Card playCard={this.sendMove} onClick={() => this.addToMove('cardSelect')('hand')} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={true} />
+          <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('hand')}} onClick={() => this.addToMove('cardSelect')('hand')} ready={this.readyToPlay} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={true} />
         </div>
         </div>
       </div>
