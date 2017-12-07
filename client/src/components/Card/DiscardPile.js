@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import "./Card.css";
 const data = require('../../gamejson/cards.json');
 
@@ -22,7 +24,7 @@ class DiscardPile extends Component {
 
   render() {
     return (<div>
-      <button onClick={this.toggleHidden.bind(this)}>Discarded</button>
+      <RaisedButton label="Discarded" onClick={this.toggleHidden.bind(this)} />
       {!this.state.isHidden && <DiscardList/>}
     </div>)
   }

@@ -1,9 +1,10 @@
 import React from "react";
 import "./Card.css";
-// import data from '../../gamejson/cards.json';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import data from '../../gamejson/cards.js';
 
-const Card =({card, onClick, selected})=>{
+const Card =({card, isHeld, onClick, playCard, selected })=>{
 
     card = parseInt(card, 10);
 
@@ -14,8 +15,9 @@ const Card =({card, onClick, selected})=>{
     const cardImage = {
       backgroundImage: 'url(' + data[card-1].image + ')'
     }
-  
+
     return (
+      <MuiThemeProvider><div>
       <a onClick={() => onClick()} id="CardContainer" style={cardImage}
       className={'card' + (selected ? ' selectedOpponent' : '')} >
         <div id="card_gutters">
@@ -31,8 +33,11 @@ const Card =({card, onClick, selected})=>{
               {data[card - 1].action}
             </p>
           </div>
+          <div id="cardPlayButton">
+          { isHeld && <RaisedButton onClick={playCard} label="Play Card" primary={true} />}
         </div>
-      </a>
+        </div>
+      </a></div></MuiThemeProvider>
     );
   };
 

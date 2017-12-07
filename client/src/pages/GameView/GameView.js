@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import Card from "../../components/Card/Card";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';// import CardBack from "../../components/Card/CardBack";
+import RaisedButton from 'material-ui/RaisedButton';
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
 import DiscardPile from "../../components/Card/DiscardPile";
-// import TopOpponentBar from "../../components/TopOpponentBar/TopOpponentBar";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
 // import GameChat from "../../components/Chat/GameChat";
 // import deepObjectAssign from '../../deepObjectAssign';
@@ -139,7 +138,8 @@ class GameView extends Component {
     // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
     if (!this.props.game)
       return null;
-    return (<div id="game_box">
+    return (  <MuiThemeProvider>
+      <div id="game_box">
       {this.props.game.open && this.renderPreGame(this.props.game)}
 
       <div className="pure-g hud">
@@ -147,7 +147,11 @@ class GameView extends Component {
           {this.playersBesidesMe()[1] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[1]} player={this.props.game.players[this.playersBesidesMe()[1]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[1]}/>}
         </div>
 
-        <div className="pure-u-1-3"></div>
+        <div className="pure-u-1-3" id="top_buttons">
+          <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
+              cardViewOpen: !this.state.cardViewOpen
+            })} open={this.state.cardViewOpen}/>
+        </div>
 
         <div className="player-mount pure-u-1-3">
           {this.playersBesidesMe()[2] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[2]} player={this.props.game.players[this.playersBesidesMe()[2]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[2]}/>}
@@ -158,38 +162,7 @@ class GameView extends Component {
       <div className="pure-g" id="card_view">
 
         <div className="pure-u-1-4">
-          <div id="user-buttons">
-            <ul id="game_buttons">
-            {/* <MuiThemeProvider> */}
-            <li>
-            <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
-                cardViewOpen: !this.state.cardViewOpen
-              })} open={this.state.cardViewOpen}/>
-            </li>
-            <li>
-            <button className="green" onClick={this.sendMove}>Play Card</button>
-          </li>
-
-          <li>
-            <button onClick={game => {
-                this.socket.emit('leaveGame', this.props.gameId);
-              }}>
-              Abandon Game
-            </button>
-          </li>
-          <li>
-            <DiscardPile/>
-          </li>
-      {/* <li>
-            <RaisedButton   type="submit"
-              label="Submit"
-              primary={true} />
-            </li> */
-}
-          {/* </MuiThemeProvider> */}
-        </ul>
-          </div>
-
+          <DiscardPile/>
         </div>
 
         <div className="pure-u-1-4" id="discard">
@@ -199,9 +172,11 @@ class GameView extends Component {
 
         <div className="pure-u-1-2" id="player_hand">
           <p>Your Hand</p>
-          <Card onClick={() => this.addToMove('cardSelect')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} />
+          <div id="player_cards">
+          <Card playCard={this.sendMove} onClick={() => this.addToMove('cardSelect')('deck')} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={true} />
 
-          <Card onClick={() => this.addToMove('cardSelect')('hand')} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} />
+          <Card playCard={this.sendMove} onClick={() => this.addToMove('cardSelect')('hand')} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={true} />
+        </div>
         </div>
       </div>
 
@@ -211,7 +186,13 @@ class GameView extends Component {
             {this.playersBesidesMe()[0] && <PlayerMount onClick={this.addToMove('chosenPlayer')} userId={this.playersBesidesMe()[0]} player={this.props.game.players[this.playersBesidesMe()[0]]} selected={this.state.move.chosenPlayer === this.playersBesidesMe()[0]}/>}
           </div>
 
-          <div className="pure-u-1-3"></div>
+          <div className="pure-u-1-3" id="bottom_buttons">
+            <RaisedButton  label="Quit Game" onClick={game => {
+                this.socket.emit('leaveGame', this.props.gameId);
+              }} />
+              <span id="bottom_fix"></span>
+              <RaisedButton label="Lobby" href="/main" target="blank"/>
+          </div>
 
           <div className="player-mount pure-u-1-3">
             {
@@ -222,7 +203,8 @@ class GameView extends Component {
           </div>
         </div>
       </footer>
-    </div>);
+    </div>
+  </MuiThemeProvider>);
   }
 }
 
