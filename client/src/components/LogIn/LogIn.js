@@ -47,7 +47,7 @@ class LogIn extends Component {
     console.log(`value of this.props.login:`, this.props.login);
     return (<div id="login_body">
       <MuiThemeProvider>
-        <div>
+        <form>
           <h3 id="login_head">Login</h3>
           -OR-
           <div id="signup_head" onClick={this.props.onClick}>Sign in</div>
@@ -72,11 +72,12 @@ class LogIn extends Component {
           />
           <br/>
           <RaisedButton
+            type="submit"
             label="Submit"
             primary={true}
             onClick={(event) => this.authUser(event)}
           />
-        </div>
+        </form>
       </MuiThemeProvider>
     </div>);
   }

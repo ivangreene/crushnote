@@ -28,6 +28,7 @@ class Stats extends Component {
               <PlayerListDetail
                 key={player._id}
                 player={player} />);
+            return undefined;
             }) }
       </ul>
     );
