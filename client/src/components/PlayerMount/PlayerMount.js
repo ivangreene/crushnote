@@ -8,8 +8,8 @@ class PlayerMount extends Component {
       <a
         onClick={() => this.props.onClick(this.props.userId)}
         id="opponent_mount"
-        className={(this.props.player.active && 'activePlayer')
-        + (this.props.selected && 'selectedOpponent')}
+        className={(this.props.player.active ? 'activePlayer' : '')
+        + (this.props.selected ? ' selectedOpponent' : '')}
       >
       <div className="opponent_stats">
         <header>
