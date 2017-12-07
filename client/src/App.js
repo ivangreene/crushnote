@@ -19,17 +19,20 @@ class App extends Component {
     // define one socket connection for the whole app
     const socket = io();
     let activeUsers = [];
-    this.setState({socket, /*gameId,*/ activeUsers});
+    this.setState({socket, activeUsers});
     window.socket = socket;
-    // console.log('adding connect handler');
-    socket.on('connect', () => {
-      // console.log('connected to socket');
-    });
+    socket.on('connect', () => {});
+
+    const loggedInRedirect = setTimeout(() => {
+      console.log(`to check if a user is currently logged in:`, window.location.pathname);
+      if (!this.state.user.name) return;
+      if (this.state.user.name
+        && (window.location.pathname === '/')) redirectToPath('/main');
+    }, 500);
 
     // Redirects to the given path, if not already at that path.
     const redirectToPath = path => {
       if (window.location.pathname !== path) {
-        // console.log(window.location, path);
         window.location.href = path;
       }
     }
@@ -123,7 +126,7 @@ class App extends Component {
     socket.on('partialState', updateGameInState({ refresh: false }));
     socket.on('leftGame', () => redirectToPath(`/main`));
     socket.on('updateGameList', gameId => {
-      console.log('a user abandoned a game, so update game list');
+      // console.log('a user abandoned a game, so update game list');
       let games = {...this.state.games};
       delete games[gameId];
       this.setState({ games });
@@ -132,8 +135,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log('user state is:', this.state.user);
-
     return (<Router>
       <div>
         <Switch>

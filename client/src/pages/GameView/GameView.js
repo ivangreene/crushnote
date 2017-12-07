@@ -120,17 +120,6 @@ class GameView extends Component {
     this.socket.emit('startGame', this.props.gameId);
   }
 
-  playersBesidesMe() {
-    // Returns a playerOrder array, excluding this player
-    let index = this.props.game.playerOrder.indexOf(this.props.user.id);
-    if (index <= -1)
-      return this.props.game.playerOrder;
-    return [
-      ...this.props.game.playerOrder.slice(0, index),
-      ...this.props.game.playerOrder.slice(index + 1, this.props.game.playerOrder.length)
-    ];
-  }
-
   getPlayerName(playerId) {
     let activeUsers = this.props.activeUsers;
     let playerName;
