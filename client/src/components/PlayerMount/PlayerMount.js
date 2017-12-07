@@ -18,7 +18,7 @@ class PlayerMount extends Component {
         ? 'activePlayer'
         : '') + (
         this.props.selected
-        ? 'selectedOpponent'
+        ? ' selectedOpponent'
         : '')}>
       <div className="opponent_stats">
         <header>
