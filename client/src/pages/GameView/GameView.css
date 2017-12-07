@@ -1,48 +1,47 @@
-
-.body-image{
-    background-image: url("../../style/img/table1 (2).png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: 100%;
+.body-image {
+  background-image: url("../../style/img/table1 (2).png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: 100%;
 }
 
-#card_view{
+#card_view {
   text-align: center;
-  clear:both;
+  clear: both;
   margin-bottom: 10px;
 }
 
-footer{
-position:absolute;
-left:0;
-bottom:0;
-right:0;
-}
+/*footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}*/
 
 .hud {
   width: 100%;
-  padding-right:25px;
+  padding-right: 25px;
   padding-top: 5px;
   bottom: 10px;
-  display:block;
+  display: block;
 }
 
 /*==== User Side ===*/
 
-#player_name{
-  margin:0 auto;
+#player_name {
+  margin: 0 auto;
 }
 
 .player-side {
-  height:100%;
-  width:33%;
+  position: relative;
+  height: 100%;
+  width: 33%;
   float: right;
   margin-right: 25px;
   background-color: #c4cbcc;
   -webkit-box-shadow: 10px 10px 5px #494343
 }
-
 
 .no-point, .round-won {
   color: red;
@@ -52,22 +51,22 @@ right:0;
   font-size: 50px;
 }
 
-#show_hud_area{
-  width:100%;
+#show_hud_area {
+  width: 100%;
 }
 
 .hud {
   width: 100%;
-  padding-right:25px;
+  padding-right: 25px;
   padding-top: 5px;
   bottom: 10px;
-  display:block;
+  display: block;
 }
 
 /*==== User Side ===*/
 
-#player_name{
-  margin:0 auto;
+#player_name {
+  margin: 0 auto;
 }
 
 #user_round_tokens {
@@ -77,7 +76,6 @@ right:0;
   border-width: 3px;
   margin-left: 50px;
 }
-
 
 #round_score {
   float: left;
@@ -91,15 +89,28 @@ right:0;
 /* style for start game button */
 
 .startGameBox {
-  background-color: white;
-  border: thin solid #333;
+  /*background-image: -webkit-linear-gradient(left, #fade7c 10%, #faebc9 80%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-animation: stripes 3s ease-in-out infinite;
+  animation: stripes 3s ease-in-out infinite;*/
+
+  border: 1px solid red;
+  background-color: #ffffff;
   padding: 4em 2em;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
+  text-align: center;
 }
+
+#innerStartBox{  background-image: -webkit-linear-gradient(left, #fade7c 10%, #faebc9 80%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-animation: stripes 3s ease-in-out infinite;
+  animation: stripes 3s ease-in-out infinite;}
 
 .darkenBox {
   background-color: #000;
@@ -113,10 +124,19 @@ right:0;
   z-index: 500;
 }
 
-#user-buttons{
-  float:left;
+.wait_message{
+  margin-bottom: 15px;
+  font-size: 18px;
 }
 
-.player-active{
-  border: 5px solid red;
+/*-----------------------*/
+
+#user-buttons {
+  width: 33.333%;
+  float: left;
+  text-align: center;
+}
+
+#startNewGameBtn{
+  margin-bottom: 15px;
 }

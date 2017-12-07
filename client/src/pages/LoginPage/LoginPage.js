@@ -53,9 +53,9 @@ class LoginPage extends Component {
             <div className="side backB pulsate">
               {
                 active === 'signIn'
-                  ? (<SignUp onClick={this.handleClick} {...this.props} />)
+                  ? (<LogIn onClick={this.handleClick} {...this.props} />)
                   : active === 'logIn'
-                    ? (<LogIn onClick={this.handleClick} {...this.props} />)
+                    ? (<SignUp onClick={this.handleClick} {...this.props} />)
                     : null
               }
             </div>

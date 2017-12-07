@@ -137,7 +137,18 @@ module.exports = {
             return game;
         })
         .then(game => moveEngine(game._doc, move))
-        .then(([newState, showHand]) => {
+        .then(([newState, showHand, roundComplete]) => {
+          if (roundComplete) {
+            let seeded = gameSeed();
+            seeded.cards.deck = shuffle(shuffle(seeded.cards.deck));
+            seeded.players = newState.players;
+            seeded.playerOrder = newState.playerOrder;
+            seeded.playerOrder.map(p => {
+              seeded.players[p].eliminated = false;
+              seeded.players[p].active = false;
+            });
+            newState = seeded;
+          }
           db.Game.findOneAndUpdate({_id}, newState)
             .then(() => { });
           resolve([newState, showHand]);

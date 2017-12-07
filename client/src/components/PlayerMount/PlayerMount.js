@@ -3,14 +3,23 @@ import "./PlayerMount.css";
 
 class PlayerMount extends Component {
 
+  hearts() {
+    let icons = [];
+    for (let i = 1; i <= 4; i++) {
+      icons.push(<i key={i} className="material-icons no-point">{this.props.player.hearts >= i ? 'favorite' : 'favorite_border'}</i>);
+    }
+    return icons;
+  }
+
   render() {
-    return(
-      <a
-        onClick={() => this.props.onClick(this.props.userId)}
-        id="opponent_mount"
-        className={(this.props.player.active ? 'activePlayer' : '')
-        + (this.props.selected ? ' selectedOpponent' : '')}
-      >
+    console.log(this.props.player.hand)
+    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
+        this.props.player.active
+        ? 'activePlayer'
+        : '') + (
+        this.props.selected
+        ? ' selectedOpponent'
+        : '')}>
       <div className="opponent_stats">
         <header>
           {this.props.currentUser && <span>YOU:</span>}
@@ -20,10 +29,7 @@ class PlayerMount extends Component {
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
         </h4>
-        <i className="material-icons no-point">&#xE87D;</i>
-        <i className="material-icons no-point">&#xE87D;</i>
-        <i className="material-icons round-won">favorite_border</i>
-        <i className="material-icons round-won">favorite_border</i>
+        { this.hearts() }
       </div>
       <div id="opponent_hand">
         <div id="hand_title">cards held</div>
@@ -38,6 +44,13 @@ class PlayerMount extends Component {
           }
         </div>
       </div>
+      <p id="moveIndicator">{
+          (this.props.player.active)
+            ? "player's turn"
+            : (this.props.selected)
+              ? "selected opponent"
+              : ""
+        }</p>
     </a>);
   };
 
