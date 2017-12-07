@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import "./Card.css";
 const data = require('../../gamejson/cards.json');
@@ -12,7 +11,7 @@ class DiscardPile extends Component {
     super(props);
 
     this.state = {
-      isHidden: true,
+      isHidden: true
     };
   }
 
@@ -24,8 +23,7 @@ class DiscardPile extends Component {
 
   render() {
     return (<div>
-      <RaisedButton label="Discarded" onClick={this.toggleHidden.bind(this)} />
-      {!this.state.isHidden && <DiscardList/>}
+      <RaisedButton label="Discarded" onClick={this.toggleHidden.bind(this)}/> {!this.state.isHidden && <DiscardList discardlist={this.props.discarded}/>}
     </div>)
   }
 }
@@ -36,31 +34,34 @@ class DiscardList extends Component {
     super(props);
 
     this.state = {
-      isHidden: false,
+      isHidden: false
     };
 
-}
+  }
 
   render() {
+  //  console.log(this.props.discardlist)
+
     const discarded = data.map((card) => {
+      let discardedThisRound = 0;
+      for(let i=0; i < this.props.discardlist.length; i++){
+      if(card.id === this.props.discardlist[i]){
+        console.log(true)
+        discardedThisRound ++;
+      }
+    }
       return (<li key={card.id} card={card}>
         <p>{card.name}
-          : remaining ({card.count})</p>
+          : {discardedThisRound}</p>
       </li>);
     });
 
     return (<div>
-      {/* <button className="green accordion-toggle" id="discard_button">Discarded</button> */}
-      <div className="accordion-content">
-        <div className="accordion-inner">
-          <div className="cheatFrontSide">
-            <p id="discard_top">Cards discarded this round</p>
-            <hr></hr>
-            <ul id="discard_list">
-              {discarded}
-            </ul>
-          </div>
-        </div>
+      <div className="cheatFrontSide">
+        <p id="discard_top">Cards discarded this round</p>
+        <ul id="discard_list">
+          {discarded}
+        </ul>
       </div>
     </div>)
   }
