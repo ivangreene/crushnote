@@ -63,12 +63,12 @@ module.exports = {
     });
   },
   leaveGame: (_id, userID) => {
+    console.log(userID, 'leaving', _id);
     return new Promise((resolve, reject) => {
       db.Game.findById(_id)
         .then(game => {
           if (!game)
             return reject('Game not found.');
-          console.log(userID, 'leaving', _id);
           // if (!game.open)
           //   return reject('Cannot leave game in progress.');
           if (game.playerOrder.indexOf(userID) < 0)

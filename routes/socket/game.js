@@ -4,8 +4,8 @@ const User = require('../../controllers/user');
 const chalk = require('chalk');
 
 module.exports = (socket, io, userSockets) => {
-  console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
-    console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
+  // console.log(`${chalk.underline.green(`socket.io`)}: listening for connection`);
+  //   console.log(`${chalk.underline.green(`socket.io`)}: connection created`);
 
     /*
     * Game logic
@@ -110,6 +110,7 @@ module.exports = (socket, io, userSockets) => {
         return socket.emit('err', { message: 'Not authenticated' });
       Game.leaveGame(gameID, socket.request.session.userId);
       socket.emit('leftGame');
+      io.emit('updateGameList', gameID);
       socket.leave(gameID); // Unsubscribe the user to this game's events
     });
 
