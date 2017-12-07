@@ -21,19 +21,13 @@
   margin: 0 auto;
 }
 
-.no-point, .round-won {
-  color: red;
+#player_hand{
+  text-align: center;
 }
 
-.table-button {
-  font-size: 50px;
-}
-
-
-/*==== User Side ===*/
-
-#player_name {
-  margin: 0 auto;
+#player_cards{
+  display:flex;
+  justify-content: center;
 }
 
 #user_round_tokens {
@@ -93,7 +87,6 @@
 /*-----------------------*/
 
 #user-buttons {
-  /*width: 33.333%;*/
   float: left;
   text-align: center;
 }
@@ -104,4 +97,14 @@
 
 #game_buttons{
   list-style: none;
+}
+
+/*---- new ----*/
+
+#top_buttons, #bottom_buttons{
+  text-align:center;
+}
+
+#bottom_fix{
+  margin:15px;
 }

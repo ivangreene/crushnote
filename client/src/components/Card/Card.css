@@ -10,6 +10,7 @@
   text-align: center;
   margin: 10px;
   border-radius: 10px;
+  position: relative;
 }
 
 #CardContainer:hover{
@@ -85,7 +86,6 @@
 
 .card_image {
   margin-bottom: 10px;
-  border: double 2px;
 }
 
 img {
@@ -117,24 +117,8 @@ img {
   background-color: #e7e5e4ad;
 }
 
-/*#discard_button {
-  float: left;
-  margin-left: 25px;
-}*/
-
-/*.accordion{
-  margin-top: 10px;
-}*/
-
-/*.accordion-toggle:hover .accordion-content {
-  max-height: 500px;
+#cardPlayButton{
+  position:absolute;
+  bottom:10%;
+  left:20%;
 }
-.accordion-content {
-  -webkit-transition: max-height 1s;
-  -moz-transition: max-height 1s;
-  -ms-transition: max-height 1s;
-  -o-transition: max-height 1s;
-  transition: max-height 1s;
-  overflow: hidden;
-  max-height: 0;
-}*/
