@@ -4,7 +4,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import data from '../../gamejson/cards.js';
 
-const Card =({card, isHeld, onClick, playCard, selected })=>{
+const PRINCESS = 8,
+COUNTESS = 7,
+KING = 6,
+PRINCE = 5,
+HANDMAID = 4,
+BARON = 3,
+PRIEST = 2,
+GUARD = 1;
+const requiresTarget = card => [KING, PRINCE, BARON, PRIEST, GUARD].indexOf(parseInt(card)) > -1;
+const requiresGuess = card => [GUARD].indexOf(parseInt(card)) > -1;
+
+const Card =({card, isHeld, onClick, playCard, selected, ready })=>{
 
     card = parseInt(card, 10);
 
@@ -34,7 +45,11 @@ const Card =({card, isHeld, onClick, playCard, selected })=>{
             </p>
           </div>
           <div id="cardPlayButton">
-          { isHeld && <RaisedButton onClick={playCard} label="Play Card" primary={true} />}
+          { isHeld && (
+            ready(card) && ready(card) !== 'guard' ?
+              <RaisedButton onClick={playCard} label="Play Card" primary={true} />
+              : ready(card) === 'guard' ? <RaisedButton label="Guess Card" />
+              : <RaisedButton label="Select Target" /> ) }
         </div>
         </div>
       </a></div></MuiThemeProvider>
