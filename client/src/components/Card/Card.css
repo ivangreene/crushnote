@@ -112,6 +112,7 @@ img {
 }
 
 #discard_list {
+  font-weight: 600;
   list-style: none;
   padding: 0;
   background-color: #e7e5e4ad;
@@ -120,5 +121,6 @@ img {
 #cardPlayButton{
   position:absolute;
   bottom:10%;
-  left:20%;
+  left:0;
+  right:0;
 }
