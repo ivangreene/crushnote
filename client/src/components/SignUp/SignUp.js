@@ -51,7 +51,7 @@ class SignUp extends Component {
   render() {
     return (<div id="signup_body">
       <MuiThemeProvider>
-        <div>
+        <form>
           <h3 id="signup_head">Create a New Player</h3>
           -OR-
           <div id="signup_head" onClick={this.props.onClick}>Log in</div>
@@ -92,11 +92,12 @@ class SignUp extends Component {
           />
           <br/>
           <RaisedButton
+            type="submit"
             label="Submit"
             primary={true}
             onClick={(event) => this.saveUser(event)}
           />
-        </div>
+        </form>
       </MuiThemeProvider>
     </div>);
   }
