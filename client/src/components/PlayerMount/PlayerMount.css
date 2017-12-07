@@ -15,6 +15,7 @@
 }
 
 .opponent-side {
+  position: relative;
   margin-left: 25px;
   height: 125px;
   width: 33%;
@@ -57,13 +58,20 @@
   padding:5px;
 }
 
+#moveIndicator{
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  margin-bottom: 10px;
+}
+
 .activePlayer{
   -webkit-animation-name: indicateTurn;
   -webkit-animation-duration: 1.5s;
   -webkit-animation-iteration-count: infinite;
 }
 
-.selectedOpponent{
+.selectedOpponent,  .card-magnify:hover{
   -webkit-animation-name: indicateOpponent;
   -webkit-animation-duration: 1.5s;
   -webkit-animation-iteration-count: infinite;

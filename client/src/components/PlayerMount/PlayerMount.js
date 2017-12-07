@@ -12,13 +12,14 @@ class PlayerMount extends Component {
   }
 
   render() {
-    return(
-      <a
-        onClick={() => this.props.onClick(this.props.userId)}
-        id="opponent_mount"
-        className={(this.props.player.active ? 'activePlayer' : '')
-        + (this.props.selected ? ' selectedOpponent' : '')}
-      >
+    console.log(this.props.player.hand)
+    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
+        this.props.player.active
+        ? 'activePlayer'
+        : '') + (
+        this.props.selected
+        ? 'selectedOpponent'
+        : '')}>
       <div className="opponent_stats">
         <header>
           {this.props.currentUser && <span>YOU:</span>}
@@ -43,6 +44,13 @@ class PlayerMount extends Component {
           }
         </div>
       </div>
+      <p id="moveIndicator">{
+          (this.props.player.active)
+            ? "player's turn"
+            : (this.props.selected)
+              ? "selected opponent"
+              : ""
+        }</p>
     </a>);
   };
 
