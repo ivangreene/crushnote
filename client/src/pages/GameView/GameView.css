@@ -124,8 +124,8 @@
   text-align: left;
   opacity: .75;
   position: absolute;
-  left: auto;
-  top: auto;
+  right: 1%;
+  top:auto;
   margin-top: 40px;
   z-index: 0;
   padding: 1em 2em;
@@ -133,7 +133,9 @@
 }
 
 #disList, #discard_margin {
-  margin-top: 15px
+  margin-top: 15px;
+  z-index: 3;
+
 }
 
 .card_view_titles {

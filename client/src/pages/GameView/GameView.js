@@ -160,6 +160,7 @@ class GameView extends Component {
   }
 
   render() {
+    // console.log(this.props.game)
     // const gameEndRedirect = setTimeout(() => {
     //   if (this.props.user.name
     //     && window.location.pathname.includes('/game/')
@@ -174,13 +175,13 @@ class GameView extends Component {
       <div id="game_box">
         {/* The 'game end' button sets the game.completed property to true
           this is useful for testing the gameEndRedirect timeout function */}
-        {this.props.game && <button onClick={() => {
+        {/* {this.props.game && <button onClick={() => {
           this.props.game.completed = true;
           this.props.game.open = false;
           this.props.game.waiting = false;
           this.props.game.winner = this.props.user.id;
           this.forceUpdate();
-        }}>End Game!</button>}
+        }}>End Game!</button>} */}
         {(this.props.game.open || this.props.game.waiting || this.props.game.completed) && this.renderPreGame(this.props.game)}
       <div className="pure-g hud">
         <div className="player-mount pure-u-1-3">
@@ -198,6 +199,7 @@ class GameView extends Component {
           <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
               cardViewOpen: !this.state.cardViewOpen, hideGuard: false
             })} open={this.state.cardViewOpen} hideGuard={this.state.hideGuard}/>
+
         </div>
 
         <div className="player-mount pure-u-1-3">
@@ -214,17 +216,6 @@ class GameView extends Component {
 
       <div className="pure-g" id="card_view">
 
-        <div className="pure-u-1-4" id="disList">
-          <DiscardPile discarded={this.props.game.cards.played}/>
-        </div>
-
-        <div className="pure-u-1-4" id="game_log">
-          <GameLog
-            game={this.props.game}
-            playerList={this.playerOrderCurrentUserFirst()}
-            move={this.props.move}/>
-        </div>
-
         <div className="pure-u-1-4" id="discard">
           <p className="card_view_titles">Last Card Played</p>
           <Card onClick={() => {}} card={this.props.game.cards.played[0]}/>
@@ -238,6 +229,18 @@ class GameView extends Component {
           <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('hand')}} onClick={() => this.addToMove('cardSelect')('hand')} ready={this.readyToPlay} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />
         </div>
         </div>
+
+        <div className="pure-u-1-4" id="disList">
+          <DiscardPile discarded={this.props.game.cards.played}/>
+        </div>
+
+        <div className="pure-u-1-4" id="game_log">
+          <GameLog
+            game={this.props.game}
+            playerList={this.playerOrderCurrentUserFirst()}
+            move={this.props.move}/>
+        </div>
+
       </div>
 
       <footer>
@@ -254,11 +257,15 @@ class GameView extends Component {
           </div>
 
           <div className="pure-u-1-3" id="bottom_buttons">
+            <div>
             <RaisedButton secondary={true} label="Quit Game" onClick={game => {
                 this.socket.emit('leaveGame', this.props.gameId);
               }} />
               <span id="bottom_fix"></span>
               <RaisedButton primary={true} label="Lobby" href="/main" target="blank"/>
+            </div>
+              <p className="card_view_titles">Cards remaining in deck: </p>
+              <p className="card_view_titles">{15 - this.props.game.cards.played.length}</p>
           </div>
 
           <div className="player-mount pure-u-1-3">
