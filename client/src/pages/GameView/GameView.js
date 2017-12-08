@@ -244,9 +244,6 @@ class GameView extends Component {
         </div>
         </div>
 
-        {/* <div className="pure-u-1-4 smaller_text">
-          <DiscardPile discarded={this.props.game.cards.played}/>
-        </div> */}
 
         <div className="pure-u-1-4" id="game_log">
           <GameLog
