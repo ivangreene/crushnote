@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-//import AppBar from 'material-ui/AppBar';
-import Divider from "material-ui/Divider";
-import RaisedButton from 'material-ui/RaisedButton';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// //import AppBar from 'material-ui/AppBar';
+// import Divider from "material-ui/Divider";
+// import RaisedButton from 'material-ui/RaisedButton';
 import "./GameLog.css";
 
 // http://www.material-ui.com/#/customization/themes

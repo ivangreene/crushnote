@@ -19,30 +19,10 @@
 
 /*==== User Side ===*/
 
-#player_name {
-  margin: 0 auto;
-}
-
-#player_hand {
-  text-align: center;
-}
 
 #player_cards {
   display: flex;
   justify-content: center;
-}
-
-#user_round_tokens {
-  padding: 7px;
-  width: 210px;
-  border-style: outset;
-  border-width: 3px;
-  margin-left: 50px;
-}
-
-#round_score {
-  float: left;
-  margin: 0 auto;
 }
 
 .no-point, .round-won {
@@ -52,8 +32,8 @@
 /* style for start game button */
 
 .startGameBox {
-  border: 1px solid red;
-  background-color: #ffffff;
+  border: double 5px #97881b;
+  background-color: #dddcdc;
   padding: 4em 2em;
   position: fixed;
   top: 50%;
@@ -61,6 +41,10 @@
   transform: translate(-50%, -50%);
   z-index: 1000;
   text-align: center;
+}
+
+.gameStartMargin{
+  margin-bottom: 15px;
 }
 
 #innerStartBox {
