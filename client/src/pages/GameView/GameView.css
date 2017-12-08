@@ -127,14 +127,14 @@
   right: 1%;
   top:auto;
   margin-top: 40px;
-  z-index: 0;
+  z-index: -1;
   padding: 1em 2em;
   box-sizing: border-box;
 }
 
 #disList, #discard_margin {
   margin-top: 15px;
-  z-index: 3;
+  z-index: 0;
 
 }
 

@@ -105,6 +105,7 @@ class GameLog extends Component {
     if ((handmaid && this.state.alerts.length > 0
         && this.state.alerts[this.state.alerts.length-1] !== handmaid)
       || (handmaid && this.state.alerts.length < 1)) alerts.push(handmaid);
+    console.log(`next game state is:`, nextProps.game);
     this.setState({ alerts: alerts });
   }
 

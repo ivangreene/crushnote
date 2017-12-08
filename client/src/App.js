@@ -107,6 +107,7 @@ class App extends Component {
 
     let updateGameInState = ({ refresh }) => (gameId, game) => {
       let games = {...this.state.games};
+      const prevGame = games[gameId];
       games[gameId] = deepObjectAssign(games[gameId], game);
       if (games[gameId].playerOrder.length) {
         for (var i = 0; i < games[gameId].playerOrder.length; i++) {
