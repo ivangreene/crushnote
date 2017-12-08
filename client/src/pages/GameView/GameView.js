@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
 import DiscardPile from "../../components/Card/DiscardPile";
+import GameLog from "../../components/GameLog/GameLog";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
 // import GameChat from "../../components/Chat/GameChat";
 // import deepObjectAssign from '../../deepObjectAssign';
@@ -94,6 +95,33 @@ class GameView extends Component {
     </div>);
   }
 
+  displayHandmaidAlert(game) {
+    const playerList = this.playerOrderCurrentUserFirst();
+    const enemy1 = game.players[playerList[1]];
+    const enemy2 = game.players[playerList[2]];
+    const enemy3 = game.players[playerList[3]];
+    // if all opponents are protected by handmaid, you must select yourself and play a card. Only the princess and prince have an effect.
+    const handmaidAlert = `All opponents are protected by a Handmaid. `
+      +`You must select yourself as the target of one of your cards. `
+      +`Guard, Priest, Baron, King, and Countess will have no effect. `
+      +`Prince will force you to discard your own hand. `
+      +`The Princess still causes you to lose the round.`;
+    let handmaidCount = 0;
+    if (game && enemy1 && enemy1.discarded[0] === 4) handmaidCount++;
+    if (game && enemy2 && enemy2.discarded[0] === 4) handmaidCount++;
+    if (game && enemy3 && enemy3.discarded[0] === 4) handmaidCount++;
+    if (handmaidCount === (game.playerOrder.length - 1)) {
+      console.log(handmaidAlert);
+      return (<p>handmaidAlert</p>);
+    }
+    // when king is used, tell victim they switched cards with active player
+    // when priest is used, tell victim that active player knows their card
+    // when prince is used, tell victim that they discarded and drew a new card
+    // when baron is used, tell victim that active player is dueling them and reveal that # to them
+    // when baron is used, tell active player the victim's number
+    // tell everyone "username played cardName against username" after each turn
+  }
+
   sendMove = () => {
     let move = { ...this.state.move };
     this.socket.emit('gameMove', this.props.gameId, move);
@@ -155,7 +183,6 @@ class GameView extends Component {
   }
 
   render() {
-    if (this.props.game) console.log(`game ended?`, this.props.game.completed);
     const gameEndRedirect = setTimeout(() => {
       if (this.props.user.name
         && window.location.pathname.includes('/game/')
@@ -166,7 +193,8 @@ class GameView extends Component {
     }, 10000);
     if (!this.props.game)
       return null;
-    return (  <MuiThemeProvider>
+    console.log(`game object:`, this.props.game);
+    return (<MuiThemeProvider>
       <div id="game_box">
         {/* The 'game end' button sets the game.completed property to true
           this is useful for testing the gameEndRedirect timeout function */}
@@ -212,6 +240,10 @@ class GameView extends Component {
 
         <div className="pure-u-1-4" id="disList">
           <DiscardPile discarded={this.props.game.cards.played}/>
+        </div>
+
+        <div className="pure-u-1-4" id="game_log">
+          <GameLog/>
         </div>
 
         <div className="pure-u-1-4" id="discard">

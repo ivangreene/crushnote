@@ -25,7 +25,8 @@ class PlayerMount extends Component {
         <header>
           {this.props.currentUser && <span>YOU:</span>}
           <i className="material-icons">&#xE87C;</i>
-          {this.props.player.name}</header>
+          {this.props.player.name}
+        </header>
       </div>
       <div id="opponent_round_tokens">
         <h4 id="opponent_score">Rounds Won:
@@ -40,7 +41,7 @@ class PlayerMount extends Component {
           </div> }
           {
             this.props.player && this.props.player.active && <div className="opponent_card">
-                
+
               </div>
           }
         </div>

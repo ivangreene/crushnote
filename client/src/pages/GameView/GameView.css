@@ -109,6 +109,20 @@
   margin:15px;
 }
 
+/*---- Game Log Positioning ----*/
+#game_log {
+  border: 2px solid #990;
+  background: white;
+  color: black;
+  text-align: left;
+  opacity: .75;
+  position: absolute;
+  left: auto;
+  top: auto;
+  margin-top: 40px;
+  z-index: -1;
+  padding: 1em 2em;
+  box-sizing: border-box;
 #disList{
   margin-top:15px
 }
