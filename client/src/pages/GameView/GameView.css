@@ -1,12 +1,14 @@
 .body-image {
   background-image: url("../../style/img/table1 (2).png");
+  /*background-image: url("../../style/img/tabletest2.png");*/
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: 100%;
 }
-#game_box{
-  padding:25px;
+
+#game_box {
+  padding: 25px;
 }
 
 #card_view {
@@ -21,12 +23,12 @@
   margin: 0 auto;
 }
 
-#player_hand{
+#player_hand {
   text-align: center;
 }
 
-#player_cards{
-  display:flex;
+#player_cards {
+  display: flex;
   justify-content: center;
 }
 
@@ -61,11 +63,13 @@
   text-align: center;
 }
 
-#innerStartBox{  background-image: -webkit-linear-gradient(left, #fade7c 10%, #faebc9 80%);
+#innerStartBox {
+  background-image: -webkit-linear-gradient(left, #fade7c 10%, #faebc9 80%);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-animation: stripes 3s ease-in-out infinite;
-  animation: stripes 3s ease-in-out infinite;}
+  animation: stripes 3s ease-in-out infinite;
+}
 
 .darkenBox {
   background-color: #000;
@@ -79,7 +83,7 @@
   z-index: 500;
 }
 
-.wait_message{
+.wait_message {
   margin-bottom: 15px;
   font-size: 18px;
 }
@@ -91,25 +95,26 @@
   text-align: center;
 }
 
-#startNewGameBtn{
+#startNewGameBtn {
   margin-bottom: 15px;
 }
 
-#game_buttons{
+#game_buttons {
   list-style: none;
 }
 
 /*---- new ----*/
 
-#top_buttons, #bottom_buttons{
-  text-align:center;
+#top_buttons, #bottom_buttons {
+  text-align: center;
 }
 
-#bottom_fix{
-  margin:15px;
+#bottom_fix {
+  margin: 15px;
 }
 
 /*---- Game Log Positioning ----*/
+
 #game_log {
   border: 2px solid #990;
   background: white;
@@ -125,8 +130,18 @@
   box-sizing: border-box;
 }
 
-#disList, #discard_margin{
-  margin-top:15px
+#disList, #discard_margin {
+  margin-top: 15px
+}
+
+.card_view_titles {
+  text-shadow: 1px 1px 1px #97881b;
+  font-size: 25px;
+  margin-top: 10px;
+  /*border-bottom: 1px solid #97881b;*/
+  /*border-top: 1px solid #97881b;*/
+  /* background-color: #f5f5f59c; */
+  font-weight: 600;
 }
 
 /*.shielded{
@@ -138,31 +153,23 @@
 }*/
 
 .shielded {
-    width:100%; /*Make sure the animation is over the whole element*/
-    background-color: #e5ce2a !important;
-    -webkit-animation-name: ShineAnimation;
-    -webkit-animation-duration: 3s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: cubic-bezier(.12,.89,.98,.47);
+  width: 100%;
+  /*Make sure the animation is over the whole element*/
+  background-color: #e5ce2a !important;
+  -webkit-animation-name: ShineAnimation;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(.12, .89, .98, .47);
 }
 
-@-webkit-keyframes ShineAnimation{
-    from {
-        background-repeat:no-repeat;
-        background-image:-webkit-linear-gradient(
-            top left,
-            rgba(255, 255, 255, 0.0) 0%,
-            rgba(255, 255, 255, 0.0) 45%,
-            rgba(255, 255, 255, 0.5) 48%,
-            rgba(255, 255, 255, 0.8) 50%,
-            rgba(255, 255, 255, 0.5) 52%,
-            rgba(255, 255, 255, 0.0) 57%,
-            rgba(255, 255, 255, 0.0) 100%
-        );
-        background-position:-250px -250px;
-        background-size: 600px 600px
-    }
-    to {
-        background-repeat:no-repeat;
-      }
+@-webkit-keyframes ShineAnimation {
+  from {
+    background-repeat: no-repeat;
+    background-image: -webkit-linear-gradient( top left, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.0) 45%, rgba(255, 255, 255, 0.5) 48%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.5) 52%, rgba(255, 255, 255, 0.0) 57%, rgba(255, 255, 255, 0.0) 100%);
+    background-position: -250px -250px;
+    background-size: 600px 600px
   }
+  to {
+    background-repeat: no-repeat;
+  }
+}

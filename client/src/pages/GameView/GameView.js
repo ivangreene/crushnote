@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
 import DiscardPile from "../../components/Card/DiscardPile";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
+// import GameLog from "../../components/GameLog/GameLog";
 // import GameChat from "../../components/Chat/GameChat";
 // import deepObjectAssign from '../../deepObjectAssign';
 // import CheatCard from "../../components/Card/CheatCard";
@@ -191,15 +192,16 @@ class GameView extends Component {
 
         <div className="pure-u-1-4" id="disList">
           <DiscardPile discarded={this.props.game.cards.played}/>
+          {/* <GameLog /> */}
         </div>
 
         <div className="pure-u-1-4" id="discard">
-          <p>Discarded</p>
+          <p className="card_view_titles">Last Card Played</p>
           <Card onClick={() => {}} card={this.props.game.cards.played[0]}/>
         </div>
 
         <div className="pure-u-1-2" id="player_hand">
-          <p id="hand_title"><span>Your Hand</span></p>
+          <p className="card_view_titles"><span>Your Hand</span></p>
           <div id="player_cards">
           <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('deck')}} onClick={() => this.addToMove('cardSelect')('deck')} ready={this.readyToPlay} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />
 
