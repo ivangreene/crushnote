@@ -98,7 +98,6 @@ module.exports = (socket, io, userSockets) => {
   });
 
   socket.on('startGame', gameID => {
-    // console.log(`recieved startGame event from client`);
     // console.log(`gameId`, gameID, `| userId`, socket.request.session.userId);
 
     Game.startGame(gameID, socket.request.session.userId)
@@ -109,12 +108,11 @@ module.exports = (socket, io, userSockets) => {
   });
 
   socket.on('leaveGame', gameID => {
-
     if (!socket.request.session.userId)
       return socket.emit('err', { message: 'Not authenticated' });
     Game.leaveGame(gameID, socket.request.session.userId);
     socket.emit('leftGame');
-    io.emit('updateGameList', gameID);
+    io.emit('updateGameList', gameID, socket.request.session.userId);
     socket.leave(gameID); // Unsubscribe the user to this game's events
   });
 
