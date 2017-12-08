@@ -84,17 +84,27 @@ module.exports = {
             // a simpler fashion.
             return item.toString() === userID.toString();
           });
-          console.log('user index', userIDIndex);
-          // if it is the first item in the array, then close the room
-          if (game.playerOrder.length <= 1 || userIDIndex === 0) {
+          if (userIDIndex === 0) {
             // console.log("Deleting game:", _id);
             // when last player leaves then close the game
-            // TODO: check the syntax here - use return or resolve?
+            console.log(`\n\n------\nCreator abandoned game: game DELETED\n------\n\n`);
             return db.Game.findByIdAndRemove(_id);
           }
+          // console.log('user index', userIDIndex);
+          // console.log(`\n\n------\ngame BEFORE clearing users ${userID}:`, game, `\n------\n\n`);
+          // remove userId from playerOrder array
           game.playerOrder.splice(userIDIndex, 1);
-          console.log('new order:', game.playerOrder);
-          // TODO: find userID in the players hash and remove that key/value pair
+          // remove player from players array
+          delete game.players[userID];
+          // if it is the first item in the array, then close the room
+          if (game.playerOrder.length < 1) {
+            // console.log("Deleting game:", _id);
+            // when last player leaves then close the game
+            console.log(`\n\n------\nLast user in game abandoned: game DELETED\n------\n\n`);
+            return db.Game.findByIdAndRemove(_id);
+          }
+          // console.log(`\n\n------\ngame AFTER clearing users ${userID}:`, game, `\n------\n\n`);
+          // console.log('new order:', game.playerOrder);
           // game.players[userID] = playerSeed();
           db.Game.findOneAndUpdate({_id}, game, { new: true }, (err, newGame) => {
             if (err) return console.log(err);

@@ -92,10 +92,6 @@ class App extends Component {
       }
       this.setState({ games });
     });
-    // socket.on('receiveGameMove', move => {
-    //   console.log('Someone moved:', move);
-    //   this.setState({ move });
-    // });
 
     let getPlayerName = playerId => {
       let activeUsers = this.state.activeUsers;
@@ -127,10 +123,29 @@ class App extends Component {
     socket.on('gameStarted', updateGameInState({ refresh: true }));
     socket.on('partialState', updateGameInState({ refresh: false }));
     socket.on('leftGame', () => redirectToPath(`/main`));
-    socket.on('updateGameList', gameId => {
+    socket.on('updateGameList', (gameId, userId) => {
       // console.log('a user abandoned a game, so update game list');
       let games = {...this.state.games};
-      delete games[gameId];
+      if (games[gameId].playerOrder[0] === userId && games[gameId].open) {
+        // When creator abandons the game before starting, everyone leaves
+        socket.emit('leaveGame', gameId);
+      } else {
+        games[gameId].playerOrder.splice(
+          games[gameId].playerOrder.indexOf(userId),
+          1
+        );
+        // if a player quits the game leaving only one player in the room
+        if (games[gameId].playerOrder.length < 2) {
+          // last player leaves the room
+          socket.emit('leaveGame', gameId);
+        }
+        // if there are no players in the room delete the game
+        if (games[gameId].playerOrder.length < 1) {
+          delete games[gameId];
+        } else { // if there are still players in room, update game.players object
+          delete games[gameId].players[userId];
+        }
+      }
       this.setState({ games });
     });
     socket.on('err', err => {console.log(err)});
