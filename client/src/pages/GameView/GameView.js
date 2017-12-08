@@ -149,7 +149,7 @@ class GameView extends Component {
   }
 
   render() {
-    console.log(this.props.game)
+    // console.log(this.props.game)
     // console.log(this.props.games, this.props.gameId);
     // if (!this.props.gameId || !this.props.games) return null;
     // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
@@ -211,7 +211,7 @@ class GameView extends Component {
 
       <footer>
         <div className="pure-g hud">
-          <div className="player_mount pure-u-1-3 shielded">
+          <div className="player_mount pure-u-1-3">
             {this.playerOrderCurrentUserFirst()[1] &&
               <PlayerMount
                 count={this.props.game.playerOrder.length}
