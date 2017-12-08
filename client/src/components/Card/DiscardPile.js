@@ -50,11 +50,11 @@ class DiscardList extends Component {
     }
       return (<li key={card.id} card={card}>
         <p>{card.name}
-          : ({discardedThisRound}) Total in deck: ({card.count})</p>
+          : ({discardedThisRound}) of Total: ({card.count})</p>
       </li>);
     });
 
-    return (<div>
+    return (<div id="discard_margin">
       <div className="cheatFrontSide">
         <p id="discard_top">Cards discarded this round</p>
         <ul id="discard_list">

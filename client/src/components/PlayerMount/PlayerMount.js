@@ -23,8 +23,8 @@ class PlayerMount extends Component {
         : '')}>
       <div className="opponent_stats">
         <header>
-          {this.props.currentUser && <span>YOU:</span>}
           <i className="material-icons">&#xE87C;</i>
+          {this.props.currentUser && <span>Logged in as:  </span>}
           {this.props.player.name}</header>
       </div>
       <div id="opponent_round_tokens">
@@ -36,20 +36,20 @@ class PlayerMount extends Component {
         <div id="hand_title">cards held</div>
         <div className="card_spacing">
           { this.props.player && !this.props.player.eliminated && <div className="opponent_card">
-            {!this.props.currentUser && this.props.player.hand}
+            {!this.props.currentUser && this.props.player.hand }
           </div> }
           {
             this.props.player && this.props.player.active && <div className="opponent_card">
-                
+
               </div>
           }
         </div>
       </div>
-      <p id="moveIndicator">{
+      <p id="moveIndicator" className="activePlayerLabel">{
           (this.props.player.active)
-            ? "player's turn"
+            ? "Active Player"
             : (this.props.selected)
-              ? "selected opponent"
+              ? "Selected Opponent"
               : ""
         }</p>
     </a>);

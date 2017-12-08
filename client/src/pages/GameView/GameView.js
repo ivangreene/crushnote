@@ -29,6 +29,7 @@ class GameView extends Component {
   state = {
     cardViewOpen: false,
     hideGuard: false,
+    protected: false,
     move: {}
   };
 
@@ -148,6 +149,7 @@ class GameView extends Component {
   }
 
   render() {
+    console.log(this.props.game)
     // console.log(this.props.games, this.props.gameId);
     // if (!this.props.gameId || !this.props.games) return null;
     // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
@@ -198,7 +200,7 @@ class GameView extends Component {
         </div>
 
         <div className="pure-u-1-2" id="player_hand">
-          <p>Your Hand</p>
+          <p id="hand_title"><span>Your Hand</span></p>
           <div id="player_cards">
           <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('deck')}} onClick={() => this.addToMove('cardSelect')('deck')} ready={this.readyToPlay} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />
 
@@ -209,7 +211,7 @@ class GameView extends Component {
 
       <footer>
         <div className="pure-g hud">
-          <div className="player_mount pure-u-1-3">
+          <div className="player_mount pure-u-1-3 shielded">
             {this.playerOrderCurrentUserFirst()[1] &&
               <PlayerMount
                 count={this.props.game.playerOrder.length}

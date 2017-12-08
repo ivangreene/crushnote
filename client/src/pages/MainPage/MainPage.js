@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import Chat from "../../components/Chat/Chat";
 import Stats from "../../components/LobbyComponents/Stats";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import "./MainPage.css";
 import "purecss";
 
@@ -18,7 +20,9 @@ class MainPage extends Component {
   // });
 
   render() {
-    return (<div>
+    return (
+      <MuiThemeProvider>
+        <div>
       <div id="login_title">
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
@@ -31,20 +35,20 @@ class MainPage extends Component {
         </div>
 
         <div className="pure-u-1-2" id="chat_main">
-          <Chat player={this.state.user}/>
+          <Chat player={this.state.user} name={this.props.user.name}/>
         </div>
 
         <div className="pure-u-1-4" id="games_main">
           <header id="games_header">Games List</header>
-          <p>
-            <button
+          <div id="create_p">
+            <RaisedButton primary={true}
+              label="Create New Game"
               onClick={() => {
                 this.props.socket.emit('newGame');
               }}
-              >
-                Create Game
-              </button>
-          </p>
+            />
+
+          </div>
           { this.props.games && Object.keys(this.props.games).sort((a, b) => {
             if (this.props.games[a].open && !this.props.games[b].open)
               return -1;
@@ -62,25 +66,24 @@ class MainPage extends Component {
           <hr></hr>*/}
 
         </div>
-
       </div>
-
-    </div>)
+    </div>
+  </MuiThemeProvider>)
   }
 
 renderGame(game) {
    const canJoinGame = game.open || game.playerOrder.some(id => id === this.props.user.id);
    return (
      <div className="gameListEntry" key={game._id}>
-       <div>
-       {this.getPlayerName(game.playerOrder[0])}'s game</div>
-       <div>{game.playerOrder.length} Players</div>
+       <div className="gleTitle">
+       {this.getPlayerName(game.playerOrder[0])}'s Game
+     </div>
+       <div className="glePlayers">{game.playerOrder.length} Players</div>
        { canJoinGame && <div>
-         <button onClick={() => {
+         <RaisedButton label="join game" primary={true} onClick={() => {
            this.props.socket.emit(`joinGame`, game._id);
            window.location.href = `game/${game._id}`
-         }}>Join Game</button>
-         <hr></hr>
+         }}/>
          </div> }
      </div>
    );

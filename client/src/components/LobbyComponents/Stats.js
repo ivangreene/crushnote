@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PlayerListDetail from "./PlayerListDetail";
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class Stats extends Component {
@@ -14,14 +15,15 @@ class Stats extends Component {
           } / Losses: {
             this.props.user && this.props.user.stats.losses
           }</p>
-          <p><button
+        <RaisedButton
+            label="Log out"
+            secondary = {true}
             onClick={() => {
               this.props.socket.emit('logOutUser');
               window.location.href = '/';
             }}
-            >
-              Logout
-          </button></p>
+          />
+      
         </div>
         { this.props.activeUsers && this.props.activeUsers.map((player)=>{
             if (player._id !== this.props.user.id) return (

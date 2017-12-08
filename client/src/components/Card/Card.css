@@ -94,6 +94,7 @@ img {
 
 /* --- Discard / Cheat Card  ----*/
 .cheatFrontSide {
+  font-weight: 600;
   width:80%;
   padding:15px;
   margin: 0 auto;
@@ -107,12 +108,11 @@ img {
 
 #discard_top{
     background-color:#e7e5e4ad;
-    font-weight: 600;
     margin:0;
 }
 
 #discard_list {
-  font-weight: 600;
+  margin-top: 10px;
   list-style: none;
   padding: 0;
   background-color: #e7e5e4ad;
