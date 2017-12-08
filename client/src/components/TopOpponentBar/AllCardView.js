@@ -10,7 +10,6 @@ let data = require('../../gamejson/cards.js');
 export default class AllCardView extends Component {
 
   render() {
-    //console.log(this.props)
     return (
       <MuiThemeProvider>
       <OffCanvas width={1200} transitionDuration={300} isMenuOpened={this.props.open} position={"right"}>

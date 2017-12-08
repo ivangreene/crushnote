@@ -29,3 +29,8 @@
   font-size: 40px;
   font-family: 'Cookie';
 }
+
+#chat_controls{
+  display: flex;
+  justify-content: space-around;
+}

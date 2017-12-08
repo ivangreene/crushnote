@@ -33,7 +33,7 @@ class Chat extends Component {
     this.sendMessage = ev => {
       ev.preventDefault();
       this.socket.emit('SEND_MESSAGE', {
-        author: this.state.username,
+        author: this.props.name,
         message: this.state.message
       });
       console.log(this.state.message);
@@ -45,30 +45,38 @@ class Chat extends Component {
 
   render() {
     return (<div className="chat_container">
-        <div className="chat-body">
-          <div className="chat-title"><h3>Crush Note Lobby Chat</h3></div>
-          <div className="messages">
-            {
-              this.state.messages.map((message, index) => {
-                return (<div key={index}>{message.author}: {message.message}</div>)
-              })
-            }
-          </div>
-
+      <div className="chat-body">
+        <div className="chat-title">
+          <h3>Crush Note Lobby Chat</h3>
         </div>
-        <div className="card-footer">
-          {<input
+        <div className="messages">
+          {
+            this.state.messages.map((message, index) => {
+              return (<div key={index}>{message.author}: {message.message}</div>)
+            })
+          }
+        </div>
+
+      </div>
+      <div id="chat_controls">
+        {/* {<input
             type="text"
-            placeholder="Username"
-            value={this.state.username}
-            onChange={ev => this.setState({username: ev.target.value})}
-            className="form-control"/>}
-          {/*<h3><small>(You):</small> {this.props.player.username}</h3>*/}
-          <br/>
+            placeholder={this.props.name}
+            // value={this.state.username}
+            value={this.props.name}
+            onChange={ev => this.setState({username: this.props.name})}
+            className="form-control"/>} */
+        }
+        <div>
+          <h3>
+            (You):
+            {this.props.name}</h3>
+        </div>
+        <div>
           <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
-          <br/>
           <button onClick={this.sendMessage}>Send</button>
         </div>
+      </div>
     </div>);
   }
 }
