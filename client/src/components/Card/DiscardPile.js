@@ -23,7 +23,7 @@ class DiscardPile extends Component {
 
   render() {
     return (<div>
-      <RaisedButton label="Discarded" onClick={this.toggleHidden.bind(this)}/> {!this.state.isHidden && <DiscardList discardlist={this.props.discarded}/>}
+      <RaisedButton label="Discarded" onClick={this.toggleHidden.bind(this)}/> {!this.state.isHidden && <DiscardList discardlist={this.props.discarded} id="disList"/>}
     </div>)
   }
 }
@@ -54,7 +54,7 @@ class DiscardList extends Component {
       </li>);
     });
 
-    return (<div id="discard_margin">
+    return (<div>
       <div className="cheatFrontSide">
         <p id="discard_top">Cards discarded this round</p>
         <ul id="discard_list">

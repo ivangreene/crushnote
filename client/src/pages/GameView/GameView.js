@@ -160,7 +160,7 @@ class GameView extends Component {
   }
 
   render() {
-    if (this.props.game) console.log(`game ended?`, this.props.game.completed);
+    // if (this.props.game) console.log(`game ended?`, this.props.game.completed);
     const gameEndRedirect = setTimeout(() => {
       if (this.props.user.name
         && window.location.pathname.includes('/game/')
@@ -194,14 +194,7 @@ class GameView extends Component {
               selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[2]}
             />}
         </div>
-
-        <div className="pure-u-1-3" id="top_buttons">
-          <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
-              cardViewOpen: !this.state.cardViewOpen, hideGuard: false
-            })} open={this.state.cardViewOpen} hideGuard={this.state.hideGuard}/>
-
-        </div>
-
+        <div className="pure-u-1-3"></div>
         <div className="player-mount pure-u-1-3">
           {this.playerOrderCurrentUserFirst()[3] &&
             <PlayerMount
@@ -214,10 +207,23 @@ class GameView extends Component {
         </div>
       </div>
 
+      <div className="pure-g" id="top_buttons">
+        <div className="pure-u-1-4" id="discardListButton">
+          <DiscardPile discarded={this.props.game.cards.played} />
+        </div>
+        <div className="pure-u-1-2" id="top_buttons">
+          <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
+              cardViewOpen: !this.state.cardViewOpen, hideGuard: false
+            })} open={this.state.cardViewOpen} hideGuard={this.state.hideGuard}/>
+        </div>
+        <div className="pure-u-1-4"></div>
+      </div>
+
       <div className="pure-g" id="card_view">
 
         <div className="pure-u-1-4" id="discard">
           <p className="card_view_titles">Last Card Played</p>
+
           <Card onClick={() => {}} card={this.props.game.cards.played[0]}/>
         </div>
 
@@ -230,9 +236,9 @@ class GameView extends Component {
         </div>
         </div>
 
-        <div className="pure-u-1-4" id="disList">
+        {/* <div className="pure-u-1-4 smaller_text">
           <DiscardPile discarded={this.props.game.cards.played}/>
-        </div>
+        </div> */}
 
         <div className="pure-u-1-4" id="game_log">
           <GameLog

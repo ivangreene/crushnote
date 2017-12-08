@@ -5,8 +5,11 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 120px;
-  background-color: #c4cbcc;
+  height: 60%;
+
+  background: #ada996;
+  background: -webkit-linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea);
+  background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea);
   -webkit-box-shadow: 10px 10px 5px #494343;
 }
 
@@ -41,6 +44,12 @@
   border: 1px solid #92841d;
   float: left;
   color:white;
+}
+
+#hand_title{
+  /*position: absolute;
+bottom: 5%;
+right: 10%;*/
 }
 
 #opponent_round_tokens {
@@ -86,19 +95,19 @@
 
 
 @-webkit-keyframes indicateTurn {
-  from { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
-  50% { box-shadow: #91bd09; -webkit-box-shadow: 0 0 28px #0bedaf; }
-  to { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
+  from { box-shadow: #749a02; -webkit-box-shadow: 5px 15px 19px #333; }
+  50% { box-shadow: #91bd09; -webkit-box-shadow: 5px 15px 28px #fade7c; }
+  to { box-shadow: #749a02; -webkit-box-shadow: 5px 15px 19px #333; }
 }
 
 @-webkit-keyframes flashname {
-  from { color: #749a02; -webkit-color: 0 0 19px #333; }
-  50% { color: black; -webkit-color: 0 0 28px #0bedaf; }
-  to { color: #749a02; -webkit-color: 0 0 19px #333; }
+  from { color: #fade7c; -webkit-color: 0 0 19px black; }
+  50% { color: black; -webkit-color: 0 0 28px #fade7c; }
+  to { color: #fade7c; -webkit-color: 0 0 19px black; }
 }
 
 @-webkit-keyframes indicateOpponent {
-  from { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
-  50% { box-shadow: #91bd09; -webkit-box-shadow: 0 0 28px red; }
-  to { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
+  from { box-shadow: #749a02; -webkit-box-shadow: 5px 15px 19px #333; }
+  50% { box-shadow: #91bd09; -webkit-box-shadow: 5px 15px 28px rgb(255,64,129); }
+  to { box-shadow: #749a02; -webkit-box-shadow: 5px 15px 19px #333; }
 }

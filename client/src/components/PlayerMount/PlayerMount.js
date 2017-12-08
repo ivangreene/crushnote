@@ -22,18 +22,18 @@ class PlayerMount extends Component {
         ? ' selectedOpponent'
         : '')}>
       <div className="opponent_stats">
-        <header>
+        <header className="smaller_text">
           <i className="material-icons">&#xE87C;</i>
           {this.props.currentUser && <span>Logged in as:  </span>}
           {this.props.player.name}</header>
       </div>
       <div id="opponent_round_tokens">
-        <h4 id="opponent_score">Rounds Won:
+        <h4 id="opponent_score" className="smaller_text">Rounds Won:
         </h4>
         { this.hearts() }
       </div>
       <div id="opponent_hand">
-        <div id="hand_title">cards held</div>
+        <div id="hand_title" className="smaller_text">cards held</div>
         <div className="card_spacing">
           { this.props.player && !this.props.player.eliminated && <div className="opponent_card">
             {!this.props.currentUser && this.props.player.hand }

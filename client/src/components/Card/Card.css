@@ -94,11 +94,17 @@ img {
 
 /* --- Discard / Cheat Card  ----*/
 .cheatFrontSide {
+  font-size: 18px;
+  top: 20%;
+  left: 5%;
+  position: absolute;
+  z-index: 3;
   font-weight: 600;
-  width:80%;
-  padding:15px;
+  padding: 15px;
   margin: 0 auto;
-  background-image: url("../../style/img/discardtest.png");
+  /* background-image: url(/static/media/discarddiv.3333bd3d.png); */
+  background-color: white;
+  opacity:.95;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -123,4 +129,11 @@ img {
   bottom:10%;
   left:0;
   right:0;
+}
+
+.toggleZ{
+  z-index: 3 !important;
+}
+.toggleZback{
+  z-index: -1 !important;
 }
