@@ -78,8 +78,16 @@ class GameView extends Component {
         {isOwner && !canStartGame && !game.completed && <div className="wait_message">More players must join before you may start the game.</div>}
 
         {
+          (game.roundWinner && game.roundWinner.id && game.roundWinner.card)
+            && <div className="wait_message">{
+              game.players[game.roundWinner.id].name
+            } won a heart with a {game.roundWinner.card} in their hand.</div>
+        }
+
+        {
           canStartGame && <div>
-            <div className="wait_message">Players Joined</div>
+            { (!game.roundWinner || !game.roundWinner.id)
+              && <div className="wait_message">Players Joined</div> }
               <button className="green" id="startNewGameBtn" onClick={game => {
                   this.socket.emit('startGame', this.props.gameId);
                 }}>Start Game</button>
@@ -161,14 +169,14 @@ class GameView extends Component {
 
   render() {
     // if (this.props.game) console.log(`game ended?`, this.props.game.completed);
-    const gameEndRedirect = setTimeout(() => {
-      if (this.props.user.name
-        && window.location.pathname.includes('/game/')
-        && this.props.game
-        && this.props.game.completed) {
-        this.socket.emit('leaveGame', this.props.gameId);
-      }
-    }, 10000);
+    // const gameEndRedirect = setTimeout(() => {
+    //   if (this.props.user.name
+    //     && window.location.pathname.includes('/game/')
+    //     && this.props.game
+    //     && this.props.game.completed) {
+    //     this.socket.emit('leaveGame', this.props.gameId);
+    //   }
+    // }, 10000);
     if (!this.props.game)
       return null;
     return (  <MuiThemeProvider>

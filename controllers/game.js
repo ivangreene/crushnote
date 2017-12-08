@@ -110,8 +110,7 @@ module.exports = {
             if (err) return console.log(err);
             resolve(newGame);
           });
-        })
-        .catch(err => console.log(err));
+        }, err => reject(`leaveGame error, controllers/game.js: ` + err));
     });
   },
   startGame: (_id, userID) => {
@@ -172,14 +171,14 @@ module.exports = {
                 seeded.players[p].eliminated = false;
                 seeded.players[p].active = false;
               });
+              seeded.roundWinner = newState.roundWinner;
               newState = seeded;
             }
           }
           db.Game.findOneAndUpdate({_id}, newState)
             .then(() => { });
           resolve([newState, showHand]);
-        }, err => reject(err))
-        .catch(err => console.log(err));
+        }, err => reject(`gameMove error, controllers/game.js: ` + err));
     });
   }
 };

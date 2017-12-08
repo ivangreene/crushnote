@@ -4,7 +4,7 @@ import CardListItem from "../TopOpponentBar/CardListItem";
 const CardList =(props)=>{
   //console.log(props)
 
-  const cardItems = props.cards.map((card)=>{
+  const cardItems = props.cards.map((card, index)=>{
 
     if(props.HideGuard === true && card.id ==='1'){
       // console.log(card)
@@ -14,7 +14,7 @@ const CardList =(props)=>{
     return(
       <CardListItem
         onClick={card.id === '1' ? () => {} : props.onClick}
-        key={card.id}
+        key={index}
         card={card}
          />);
   });
