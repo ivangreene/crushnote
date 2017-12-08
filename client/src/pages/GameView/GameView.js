@@ -46,6 +46,10 @@ class GameView extends Component {
     this.setState({ cardViewOpen: false, hideGuard: false });
   }
 
+  hasProtection(){
+    this.setState({protected: true});
+  }
+
   componentDidMount() {
     document.body.classList.add('body-image');
   }
@@ -69,13 +73,12 @@ class GameView extends Component {
         { game.completed &&
           <div className="wait_message">
             <p>Game over. Winner: { game.players[game.winner].name }</p>
-            <p><button className="green" onClick={game => {
+          <RaisedButton label="Return to Lobby" secondary={true} onClick={game => {
               this.socket.emit('leaveGame', this.props.gameId);
-            }}>
-              Back to Lobby
-            </button></p>
+            }}/>
+
           </div> }
-        {isOwner && !canStartGame && !game.completed && <div className="wait_message">More players must join before you may start the game.</div>}
+        {isOwner && !canStartGame && !game.completed && <div className="card_view_titles gameStartMargin">More players must join before you may start the game.</div>}
 
         {
           (game.roundWinner && game.roundWinner.id && game.roundWinner.card)
@@ -87,21 +90,18 @@ class GameView extends Component {
         {
           canStartGame && <div>
             { (!game.roundWinner || !game.roundWinner.id)
-              && <div className="wait_message">Players Joined</div> }
-              <button className="green" id="startNewGameBtn" onClick={game => {
+              && <div className="card_view_titles gameStartMargin">Players Joined</div>
+              <RaisedButton primary={true} label="Start Game" id="startNewGameBtn" onClick={game => {
                   this.socket.emit('startGame', this.props.gameId);
-                }}>Start Game</button>
+                }}/>
             </div>
         }
-
-
-        {!isOwner && <div className="wait_message">Waiting for other players...</div>}
+        <br></br>
+        {!isOwner && <div className="card_view_titles gameStartMargin">Waiting for other players...</div>}
         <div>
-          { !game.completed && <button className="green" onClick={game => {
+          { !game.completed && <RaisedButton secondary={true} label="Leave Game" onClick={game => {
               this.socket.emit('leaveGame', this.props.gameId);
-            }}>
-            Abandon Game
-          </button> }
+            }}/> }
         </div>
       </div>
     </div>);
@@ -126,6 +126,10 @@ class GameView extends Component {
       this.closeCardView();
     else if (move.card === GUARD && move.chosenPlayer && !send)
       this.openGuardCardView();
+    else if(move.card === HANDMAID)
+      // console.log("iron handmaiden")
+      this.hasProtection();
+      // Code for class .shielded added here for the turn
     this.setState({ move }, send ? this.sendMove : () => {});
   }
 
@@ -145,17 +149,6 @@ class GameView extends Component {
     this.socket.emit('startGame', this.props.gameId);
   }
 
-  getPlayerName(playerId) {
-    let activeUsers = this.props.activeUsers;
-    let playerName;
-    for (let i = 0; i < activeUsers.length; i++) {
-      let user = activeUsers[i];
-      if (user._id === playerId) {
-        playerName = user.username;
-        return playerName;
-      }
-    }
-  }
 
   playerOrderCurrentUserFirst() {
     let index = this.props.game.playerOrder.indexOf(this.props.user.id);
@@ -200,6 +193,7 @@ class GameView extends Component {
               userId={this.playerOrderCurrentUserFirst()[2]}
               player={this.props.game.players[this.playerOrderCurrentUserFirst()[2]]}
               selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[2]}
+              protected={false}
             />}
         </div>
         <div className="pure-u-1-3"></div>
@@ -211,6 +205,7 @@ class GameView extends Component {
               userId={this.playerOrderCurrentUserFirst()[3]}
               player={this.props.game.players[this.playerOrderCurrentUserFirst()[3]]}
               selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[3]}
+              protected={false}
             />}
         </div>
       </div>
@@ -264,6 +259,7 @@ class GameView extends Component {
                 userId={this.playerOrderCurrentUserFirst()[1]}
                 player={this.props.game.players[this.playerOrderCurrentUserFirst()[1]]}
                 selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[1]}
+                protected={false}
               />}
           </div>
 
@@ -288,7 +284,8 @@ class GameView extends Component {
                     userId={this.props.user.id}
                     currentUser={true}
                     player={this.props.game.players[this.props.user.id]}
-                    selected={this.state.move.chosenPlayer === this.props.user.id}/>
+                    selected={this.state.move.chosenPlayer === this.props.user.id}
+                    protected={false}/>
                 : (this.playerOrderCurrentUserFirst()[0] &&
                   <PlayerMount
                     count={this.props.game.playerOrder.length}
@@ -296,6 +293,7 @@ class GameView extends Component {
                     userId={this.playerOrderCurrentUserFirst()[0]}
                     player={this.props.game.players[this.playerOrderCurrentUserFirst()[0]]}
                     selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[0]}
+                    protected={false}
                   />)
             }
           </div>

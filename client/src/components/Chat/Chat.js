@@ -12,6 +12,7 @@ class Chat extends Component {
       messages: []
     };
 
+
     this.socket = window.socket;
 
     this.socket.on('RECEIVE_MESSAGE', function(data) {
@@ -43,11 +44,16 @@ class Chat extends Component {
     }
   }
 
+  componentDidMount(){
+  this.nameInput.focus();
+  }
+
+
   render() {
     return (<div className="chat_container">
       <div className="chat-body">
         <div className="chat-title">
-          <p>Crush Note Lobby Chat</p>
+          <h3>Lobby Chat</h3>
         </div>
         <div className="messages">
           {
@@ -59,19 +65,8 @@ class Chat extends Component {
 
       </div>
       <div id="chat_controls">
-        {/* {<input
-            type="text"
-            placeholder={this.props.name}
-            // value={this.state.username}
-            value={this.props.name}
-            onChange={ev => this.setState({username: this.props.name})}
-            className="form-control"/>} */
-        }
-          {/* <p id="chat_handle"> */}
-            {/* (You):
-            {this.props.name}</p> */}
-          <input type="text" style={{width:"100%"}} placeholder={"User " + this.props.name + ": Enter your message here"} className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
-          <button onClick={this.sendMessage}>Send</button>
+          <input type="text" style={{width:"100%"}} placeholder={"User " + this.props.name + ": Enter your message here"} className="form-control"  ref={(input) => { this.nameInput = input; }} value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
+          <button onClick={this.sendMessage} >Send</button>
       </div>
     </div>);
   }
