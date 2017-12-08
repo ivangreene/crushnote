@@ -72,6 +72,12 @@
   -webkit-animation-iteration-count: infinite;
 }
 
+.activePlayerLabel{
+  -webkit-animation-name: flashname;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+}
+
 .selectedOpponent,  .card-magnify:hover{
   -webkit-animation-name: indicateOpponent;
   -webkit-animation-duration: 1.5s;
@@ -83,6 +89,12 @@
   from { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
   50% { box-shadow: #91bd09; -webkit-box-shadow: 0 0 28px #0bedaf; }
   to { box-shadow: #749a02; -webkit-box-shadow: 0 0 19px #333; }
+}
+
+@-webkit-keyframes flashname {
+  from { color: #749a02; -webkit-color: 0 0 19px #333; }
+  50% { color: black; -webkit-color: 0 0 28px #0bedaf; }
+  to { color: #749a02; -webkit-color: 0 0 19px #333; }
 }
 
 @-webkit-keyframes indicateOpponent {
