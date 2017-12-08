@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "./PlayerMount.css";
-const ROUNDS = [7, 7, 7, 5, 4];
+const ROUNDS = [5, 5, 5, 4, 3];
 
 class PlayerMount extends Component {
 
