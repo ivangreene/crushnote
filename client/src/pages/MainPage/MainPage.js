@@ -12,13 +12,6 @@ class MainPage extends Component {
     isLoggedIn: false
   };
 
-  // socket.on('userLoggedIn', function(data) {
-  //   console.log(`a user logged in:`, data);
-  // });
-  // socket.on('userLoggedOut', function(data) {
-  //   console.log(`a user logged out:`, data);
-  // });
-
   render() {
     return (
       <MuiThemeProvider>

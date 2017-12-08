@@ -149,7 +149,6 @@ class GameView extends Component {
   }
 
   render() {
-    // console.log(this.props.game)
     // console.log(this.props.games, this.props.gameId);
     // if (!this.props.gameId || !this.props.games) return null;
     // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];

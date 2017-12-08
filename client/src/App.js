@@ -24,11 +24,10 @@ class App extends Component {
     socket.on('connect', () => {});
 
     const loggedInRedirect = setTimeout(() => {
-      console.log(`to check if a user is currently logged in:`, window.location.pathname);
-      if (!this.state.user.name) return;
-      if (this.state.user.name
-        && (window.location.pathname === '/')) redirectToPath('/main');
-    }, 500);
+      if (this.state.user.name && window.location.pathname === '/') {
+        redirectToPath('/main');
+      }
+    }, 600);
 
     // Redirects to the given path, if not already at that path.
     const redirectToPath = path => {
@@ -38,7 +37,6 @@ class App extends Component {
     }
     socket.on('logInFail', data => {
       // when password or username are wrong, alert user
-      // console.log('user failed to login, setting state to reflect this');
       if (!this.state.login) setTimeout(() => {this.setState({login: ''})}, 6000);
       this.setState({login: 'fail'});
     });
@@ -66,12 +64,10 @@ class App extends Component {
       socket.emit('searchingForGame');
       // Get list of all logged in users after logging in
       socket.emit('getActiveUsers');
-      // window.location.href = '/main';
     });
     socket.on('setCookie', data => document.cookie = data);
     socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
     socket.on('userLoggedOut', data => {
-      // console.log(`a user logged out`, data);
       socket.emit('getActiveUsers');
     });
     socket.on('recieveActiveUsers', users => {
@@ -112,14 +108,16 @@ class App extends Component {
     let updateGameInState = ({ refresh }) => (gameId, game) => {
       let games = {...this.state.games};
       games[gameId] = deepObjectAssign(games[gameId], game);
-      for (var i = 0; i < games[gameId].playerOrder.length; i++) {
-        let userId = games[gameId].playerOrder[i];
-        if (!games[gameId].players[userId].name) {
-          games[gameId].players[userId].name = getPlayerName(userId);
+      if (games[gameId].playerOrder.length) {
+        for (var i = 0; i < games[gameId].playerOrder.length; i++) {
+          let userId = games[gameId].playerOrder[i];
+          if (!games[gameId].players[userId].name) {
+            games[gameId].players[userId].name = getPlayerName(userId);
+          }
         }
+        this.setState({ games });
+        if (refresh) socket.emit('myHand', gameId);
       }
-      this.setState({ games });
-      if (refresh) socket.emit('myHand', gameId);
     }
     socket.on('gameStateUpdate', updateGameInState({ refresh: true }));
     socket.on('gameStarted', updateGameInState({ refresh: true }));
