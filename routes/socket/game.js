@@ -28,6 +28,7 @@ module.exports = (socket, io, userSockets) => {
   socket.on('gameMove', (gameId, move) => {
     if (!move) move = {};
     move.player = socket.request.session.userId;
+    io.to(gameId).emit('receiveGameMove', move);
     Game.gameMove(gameId, move)
       .then(([newState, showHand]) => {
         let cleanState = cleanGameState(newState);

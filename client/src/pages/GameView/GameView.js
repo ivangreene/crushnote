@@ -192,7 +192,13 @@ class GameView extends Component {
 
         <div className="pure-u-1-4" id="disList">
           <DiscardPile discarded={this.props.game.cards.played}/>
-          {/* <GameLog /> */}
+        </div>
+
+        <div className="pure-u-1-4" id="game_log">
+          <GameLog
+            game={this.props.game}
+            playerList={this.playerOrderCurrentUserFirst()}
+            move={this.props.move}/>
         </div>
 
         <div className="pure-u-1-4" id="discard">
