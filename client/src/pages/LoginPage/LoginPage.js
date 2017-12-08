@@ -6,8 +6,17 @@ import "./LoginPage.css";
 class LoginPage extends Component {
 
   state = {
-    active: "signIn"
+    active: "signIn",
+    showBack: false
   };
+
+
+flippy=()=> {
+  this.setState({
+    showBack: !this.state.showBack
+  });
+}
+
 
   handleClick = () => {
     let active = this.state.active;
@@ -29,7 +38,7 @@ class LoginPage extends Component {
       <div id="main_body" className="pure-g">
 
         <div className="pure-u-1-3 loginCard-container">
-          <div className="loginCard" id="first">
+          <div className="loginCard" onClick={this.flippy} className= { this.state.showBack ? "loginCard cardRotate" : "loginCard"}>
             <div className="side">
               <div className="frontSide">
                 <div className="inner_card"></div>
@@ -41,11 +50,11 @@ class LoginPage extends Component {
         </div>
 
         <div id="signup_div" className="pure-u-1-3 loginCard-container">
-          <div className="loginCard" id="third">
+          <div className="loginCard"  className= { this.state.showBack ? "loginCard cardRotate" : "loginCard"}>
             <div className="side">
               <div className="frontSide">
                 <div className="inner_card">
-                  <span id="login_front_text" className="">Play Now</span>
+                  <span id="login_front_text" onClick={this.flippy}>Play Now</span>
                 </div>
               </div>
             </div>
@@ -62,7 +71,7 @@ class LoginPage extends Component {
           </div>
         </div>
         <div className="pure-u-1-3 loginCard-container">
-          <div className="loginCard" id="second">
+          <div className="loginCard" onClick={this.flippy} className= { this.state.showBack ? "loginCard cardRotate" : "loginCard"}>
             <div className="side">
               <div className="frontSide">
                 <div className="inner_card"></div>
@@ -73,12 +82,12 @@ class LoginPage extends Component {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <a href="/main">lobby</a>
       </div>
       <div>
         <a href="/game">gameview</a>
-      </div>
+      </div> */}
 
     </div>)
   }
