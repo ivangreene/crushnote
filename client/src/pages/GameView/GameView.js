@@ -90,7 +90,7 @@ class GameView extends Component {
         {
           canStartGame && <div>
             { (!game.roundWinner || !game.roundWinner.id)
-              && <div className="card_view_titles gameStartMargin">Players Joined</div>
+              && <div className="card_view_titles gameStartMargin">Players Joined</div> }
               <RaisedButton primary={true} label="Start Game" id="startNewGameBtn" onClick={game => {
                   this.socket.emit('startGame', this.props.gameId);
                 }}/>
