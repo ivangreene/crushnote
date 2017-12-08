@@ -160,15 +160,15 @@ class GameView extends Component {
   }
 
   render() {
-    // console.log(this.props.game)
-    // const gameEndRedirect = setTimeout(() => {
-    //   if (this.props.user.name
-    //     && window.location.pathname.includes('/game/')
-    //     && this.props.game
-    //     && this.props.game.completed) {
-    //     this.socket.emit('leaveGame', this.props.gameId);
-    //   }
-    // }, 10000);
+    if (this.props.game) console.log(`game ended?`, this.props.game.completed);
+    const gameEndRedirect = setTimeout(() => {
+      if (this.props.user.name
+        && window.location.pathname.includes('/game/')
+        && this.props.game
+        && this.props.game.completed) {
+        this.socket.emit('leaveGame', this.props.gameId);
+      }
+    }, 10000);
     if (!this.props.game)
       return null;
     return (  <MuiThemeProvider>
