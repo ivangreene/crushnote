@@ -116,6 +116,8 @@
 /*---- Game Log Positioning ----*/
 
 #game_log {
+  height:390px;
+  overflow-y: auto;
   border: 2px solid #990;
   background: white;
   color: black;
@@ -125,7 +127,7 @@
   left: auto;
   top: auto;
   margin-top: 40px;
-  z-index: -1;
+  z-index: 0;
   padding: 1em 2em;
   box-sizing: border-box;
 }

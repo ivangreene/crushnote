@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import PlayerMount from "../../components/PlayerMount/PlayerMount";
 import DiscardPile from "../../components/Card/DiscardPile";
 import AllCardView from "../../components/TopOpponentBar/AllCardView";
-// import GameLog from "../../components/GameLog/GameLog";
+import GameLog from "../../components/GameLog/GameLog";
 // import GameChat from "../../components/Chat/GameChat";
 // import deepObjectAssign from '../../deepObjectAssign';
 // import CheatCard from "../../components/Card/CheatCard";
