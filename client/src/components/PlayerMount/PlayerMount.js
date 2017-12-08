@@ -4,6 +4,7 @@ const ROUNDS = [5, 5, 5, 4, 3];
 
 class PlayerMount extends Component {
 
+
   hearts() {
     let icons = [];
     for (let i = 1; i <= ROUNDS[this.props.count]; i++) {
@@ -13,14 +14,17 @@ class PlayerMount extends Component {
   }
 
   render() {
-
+    // console.log(this.props)
     return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
         this.props.player.active
         ? 'activePlayer'
         : '') + (
         this.props.selected
         ? ' selectedOpponent'
-        : '')}>
+        : '') + (
+          this.props.protected
+        ? 'shielded' : ""
+        )}>
       <div className="opponent_stats">
         <header className="smaller_text">
           {/* <i className="material-icons">&#xE87C;</i> */}
