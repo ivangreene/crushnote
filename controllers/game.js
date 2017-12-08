@@ -4,7 +4,7 @@ const gameSeed = () => require('../lib/seeds/game');
 const playerSeed = () => require('../lib/seeds/player');
 const moveEngine = require('../lib/engine/move');
 
-const ROUNDS = [7, 7, 7, 5, 4];
+const ROUNDS = [5, 5, 5, 4, 3];
 
 // used in controllers/gamesController.js
 module.exports = {

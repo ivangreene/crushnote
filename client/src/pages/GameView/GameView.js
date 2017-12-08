@@ -171,13 +171,13 @@ class GameView extends Component {
       <div id="game_box">
         {/* The 'game end' button sets the game.completed property to true
           this is useful for testing the gameEndRedirect timeout function */}
-        {this.props.game && <button onClick={() => {
+        {/*this.props.game && <button onClick={() => {
           this.props.game.completed = true;
           this.props.game.open = false;
           this.props.game.waiting = false;
           this.props.game.winner = this.props.user.id;
           this.forceUpdate();
-        }}>End Game!</button>}
+        }}>End Game!</button>*/}
         {(this.props.game.open || this.props.game.waiting || this.props.game.completed) && this.renderPreGame(this.props.game)}
       <div className="pure-g hud">
         <div className="player-mount pure-u-1-3">
