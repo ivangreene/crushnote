@@ -116,7 +116,7 @@
 /*---- Game Log Positioning ----*/
 #log_title{
   text-align: center;
-  font-size: 18px;
+  font-size: 24px;
   margin-top: 15px;
 }
 #game_log {

@@ -23,7 +23,7 @@ class PlayerMount extends Component {
         : '')}>
       <div className="opponent_stats">
         <header className="smaller_text">
-          <i className="material-icons">&#xE87C;</i>
+          {/* <i className="material-icons">&#xE87C;</i> */}
           {this.props.currentUser && <span>Logged in as:  </span>}
           {this.props.player.name}</header>
       </div>

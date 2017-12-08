@@ -105,13 +105,15 @@ class GameLog extends Component {
     if ((handmaid && this.state.alerts.length > 0
         && this.state.alerts[this.state.alerts.length-1] !== handmaid)
       || (handmaid && this.state.alerts.length < 1)) alerts.push(handmaid);
-    console.log(`next game state is:`, nextProps.game);
+    // console.log(`next game state is:`, nextProps.game);
     this.setState({ alerts: alerts });
   }
 
   render() {
     return (<div id="gamelog_body">
-        <header id="log_title">Crush - Note</header>
+        <header id="log_title"><i className="material-icons no-point">favorite</i><i className="material-icons no-point">favorite</i>
+        <span>   Crush - Note   </span><i className="material-icons no-point">favorite</i><i className="material-icons no-point">favorite</i></header>
+        <hr className="small"></hr>
         <p> Welcome To Crush-Note a reskinned and digital version of the popular Card game
         Love Letter	&copy;.  Love Letter is a game of risk, deduction, and luck for 2–4 players.
         Your goal is to get your love letter into Princess Annette's hands while deflecting the
