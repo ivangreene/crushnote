@@ -51,7 +51,9 @@ class GameView extends Component {
   }
 
   componentWillMount() {
-    console.log("joining game room", this.props.gameId);
+    // for testing Game End functionality with button:
+    if (this.props.game && this.props.game.completed) this.props.game.completed = false;
+    // console.log("joining game room", this.props.gameId);
     this.socket.emit('joinGameRoom', this.props.gameId);
   }
 
@@ -64,7 +66,15 @@ class GameView extends Component {
     return (<div>
       <div className="darkenBox"></div>
       <div className="startGameBox">
-        { game.completed && <div className="wait_message">Game over. Winner: { game.winner }</div> }
+        { game.completed &&
+          <div className="wait_message">
+            <p>Game over. Winner: { game.players[game.winner].name }</p>
+            <p><button className="green" onClick={game => {
+              this.socket.emit('leaveGame', this.props.gameId);
+            }}>
+              Back to Lobby
+            </button></p>
+          </div> }
         {isOwner && !canStartGame && !game.completed && <div className="wait_message">More players must join before you may start the game.</div>}
 
         {
@@ -150,13 +160,27 @@ class GameView extends Component {
   }
 
   render() {
-    // console.log(this.props.games, this.props.gameId);
-    // if (!this.props.gameId || !this.props.games) return null;
-    // const game = this.props.games.filter(game => game._id === this.props.gameId)[0];
+    // const gameEndRedirect = setTimeout(() => {
+    //   if (this.props.user.name
+    //     && window.location.pathname.includes('/game/')
+    //     && this.props.game
+    //     && this.props.game.completed) {
+    //     this.socket.emit('leaveGame', this.props.gameId);
+    //   }
+    // }, 10000);
     if (!this.props.game)
       return null;
     return (  <MuiThemeProvider>
       <div id="game_box">
+        {/* The 'game end' button sets the game.completed property to true
+          this is useful for testing the gameEndRedirect timeout function */}
+        {this.props.game && <button onClick={() => {
+          this.props.game.completed = true;
+          this.props.game.open = false;
+          this.props.game.waiting = false;
+          this.props.game.winner = this.props.user.id;
+          this.forceUpdate();
+        }}>End Game!</button>}
         {(this.props.game.open || this.props.game.waiting || this.props.game.completed) && this.renderPreGame(this.props.game)}
       <div className="pure-g hud">
         <div className="player-mount pure-u-1-3">

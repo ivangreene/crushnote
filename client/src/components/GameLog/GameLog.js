@@ -21,32 +21,57 @@ class GameLog extends Component {
 
     this.socket.on('receiveGameMove', move => {
       // console.log('Someone moved:', move);
+      console.log(`move:`, move);
       const activeUser = this.props.game.players[move.player].name;
-      let chosenUser, guessedCard;
+      // console.log(`active player`, this.props.game.players[move.player]);
+      let chosenUser, uniqueCardMessage, lostMessage;
+      // Generic turn: {user} played {card} {on player}
       let cardPlayed = `${activeUser} played a ${move.card}`;
       if (move.chosenPlayer) {
         chosenUser = this.props.game.players[move.chosenPlayer].name;
         cardPlayed += ` targeting ${chosenUser}`;
       }
+      // Guard: {activeUser} guess that {chosenUser} has a {card}
       if (move.guessedCard) {
-        guessedCard = `${activeUser} guessed that ${chosenUser} has a ${move.guessedCard}`;
+        uniqueCardMessage = `${activeUser} guessed that ${chosenUser} had a ${move.guessedCard}`;
       }
-      // if () {}
+      // Priest: {activeUser} looked at {chosenUser}'s hand. They can see the card number beside {chosenUser}'s name.
+      if (move.card === 2) {
+        uniqueCardMessage = `${activeUser} looked at ${chosenUser}'s hand. They can see the card number beside ${chosenUser}'s name.`;
+      }
+      // Baron: {activeUser} and {chosenUser} compared hands to see who has the highest card
+      if (move.card === 3) {
+        uniqueCardMessage = `${activeUser} and ${chosenUser} compared hands to see who has the highest card`;
+      }
+      // Handmaid: {activeUser} protected themselves from all effects until their next turn
+      if (move.card === 4) {
+        uniqueCardMessage = `${activeUser} protected themselves from all effects until their next turn`;
+      }
+      // Prince: {chosenUser} discarded a {card} and drew a new one
+      // Prince forces discard to end of array
+      if (move.card === 5) {
+        uniqueCardMessage = `${chosenUser} discarded a ${
+          this.props.game.players[move.player].discarded[this.props.game.players[move.player].discarded.length-1]
+        } and drew a new card`;
+      }
+      // King: {activeUser} switched hands with {chosenUser}
+      if (move.card === 6) {
+        uniqueCardMessage = `${activeUser} switched hands with ${chosenUser}`;
+      }
+      // Player out of round: {user} is out of the round with a {card} in their hand
+      if (move.card === 8 || this.props.game.players[move.player].eliminated) {
+        lostMessage = `${activeUser} is out of the round with a ${move.card} in their hand`
+      }
       let alerts = this.state.alerts.slice();
-      alerts.push(cardPlayed);
-      alerts.push(guessedCard);
+      if (cardPlayed) alerts.push(cardPlayed);
+      if (uniqueCardMessage) alerts.push(uniqueCardMessage);
+      if (lostMessage) alerts.push(lostMessage);
       this.setState({ alerts: alerts, move: move });
     });
 
     this.socket.on('gameStarted', () => this.setState({alerts: []}))
 
   };
-
-  // updateAlerts(game) {
-  //   if (!this.state.game) setState({ game });
-  //   console.log('GameLog sees this game:', this.state.game);
-  //   console.log('updateAlerts sees this game:', game);
-  // }
 
   displayHandmaidAlert(game, playerList) {
     const enemy1 = game.players[playerList[1]];
@@ -77,17 +102,9 @@ class GameLog extends Component {
     var alerts = this.state.alerts.slice();
     // handmaid alert
     const handmaid = this.displayHandmaidAlert(nextProps.game, nextProps.playerList);
-    if (handmaid
-      && (this.state.alerts.length > 0
+    if ((handmaid && this.state.alerts.length > 0
         && this.state.alerts[this.state.alerts.length-1] !== handmaid)
-      || (handmaid && this.state.alerts.length < 1)
-      ) alerts.push(handmaid);
-    // {user} played {card} {on player}
-    console.log(`move:`, this.state.move);
-    // loop over each player to see if any changed from active to not active
-    // if yes, then set userId = this.props.game.players[userId].active
-    // and then find nextProps.players[userId].discarded[0] to see what card they played
-    // if ()
+      || (handmaid && this.state.alerts.length < 1)) alerts.push(handmaid);
     this.setState({ alerts: alerts });
   }
 
@@ -102,11 +119,13 @@ class GameLog extends Component {
 
   renderAlerts(alerts) {
     return alerts.map((alert, index) => {
-      console.log(`the alert is`, alert);
-      return (<div className="alertListEntry" key={index}>
-        <p>{alert}</p>
-        <hr></hr>
-      </div>);
+      // console.log(`the alert is`, alert);
+      if (alert) {
+        return (<div className="alertListEntry" key={index}>
+          <p>{alert}</p>
+          <hr/>
+        </div>);
+      } else return null;
     });
   }
 }
