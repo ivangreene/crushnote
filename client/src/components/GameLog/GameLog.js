@@ -33,15 +33,18 @@ class GameLog extends Component {
       }
       // Guard: {activeUser} guess that {chosenUser} has a {card}
       if (move.guessedCard) {
-        uniqueCardMessage = `${activeUser} guessed that ${chosenUser} had a ${move.guessedCard}`;
+        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Guard with no effect`
+        else uniqueCardMessage = `${activeUser} guessed that ${chosenUser} had a ${move.guessedCard}`;
       }
       // Priest: {activeUser} looked at {chosenUser}'s hand. They can see the card number beside {chosenUser}'s name.
       if (move.card === 2) {
-        uniqueCardMessage = `${activeUser} looked at ${chosenUser}'s hand. They can see the card number beside ${chosenUser}'s name.`;
+        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Priest with no effect`
+        else uniqueCardMessage = `${activeUser} looked at ${chosenUser}'s hand. They can see the card number beside ${chosenUser}'s name.`;
       }
       // Baron: {activeUser} and {chosenUser} compared hands to see who has the highest card
       if (move.card === 3) {
-        uniqueCardMessage = `${activeUser} and ${chosenUser} compared hands to see who has the highest card`;
+        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Baron with no effect`
+        else uniqueCardMessage = `${activeUser} and ${chosenUser} compared hands to see who has the highest card`;
       }
       // Handmaid: {activeUser} protected themselves from all effects until their next turn
       if (move.card === 4) {
@@ -50,13 +53,14 @@ class GameLog extends Component {
       // Prince: {chosenUser} discarded a {card} and drew a new one
       // Prince forces discard to end of array
       if (move.card === 5) {
-        uniqueCardMessage = `${chosenUser} discarded a ${
+        uniqueCardMessage = `${activeUser} forced ${chosenUser} to discard a ${
           this.props.game.players[move.player].discarded[this.props.game.players[move.player].discarded.length-1]
-        } and drew a new card`;
+        } and draw a new card`;
       }
       // King: {activeUser} switched hands with {chosenUser}
       if (move.card === 6) {
-        uniqueCardMessage = `${activeUser} switched hands with ${chosenUser}`;
+        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Priest with no effect`
+        else uniqueCardMessage = `${activeUser} switched hands with ${chosenUser}`;
       }
       // Player out of round: {user} is out of the round with a {card} in their hand
       if (move.card === 8 || this.props.game.players[move.player].eliminated) {
@@ -105,7 +109,16 @@ class GameLog extends Component {
     if ((handmaid && this.state.alerts.length > 0
         && this.state.alerts[this.state.alerts.length-1] !== handmaid)
       || (handmaid && this.state.alerts.length < 1)) alerts.push(handmaid);
-    // console.log(`next game state is:`, nextProps.game);
+    // Player won round: {user} won a heart with {card} in their hand
+    // This displays in the gameStart popup in GameView.js
+    // if (nextProps.game.roundWinner
+    //   && nextProps.game.roundWinner.id
+    //   && nextProps.game.roundWinner.card) {
+    //   const wonRoundName = nextProps.game.players[nextProps.game.roundWinner.id].name;
+    //   const wonRoundCard = nextProps.game.roundWinner.card;
+    //   const winMessage = `${wonRoundName} won a heart with ${wonRoundCard} in their hand`;
+    //   alerts.push(winMessage);
+    // }
     this.setState({ alerts: alerts });
   }
 
