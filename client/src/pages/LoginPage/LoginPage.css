@@ -51,13 +51,17 @@ body {
 
 .loginCard {
   margin: 0 auto;
-  height: 95%;
+  height: 100%;
   transform-style: preserve-3d;
   transition: all 1s ease-in-out;
   width: 75%;
 }
 
-.loginCard:hover {
+/*.loginCard:hover {
+  transform: rotateY(180deg);
+}*/
+
+.cardRotate {
   transform: rotateY(180deg);
 }
 
@@ -73,7 +77,8 @@ body {
 }
 
 .loginCard .back {
-  background-image: url("../../style/img/cardfront_placeholder2.jpg");
+  border:double 5px #97881b;
+  background-image: url("../../style/img/heart3.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -109,17 +114,7 @@ body {
 
 /*  load animation    */
 
-/*#third.loginCard {
-  -webkit-animation: flip 5s;
-  animation: flip 5s;
-}*/
-
-#second.loginCard {
-  -webkit-animation: flip 4s;
-  animation: flip 4s;
-}
-
-#first.loginCard {
+  .loginCard {
   -webkit-animation: flip 3s;
   animation: flip 3s;
 }

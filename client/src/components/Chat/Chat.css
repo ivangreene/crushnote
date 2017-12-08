@@ -1,16 +1,22 @@
 .messages {
-  width: 100%;
+  border: 5px inset;
+  color: #e1dee1;
+  font-size: 18px;
+  font-weight: 600;
+  width: auto;
   height: 300px;
   overflow-y: auto;
-  background-color: #d9ebe9;
+  background-color: #2a222c;
+  opacity: .75;
   margin-bottom: 5px;
-  padding: 10px;
+  padding: 1em 2em;
   border-top-style: double;
   border-bottom-style: double;
-  border-top-color: #7cbfcf;
-  border-bottom-color: #7cbfcf;
+  border-top-color: #97881b;
+  border-bottom-color: #97881b;
   border-top-width: 8px;
   border-bottom-width: 8px;
+  line-height: 120%;
 }
 
 .chat_container {
@@ -27,10 +33,15 @@
   margin-top: 10px;
   margin-bottom:20px;
   font-size: 40px;
-  font-family: 'Cookie';
+  font-weight: 400;
+font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
 
 #chat_controls{
   display: flex;
   justify-content: space-around;
+}
+
+#chat_handle{
+  margin:0 auto;
 }

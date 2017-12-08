@@ -47,7 +47,7 @@ class Chat extends Component {
     return (<div className="chat_container">
       <div className="chat-body">
         <div className="chat-title">
-          <h3>Crush Note Lobby Chat</h3>
+          <p>Crush Note Lobby Chat</p>
         </div>
         <div className="messages">
           {
@@ -67,15 +67,11 @@ class Chat extends Component {
             onChange={ev => this.setState({username: this.props.name})}
             className="form-control"/>} */
         }
-        <div>
-          <h3>
-            (You):
-            {this.props.name}</h3>
-        </div>
-        <div>
-          <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
+          {/* <p id="chat_handle"> */}
+            {/* (You):
+            {this.props.name}</p> */}
+          <input type="text" style={{width:"100%"}} placeholder={"User " + this.props.name + ": Enter your message here"} className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
           <button onClick={this.sendMessage}>Send</button>
-        </div>
       </div>
     </div>);
   }
