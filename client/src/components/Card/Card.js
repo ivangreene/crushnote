@@ -48,7 +48,7 @@ const Card =({card, isHeld, onClick, playCard, selected, ready })=>{
           { isHeld && (
             ready(card) && ready(card) !== 'guard' ?
               <RaisedButton onClick={playCard} label="Play Card" primary={true} />
-              : ready(card) === 'guard' ? <RaisedButton seondary={true} label="Guess Card" />
+              : ready(card) === 'guard' ? <RaisedButton secondary={true} label="Guess Card" />
               : <RaisedButton secondary={true} label="Select Target" /> ) }
         </div>
         </div>

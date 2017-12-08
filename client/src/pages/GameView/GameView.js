@@ -216,7 +216,10 @@ class GameView extends Component {
         </div>
 
         <div className="pure-u-1-4" id="game_log">
-          <GameLog game={this.props.game} playerList={this.playerOrderCurrentUserFirst()}/>
+          <GameLog
+            game={this.props.game}
+            playerList={this.playerOrderCurrentUserFirst()}
+            move={this.props.move}/>
         </div>
 
         <div className="pure-u-1-4" id="discard">

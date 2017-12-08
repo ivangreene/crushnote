@@ -92,6 +92,10 @@ class App extends Component {
       }
       this.setState({ games });
     });
+    // socket.on('receiveGameMove', move => {
+    //   console.log('Someone moved:', move);
+    //   this.setState({ move });
+    // });
 
     let getPlayerName = playerId => {
       let activeUsers = this.state.activeUsers;
