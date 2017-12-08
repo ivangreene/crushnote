@@ -29,6 +29,7 @@ class GameView extends Component {
 
   state = {
     cardViewOpen: false,
+    hideGuard: false,
     move: {}
   };
 
@@ -36,8 +37,12 @@ class GameView extends Component {
     this.setState({ cardViewOpen: true });
   }
 
+  openGuardCardView(){
+    this.setState({ cardViewOpen: true, hideGuard: true});
+  }
+
   closeCardView() {
-    this.setState({ cardViewOpen: false });
+    this.setState({ cardViewOpen: false, hideGuard: false });
   }
 
   componentDidMount() {
@@ -135,7 +140,7 @@ class GameView extends Component {
     if (attr === 'guessedCard')
       this.closeCardView();
     else if (move.card === GUARD && move.chosenPlayer && !send)
-      this.openCardView();
+      this.openGuardCardView();
     this.setState({ move }, send ? this.sendMove : () => {});
   }
 
@@ -215,8 +220,8 @@ class GameView extends Component {
 
         <div className="pure-u-1-3" id="top_buttons">
           <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
-              cardViewOpen: !this.state.cardViewOpen
-            })} open={this.state.cardViewOpen}/>
+              cardViewOpen: !this.state.cardViewOpen, hideGuard: false
+            })} open={this.state.cardViewOpen} hideGuard={this.state.hideGuard}/>
         </div>
 
         <div className="player-mount pure-u-1-3">
@@ -233,8 +238,8 @@ class GameView extends Component {
 
       <div className="pure-g" id="card_view">
 
-        <div className="pure-u-1-4">
-          <DiscardPile/>
+        <div className="pure-u-1-4" id="disList">
+          <DiscardPile discarded={this.props.game.cards.played}/>
         </div>
 
         <div className="pure-u-1-4" id="game_log">
@@ -270,11 +275,11 @@ class GameView extends Component {
           </div>
 
           <div className="pure-u-1-3" id="bottom_buttons">
-            <RaisedButton  label="Quit Game" onClick={game => {
+            <RaisedButton secondary={true} label="Quit Game" onClick={game => {
                 this.socket.emit('leaveGame', this.props.gameId);
               }} />
               <span id="bottom_fix"></span>
-              <RaisedButton label="Lobby" href="/main" target="blank"/>
+              <RaisedButton primary={true} label="Lobby" href="/main" target="blank"/>
           </div>
 
           <div className="player-mount pure-u-1-3">
