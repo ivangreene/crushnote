@@ -53,8 +53,8 @@ flippy=()=> {
           <div className="loginCard"  className= { this.state.showBack ? "loginCard cardRotate" : "loginCard"}>
             <div className="side">
               <div className="frontSide">
-                <div className="inner_card">
-                  <span id="login_front_text" onClick={this.flippy}>Play Now</span>
+                <div className="inner_card" onClick={this.flippy}>
+                  <span id="login_front_text">Play Now</span>
                 </div>
               </div>
             </div>

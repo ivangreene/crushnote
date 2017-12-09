@@ -14,7 +14,7 @@
 #card_view {
   text-align: center;
   clear: both;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 /*==== User Side ===*/
@@ -130,6 +130,7 @@
 .card_view_titles {
   text-shadow: 1px 1px 1px #97881b;
   font-size: 25px;
+  margin-bottom: 10px;
   margin-top: 10px;
   font-weight: 600;
 }
