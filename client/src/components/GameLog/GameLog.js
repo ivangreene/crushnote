@@ -21,7 +21,19 @@ class GameLog extends Component {
 
     this.socket.on('receiveGameMove', move => {
       // console.log('Someone moved:', move);
+      const playerIds = Object.keys(this.props.game.players);
+      let eliminatedIds = [];
+      for (let i = 0; i < playerIds.length; i++) {
+        if (this.props.game.players
+          && this.props.game.players[playerIds]
+          && this.props.game.players[playerIds].eliminated) eliminatedIds.push();
+      }
       console.log(`move:`, move);
+      if (move.chosenPlayer && this.props.game.players[move.chosenPlayer].discarded
+        && this.props.game.players[move.chosenPlayer].discarded.length > 0) {
+        console.log('chosenPlayer most recently discarded a:',
+          this.props.game.players[move.chosenPlayer].discarded[0]);
+      }
       const activeUser = this.props.game.players[move.player].name;
       // console.log(`active player`, this.props.game.players[move.player]);
       let chosenUser, uniqueCardMessage, lostMessage;
@@ -33,18 +45,33 @@ class GameLog extends Component {
       }
       // Guard: {activeUser} guess that {chosenUser} has a {card}
       if (move.guessedCard) {
-        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Guard with no effect`
-        else uniqueCardMessage = `${activeUser} guessed that ${chosenUser} had a ${move.guessedCard}`;
+        if (activeUser === chosenUser) {
+          uniqueCardMessage = `${activeUser} played a Guard with no effect`
+        } else {
+          uniqueCardMessage = `${activeUser} guessed that ${chosenUser} had a ${move.guessedCard}`;
+        }
       }
       // Priest: {activeUser} looked at {chosenUser}'s hand. They can see the card number beside {chosenUser}'s name.
       if (move.card === 2) {
-        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Priest with no effect`
-        else uniqueCardMessage = `${activeUser} looked at ${chosenUser}'s hand. They can see the card number beside ${chosenUser}'s name.`;
+        if (activeUser === chosenUser) {
+          uniqueCardMessage = `${activeUser} played a Priest with no effect`
+        } else {
+          uniqueCardMessage = `${activeUser} looked at ${chosenUser}'s hand. They can see the card number beside ${chosenUser}'s name.`;
+        }
       }
       // Baron: {activeUser} and {chosenUser} compared hands to see who has the highest card
       if (move.card === 3) {
-        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Baron with no effect`
-        else uniqueCardMessage = `${activeUser} and ${chosenUser} compared hands to see who has the highest card`;
+        if (activeUser === chosenUser) {
+          uniqueCardMessage = `${activeUser} played a Baron with no effect`
+        } else {
+          uniqueCardMessage = `${activeUser} and ${chosenUser} compared hands to see who has the highest card`;
+        }
+        if (this.props.game.players[move.chosenPlayer].eliminated) {
+          console.log('A PLAYER WAS KNOCKED OUT BY A BARON');
+          lostMessage = `${chosenUser} is out of the round with a ${
+            this.props.game.players[move.chosenPlayer].discarded[0]
+          } in their hand`
+        }
       }
       // Handmaid: {activeUser} protected themselves from all effects until their next turn
       if (move.card === 4) {
@@ -59,12 +86,15 @@ class GameLog extends Component {
       }
       // King: {activeUser} switched hands with {chosenUser}
       if (move.card === 6) {
-        if (activeUser === chosenUser) uniqueCardMessage = `${activeUser} played a Priest with no effect`
-        else uniqueCardMessage = `${activeUser} switched hands with ${chosenUser}`;
+        if (activeUser === chosenUser) {
+          uniqueCardMessage = `${activeUser} played a Priest with no effect`
+        } else {
+          uniqueCardMessage = `${activeUser} switched hands with ${chosenUser}`;
+        }
       }
       // Player out of round: {user} is out of the round with a {card} in their hand
-      if (move.card === 8 || this.props.game.players[move.player].eliminated) {
-        lostMessage = `${activeUser} is out of the round with a ${move.card} in their hand`
+      if (move.card === 8) {
+        lostMessage = `${activeUser} is out of the round after discarding the Princess`
       }
       let alerts = this.state.alerts.slice();
       if (cardPlayed) alerts.push(cardPlayed);
@@ -111,7 +141,7 @@ class GameLog extends Component {
       || (handmaid && this.state.alerts.length < 1)) alerts.push(handmaid);
     const players = this.props.playerList;
     for (let i = 0; i < players.length; i++) {
-      if (nextProps.game && nextProps.game.players[players[i]].eliminated !== this.props.game.players[players[i]].eliminated) {
+      if (nextProps.game.players[players[i]].eliminated !== this.props.game.players[players[i]].eliminated) {
           console.log(`\n\n\nPLAYER ${this.props.game.players[players[i]].name} WAS KNOCKED OUT OF THE ROUND!!!\n\n\n`);
           const lostMessage = `${this.props.game.players[players[i]].name} is `
           + `out of the round with a `
