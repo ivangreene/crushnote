@@ -28,6 +28,9 @@ class App extends Component {
       if ((document.cookie.split('=')[0] === 'sid') && this.state.user.name && window.location.pathname === '/') {
         redirectToPath('/main');
       }
+      if ((document.cookie.split('=')[0] === '') && !this.state.user.name && !(window.location.pathname === '/')) {
+        redirectToPath('/');
+      }
     }, 600);
 
     // Redirects to the given path, if not already at that path.
