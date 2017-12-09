@@ -94,9 +94,9 @@ img {
 
 /* --- Discard / Cheat Card  ----*/
 .cheatFrontSide {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  padding: 15px;
+  padding: 10px;
   margin: 0 auto;
   background-image: url("../../style/img/discarddiv.png");
   background-color: white;

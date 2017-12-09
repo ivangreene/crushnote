@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import SignUp from "../../components/SignUp/SignUp";
 import LogIn from "../../components/LogIn/LogIn";
+import heartgif from "../../style/img/test.gif"
 import "./LoginPage.css";
 
 class LoginPage extends Component {
@@ -30,7 +31,8 @@ flippy=()=> {
 
     let active = this.state.active;
 
-    return (<div>
+    return (<div id="login_page_box">
+
       <div id="login_title">
         <h1 className='elegantshadow'>Crush Note</h1>
       </div>
@@ -45,6 +47,9 @@ flippy=()=> {
               </div>
             </div>
             <div className="side back">
+              {/* <div>
+                <p className="card_view_titles">Test</p>
+              </div> */}
             </div>
           </div>
         </div>

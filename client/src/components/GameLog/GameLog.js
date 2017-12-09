@@ -124,8 +124,8 @@ class GameLog extends Component {
 
   render() {
     return (<div id="gamelog_body">
-        <header id="log_title"><i className="material-icons no-point">favorite</i><i className="material-icons no-point">favorite</i>
-        <span>   Crush - Note   </span><i className="material-icons no-point">favorite</i><i className="material-icons no-point">favorite</i></header>
+        <header id="log_title"><i className="material-icons no-point">favorite</i>
+        <span>   Crush - Note   </span><i className="material-icons no-point">favorite</i></header>
         <hr className="small"></hr>
         <p> Welcome To Crush-Note a reskinned and digital version of the popular Card game
         Love Letter	&copy;.  Love Letter is a game of risk, deduction, and luck for 2–4 players.

@@ -55,6 +55,7 @@ class Chat extends Component {
         <div className="chat-title">
           <h3>Lobby Chat</h3>
         </div>
+        <div id="chat_image">
         <div className="messages">
           {
             this.state.messages.map((message, index) => {
@@ -62,7 +63,7 @@ class Chat extends Component {
             })
           }
         </div>
-
+      </div>
       </div>
       <div id="chat_controls">
           <input type="text" style={{width:"100%"}} placeholder={"User " + this.props.name + ": Enter your message here"} className="form-control"  ref={(input) => { this.nameInput = input; }} value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>

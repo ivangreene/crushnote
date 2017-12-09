@@ -6,7 +6,8 @@
   width: auto;
   height: 300px;
   overflow-y: auto;
-  background-color: #2a222c;
+  /*background-color: #2a222ca6;*/
+  background-color: #030203f7;
   opacity: .75;
   margin-bottom: 5px;
   padding: 1em 2em;
@@ -32,7 +33,7 @@
 .chat-title h3 {
   margin-top: 10px;
   margin-bottom:20px;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 400;
  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
@@ -45,3 +46,10 @@
 #chat_handle{
   margin:0 auto;
 }
+
+/*#chat_image{
+  background-image: url("../../style/img/test.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}*/

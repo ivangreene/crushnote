@@ -198,8 +198,8 @@ handleClick = () => {
           this.forceUpdate();
         }}>End Game!</button>*/}
         {(this.props.game.open || this.props.game.waiting || this.props.game.completed) && this.renderPreGame(this.props.game)}
-      <div className="pure-g hud">
-        <div className="player-mount pure-u-1-3">
+      <div className="pure-g">
+        <div className="pure-u-1-3">
           {this.playerOrderCurrentUserFirst()[2] &&
             <PlayerMount
               count={this.props.game.playerOrder.length}
@@ -277,8 +277,8 @@ handleClick = () => {
       </div>
 
       <footer>
-        <div className="pure-g hud">
-          <div className="player_mount pure-u-1-3">
+        <div className="pure-g">
+          <div className="pure-u-1-3">
             {this.playerOrderCurrentUserFirst()[1] &&
               <PlayerMount
                 count={this.props.game.playerOrder.length}
