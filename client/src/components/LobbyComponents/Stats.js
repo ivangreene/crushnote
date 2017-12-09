@@ -20,7 +20,11 @@ class Stats extends Component {
             secondary = {true}
             onClick={() => {
               this.props.socket.emit('logOutUser');
-              window.location.href = '/';
+              let timeoutId;
+              if (timeoutId) clearInterval(timeoutId);
+              timeoutId = setTimeout(() => {
+                window.location.href = '/';
+              }, 600);
             }}
           />
 

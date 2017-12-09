@@ -105,7 +105,13 @@ module.exports = (socket, io, userSockets) => {
     user = null;
     const sidCookie = "sid=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
     socket.emit('setCookie', sidCookie);
-    io.emit('userLoggedOut', [socket.request.session.userId, Object.keys(userSockets)]);
+    let timeoutId;
+    if (timeoutId) clearInterval(timeoutId);
+    timeoutId = setTimeout(() => {
+      io.emit('userLoggedOut',
+        [socket.request.session.userId,
+        Object.keys(userSockets)]);
+    }, 1000);
     socket.leave(socket.request.session.userId);
     socket.disconnect(true);
   };

@@ -68,7 +68,7 @@ module.exports = (socket, io, userSockets) => {
         let cleanState = cleanGameState(newGame);
         // This doesn't work because the client makes a new socket
         // when they redirect.
-        //socket.join(cleanState._id);
+        // socket.join(cleanState._id);
         io.to(cleanState._id).emit('gameStateUpdate', cleanState);
         io.emit('openGame', cleanState);
       })
