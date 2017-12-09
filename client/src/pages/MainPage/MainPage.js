@@ -65,22 +65,32 @@ class MainPage extends Component {
   }
 
 renderGame(game) {
-   const canJoinGame = game.open || game.playerOrder.some(id => id === this.props.user.id);
-   return (
-     <div className="gameListEntry" key={game._id}>
-       <div className="gleTitle">
-       {this.getPlayerName(game.playerOrder[0])}'s Game
-     </div>
-       <div className="glePlayers">{game.playerOrder.length} Players</div>
-       { canJoinGame && <div>
+  const canJoinGame = game.open || game.playerOrder.some(id => id === this.props.user.id);
+  if (this.getPlayerName(game.playerOrder[0])) {
+    return (
+      <div className="gameListEntry" key={game._id}>
+        <div className="gleTitle">
+          <span>{this.getPlayerName(game.playerOrder[0])}'s Game</span>
+        </div>
+        <div className="glePlayers">{game.playerOrder.length} Players
+          <div>
+            {game.playerOrder.map((id, index) =>
+              <span key={id}>&nbsp;{this.getPlayerName(id)}&nbsp;{
+                (index < game.playerOrder.length-1) && <span>&bull;</span>
+              }</span>
+            )}
+          </div>
+          </div>
+        { canJoinGame && <div>
          <RaisedButton label="join game" primary={true} onClick={() => {
            this.props.socket.emit(`joinGame`, game._id);
            window.location.href = `game/${game._id}`
          }}/>
          </div> }
-     </div>
+      </div>
    );
- }
+  }
+}
   getPlayerName(playerId) {
     let activeUsers = this.props.activeUsers;
     let playerName;

@@ -114,4 +114,14 @@ module.exports = (socket, io, userSockets) => {
     // then score game as a loss for leaving player
     //User.update(userID, $inc: { stats.losses : 1 });
   });
+
+  socket.on('disconnect', (reason) => {
+    console.log(`user session ended because:`, reason);
+    console.log(`socket.request.session.userId info:`, socket.request.session.userId);
+    if (socket.request.session.userId) {
+      delete userSockets[socket.request.session.userId.toString()];
+      user = null;
+      io.emit('userLoggedOut');
+    }
+  });
 }
