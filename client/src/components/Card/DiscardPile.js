@@ -9,35 +9,20 @@ class DiscardPile extends Component {
 
   constructor(props) {
     super(props);
+}
 
-    this.state = {
-      isHidden: true
-    };
-  }
-
-  toggleHidden() {
-    this.setState({
-      isHidden: !this.state.isHidden
-    })
-  }
 
   render() {
     return (<div>
-      <RaisedButton label="Discarded" onClick={this.toggleHidden.bind(this)}/> {!this.state.isHidden && <DiscardList discardlist={this.props.discarded} id="disList"/>}
+      <RaisedButton primary={true} label="Card Played" onClick={this.props.clicky} />
+      <div id="discard-margin"></div>
+      <DiscardList discardlist={this.props.discarded} id="disList"/>
     </div>)
   }
 }
 
 class DiscardList extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isHidden: false
-    };
-
-  }
 
   render() {
 
@@ -55,7 +40,7 @@ class DiscardList extends Component {
     });
 
     return (<div>
-      <div className="cheatFrontSide">
+      <div className="cheatFrontSide" onClick={this.toggleHidden}>
         <p id="discard_top">Cards discarded this round</p>
         <ul id="discard_list">
           {discarded}

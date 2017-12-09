@@ -95,14 +95,10 @@ img {
 /* --- Discard / Cheat Card  ----*/
 .cheatFrontSide {
   font-size: 18px;
-  top: 20%;
-  left: 5%;
-  position: absolute;
-  z-index: 3;
   font-weight: 600;
   padding: 15px;
   margin: 0 auto;
-  /* background-image: url(/static/media/discarddiv.3333bd3d.png); */
+  background-image: url("../../style/img/discarddiv.png");
   background-color: white;
   opacity:.95;
   background-position: center;
@@ -110,6 +106,10 @@ img {
   background-size: cover;
   border: 5px inset;
   box-shadow: inset 10px 10px 15px #494343;
+}
+
+#discard-margin{
+  margin-bottom: 10%;
 }
 
 #discard_top{
