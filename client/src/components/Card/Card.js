@@ -15,7 +15,7 @@ GUARD = 1;
 const requiresTarget = card => [KING, PRINCE, BARON, PRIEST, GUARD].indexOf(parseInt(card)) > -1;
 const requiresGuess = card => [GUARD].indexOf(parseInt(card)) > -1;
 
-const Card =({card, isHeld, onClick, playCard, selected, ready })=>{
+const Card =({card, clicky, discarded, isHeld, onClick, playCard, selected, ready })=>{
 
     card = parseInt(card, 10);
 
@@ -50,6 +50,7 @@ const Card =({card, isHeld, onClick, playCard, selected, ready })=>{
               <RaisedButton onClick={playCard} label="Play Card" primary={true} />
               : ready(card) === 'guard' ? <RaisedButton secondary={true} label="Guess Card" />
               : <RaisedButton secondary={true} label="Select Target" /> ) }
+          { discarded && (<RaisedButton primary={true} label="Discard List" onClick={clicky}/>) }
         </div>
         </div>
       </a></div></MuiThemeProvider>
