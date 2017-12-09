@@ -28,6 +28,7 @@ class GameView extends Component {
   socket = window.socket;
 
   state = {
+    active: "played",
     cardViewOpen: false,
     hideGuard: false,
     protected: false,
@@ -107,6 +108,18 @@ class GameView extends Component {
     </div>);
   }
 
+
+//-------fix discard test  -------//
+handleClick = () => {
+  let active = this.state.active;
+  let newActive = active === 'played'
+    ? 'discard'
+    : 'played';
+  this.setState({active: newActive});
+}
+
+
+///--------------------------------///
   sendMove = () => {
     let move = { ...this.state.move };
     this.socket.emit('gameMove', this.props.gameId, move);
@@ -170,6 +183,7 @@ class GameView extends Component {
     //     this.socket.emit('leaveGame', this.props.gameId);
     //   }
     // }, 10000);
+    let active = this.state.active;
     if (!this.props.game)
       return null;
     return (  <MuiThemeProvider>
@@ -220,7 +234,7 @@ class GameView extends Component {
 
       <div className="pure-g" id="top_buttons">
         <div className="pure-u-1-4" id="discardListButton">
-          <DiscardPile discarded={this.props.game.cards.played} />
+          {/* <DiscardPile discarded={this.props.game.cards.played} /> */}
         </div>
         <div className="pure-u-1-2" id="top_buttons">
           <AllCardView chooseCard={this.addToMove('guessedCard')} onClick={() => this.setState({
@@ -233,9 +247,14 @@ class GameView extends Component {
       <div className="pure-g" id="card_view">
 
         <div className="pure-u-1-4" id="discard">
-          <p className="card_view_titles">Last Card Played</p>
-
-          <Card onClick={() => {}} card={this.props.game.cards.played[0]}/>
+          {
+            active === 'discard'
+              ? (<DiscardPile clicky={this.handleClick} discarded={this.props.game.cards.played} />)
+              : active === 'played'
+              ? (<div><p className="card_view_titles">Last Card Played</p><Card onClick={this.handleClick} discarded={true} card={this.props.game.cards.played[0]}/>
+              </div>)
+              : null
+          }
         </div>
 
         <div className="pure-u-1-2" id="player_hand">

@@ -13,6 +13,7 @@ div.player_info:hover{
 }
 
 #player_name{
+  margin:0 auto;
   font-size: 20px;
   font-weight: 600;
 }
