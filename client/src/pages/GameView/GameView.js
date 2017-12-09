@@ -240,9 +240,9 @@ handleClick = () => {
 
         <div className="pure-u-1-4" id="discard">
           {
-            active === 'played'
+            active === 'discard'
               ? (<DiscardPile clicky={this.handleClick} discarded={this.props.game.cards.played} />)
-              : active === 'discard'
+              : active === 'played'
               ? (<div><p className="card_view_titles">Last Card Played</p><Card onClick={this.handleClick} discarded={true} card={this.props.game.cards.played[0]}/>
               </div>)
               : null
