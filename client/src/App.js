@@ -24,7 +24,8 @@ class App extends Component {
     socket.on('connect', () => {});
 
     const loggedInRedirect = setTimeout(() => {
-      if (this.state.user.name && window.location.pathname === '/') {
+      console.log('look for cookies when redirecting', document.cookie.split('=')[0]);
+      if (!(document.cookie.split('=')[0] === 'sid') && this.state.user.name && window.location.pathname === '/') {
         redirectToPath('/main');
       }
     }, 600);
