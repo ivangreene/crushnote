@@ -121,9 +121,10 @@
 }
 
 #gamelog_body{
-  color:#b20ebc;
-  font-size: 16px;
-  font-weight: 600;
+  /*color:#b20ebc;*/
+  color: #705;
+  font-size: 15px;
+  font-weight: 400;
 }
 
 

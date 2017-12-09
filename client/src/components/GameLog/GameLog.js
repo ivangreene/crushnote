@@ -29,17 +29,17 @@ class GameLog extends Component {
           && this.props.game.players[playerIds].eliminated) eliminatedIds.push();
       }
       console.log(`move:`, move);
-      if (move.chosenPlayer && this.props.game.players[move.chosenPlayer].discarded
-        && this.props.game.players[move.chosenPlayer].discarded.length > 0) {
-        console.log('chosenPlayer most recently discarded a:',
-          this.props.game.players[move.chosenPlayer].discarded[0]);
-      }
+      // if (move.chosenPlayer && this.props.game.players[move.chosenPlayer].discarded
+      //   && this.props.game.players[move.chosenPlayer].discarded.length > 0) {
+      //   console.log('chosenPlayer most recently discarded a:',
+      //     this.props.game.players[move.chosenPlayer].discarded[0]);
+      // }
       const activeUser = this.props.game.players[move.player].name;
       // console.log(`active player`, this.props.game.players[move.player]);
-      let chosenUser, uniqueCardMessage, lostMessage;
+      let cardPlayed, chosenUser, uniqueCardMessage, lostMessage;
       // Generic turn: {user} played {card} {on player}
-      let cardPlayed = `${activeUser} played a ${move.card}`;
       if (move.chosenPlayer) {
+        cardPlayed = `${activeUser} played a ${move.card}`;
         chosenUser = this.props.game.players[move.chosenPlayer].name;
         cardPlayed += ` targeting ${chosenUser}`;
       }
@@ -66,12 +66,12 @@ class GameLog extends Component {
         } else {
           uniqueCardMessage = `${activeUser} and ${chosenUser} compared hands to see who has the highest card`;
         }
-        if (this.props.game.players[move.chosenPlayer].eliminated) {
-          console.log('A PLAYER WAS KNOCKED OUT BY A BARON');
-          lostMessage = `${chosenUser} is out of the round with a ${
-            this.props.game.players[move.chosenPlayer].discarded[0]
-          } in their hand`
-        }
+        // if (this.props.game.players[move.chosenPlayer].eliminated) {
+        //   console.log('A PLAYER WAS KNOCKED OUT BY A BARON');
+        //   lostMessage = `${chosenUser} is out of the round with a ${
+        //     this.props.game.players[move.chosenPlayer].discarded[0]
+        //   } in their hand`
+        // }
       }
       // Handmaid: {activeUser} protected themselves from all effects until their next turn
       if (move.card === 4) {
@@ -80,9 +80,7 @@ class GameLog extends Component {
       // Prince: {chosenUser} discarded a {card} and drew a new one
       // Prince forces discard to end of array
       if (move.card === 5) {
-        uniqueCardMessage = `${activeUser} forced ${chosenUser} to discard a ${
-          this.props.game.players[move.player].discarded[this.props.game.players[move.player].discarded.length-1]
-        } and draw a new card`;
+        uniqueCardMessage = `${activeUser} forced ${chosenUser} to discard a card and draw a new one`;
       }
       // King: {activeUser} switched hands with {chosenUser}
       if (move.card === 6) {
@@ -140,25 +138,32 @@ class GameLog extends Component {
         && this.state.alerts[this.state.alerts.length-1] !== handmaid)
       || (handmaid && this.state.alerts.length < 1)) alerts.push(handmaid);
     const players = this.props.playerList;
+    let discardMessages = [];
     for (let i = 0; i < players.length; i++) {
       if (nextProps.game.players[players[i]].eliminated !== this.props.game.players[players[i]].eliminated) {
-          console.log(`\n\n\nPLAYER ${this.props.game.players[players[i]].name} WAS KNOCKED OUT OF THE ROUND!!!\n\n\n`);
-          const lostMessage = `${this.props.game.players[players[i]].name} is `
-          + `out of the round with a `
-          + `${this.props.game.players[players[i]].discarded[0]} in their hand`;
-          alerts.push(lostMessage);
-        }
+        console.log(`\n\n\nPLAYER ${this.props.game.players[players[i]].name} WAS KNOCKED OUT OF THE ROUND!!!\n\n\n`);
+        const lostMessage = `${this.props.game.players[players[i]].name} is `
+        + `out of the round with a `
+        + `${nextProps.game.players[players[i]].discarded[0]} in their hand`;
+        alerts.push(lostMessage);
+      } else if (nextProps.game.players[players[i]].discarded[0] && nextProps.game.players[players[i]].discarded[0] !== this.props.game.players[players[i]].discarded[0]) {
+        let discardMessage = `${this.props.game.players[players[i]].name} discarded a `
+        + `${nextProps.game.players[players[i]].discarded[0]}`;
+        discardMessages.push(discardMessage);
+      }
     }
+    alerts = [...alerts, ...discardMessages];
     this.setState({ alerts: alerts });
   }
 
   render() {
     return (<div id="gamelog_body">
-        <header id="log_title"><i className="material-icons no-point">favorite</i><i className="material-icons no-point">favorite</i>
-        <span>   Crush - Note   </span><i className="material-icons no-point">favorite</i><i className="material-icons no-point">favorite</i></header>
+        <header id="log_title"><i className="material-icons no-point">favorite</i>
+        <span>Crush Note</span><i className="material-icons no-point">favorite</i></header>
         <hr className="small"></hr>
-        <p> Welcome To Crush-Note a reskinned and digital version of the popular Card game
-        Love Letter	&copy;.  Love Letter is a game of risk, deduction, and luck for 2–4 players.
+        <p>Welcome To Crush-Note, a reskinned and digital version of the popular card game
+        Love Letter&copy;.</p>
+        <p>Love Letter is a game of risk, deduction, and luck for 2–4 players.
         Your goal is to get your love letter into Princess Annette's hands while deflecting the
         letters from competing suitors. From a deck with only sixteen cards, each player
         starts with only one card in hand, and one card is removed from play at the start of each round.
