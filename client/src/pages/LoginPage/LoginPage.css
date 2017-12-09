@@ -16,7 +16,10 @@ body {
   font-family: 'Cookie', Helvetica, sans-serif;
   color: white;
   text-align: center;
+}
 
+#login_front_text:hover{
+  cursor: pointer;
 }
 
 #login_front_text {
