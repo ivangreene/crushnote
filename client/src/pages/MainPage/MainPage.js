@@ -81,16 +81,16 @@ renderGame(game) {
      </div>
    );
  }
- getPlayerName(playerId) {
-   let activeUsers = this.props.activeUsers;
-   let playerName;
-   for (let i = 0; i < activeUsers.length; i++) {
-     let user = activeUsers[i];
-     if (user._id === playerId) {
-       playerName = user.username;
-       return playerName;
-     }
-   }
- }
+  getPlayerName(playerId) {
+    let activeUsers = this.props.activeUsers;
+    let playerName;
+    for (let i = 0; i < activeUsers.length; i++) {
+      let user = activeUsers[i];
+      if (user._id === playerId) {
+        playerName = user.username;
+        return playerName;
+      }
+    }
+  }
 }
 export default MainPage;

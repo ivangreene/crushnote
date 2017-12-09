@@ -97,6 +97,10 @@ module.exports = (socket, io, userSockets) => {
   });
 
   socket.on('logOutUser', data => {
+    logOutUser(data);
+  });
+
+  const logOutUser = data => {
     delete userSockets[socket.request.session.userId.toString()];
     user = null;
     const sidCookie = "sid=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
@@ -104,7 +108,7 @@ module.exports = (socket, io, userSockets) => {
     io.emit('userLoggedOut', [socket.request.session.userId, Object.keys(userSockets)]);
     socket.leave(socket.request.session.userId);
     socket.disconnect(true);
-  });
+  };
 
   socket.on(`abandonGame`, data => {
     // then score game as a loss for leaving player

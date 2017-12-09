@@ -72,7 +72,7 @@ module.exports = (socket, io, userSockets) => {
         io.to(cleanState._id).emit('gameStateUpdate', cleanState);
         io.emit('openGame', cleanState);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log('newGame socket/game.js ERROR:', err));
   });
 
   socket.on('searchingForGame', () => {

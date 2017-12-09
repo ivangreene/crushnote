@@ -108,7 +108,7 @@ class App extends Component {
     let updateGameInState = ({ refresh }) => (gameId, game) => {
       let games = {...this.state.games};
       games[gameId] = deepObjectAssign(games[gameId], game);
-      if (games[gameId].playerOrder.length) {
+      if (games[gameId] && games[gameId].playerOrder.length) {
         for (var i = 0; i < games[gameId].playerOrder.length; i++) {
           let userId = games[gameId].playerOrder[i];
           if (!games[gameId].players[userId].name) {
@@ -126,7 +126,7 @@ class App extends Component {
     socket.on('updateGameList', (gameId, userId) => {
       // console.log('a user abandoned a game, so update game list');
       let games = {...this.state.games};
-      if (games[gameId].playerOrder[0] === userId && games[gameId].open) {
+      if (games[gameId] && games[gameId].playerOrder[0] && games[gameId].playerOrder[0] === userId && games[gameId].open) {
         // When creator abandons the game before starting, everyone leaves
         socket.emit('leaveGame', gameId);
       } else {
