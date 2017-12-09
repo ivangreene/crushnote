@@ -25,7 +25,7 @@ class App extends Component {
 
     const loggedInRedirect = setTimeout(() => {
       console.log('look for cookies when redirecting', document.cookie.split('=')[0]);
-      if (!(document.cookie.split('=')[0] === 'sid') && this.state.user.name && window.location.pathname === '/') {
+      if ((document.cookie.split('=')[0] === 'sid') && this.state.user.name && window.location.pathname === '/') {
         redirectToPath('/main');
       }
     }, 600);
@@ -66,7 +66,10 @@ class App extends Component {
       // Get list of all logged in users after logging in
       socket.emit('getActiveUsers');
     });
-    socket.on('setCookie', data => document.cookie = data);
+    socket.on('setCookie', data => {
+      console.log('the cookie to set is:', data);
+      document.cookie = data
+    });
     socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
     socket.on('userLoggedOut', () => socket.emit('getActiveUsers'));
     socket.on('recieveActiveUsers', users => {
