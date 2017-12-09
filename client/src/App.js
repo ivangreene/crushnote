@@ -24,8 +24,12 @@ class App extends Component {
     socket.on('connect', () => {});
 
     const loggedInRedirect = setTimeout(() => {
-      if (this.state.user.name && window.location.pathname === '/') {
+      console.log('look for cookies when redirecting', document.cookie.split('=')[0]);
+      if ((document.cookie.split('=')[0] === 'sid') && this.state.user.name && window.location.pathname === '/') {
         redirectToPath('/main');
+      }
+      if ((document.cookie.split('=')[0] === '') && !this.state.user.name && !(window.location.pathname === '/')) {
+        redirectToPath('/');
       }
     }, 600);
 
@@ -65,11 +69,12 @@ class App extends Component {
       // Get list of all logged in users after logging in
       socket.emit('getActiveUsers');
     });
-    socket.on('setCookie', data => document.cookie = data);
-    socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
-    socket.on('userLoggedOut', data => {
-      socket.emit('getActiveUsers');
+    socket.on('setCookie', data => {
+      console.log('the cookie to set is:', data);
+      document.cookie = data
     });
+    socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
+    socket.on('userLoggedOut', () => socket.emit('getActiveUsers'));
     socket.on('recieveActiveUsers', users => {
       this.setState({activeUsers: users})
     });
@@ -108,7 +113,7 @@ class App extends Component {
     let updateGameInState = ({ refresh }) => (gameId, game) => {
       let games = {...this.state.games};
       games[gameId] = deepObjectAssign(games[gameId], game);
-      if (games[gameId].playerOrder.length) {
+      if (games[gameId] && games[gameId].playerOrder.length) {
         for (var i = 0; i < games[gameId].playerOrder.length; i++) {
           let userId = games[gameId].playerOrder[i];
           if (!games[gameId].players[userId].name) {
@@ -126,27 +131,33 @@ class App extends Component {
     socket.on('updateGameList', (gameId, userId) => {
       // console.log('a user abandoned a game, so update game list');
       let games = {...this.state.games};
-      if (games[gameId].playerOrder[0] === userId && games[gameId].open) {
-        // When creator abandons the game before starting, everyone leaves
-        socket.emit('leaveGame', gameId);
+      if (!games[gameId]) {
+        return;
       } else {
-        games[gameId].playerOrder.splice(
-          games[gameId].playerOrder.indexOf(userId),
-          1
-        );
-        // if a player quits the game leaving only one player in the room
-        if (games[gameId].playerOrder.length < 2) {
-          // last player leaves the room
+        if (games[gameId] && games[gameId].playerOrder[0] && games[gameId].playerOrder[0] === userId && games[gameId].open) {
+          // When creator abandons the game before starting, everyone leaves
+          console.log('creator of game left, so now everyone leaves.');
           socket.emit('leaveGame', gameId);
+        } else {
+          games[gameId].playerOrder.splice(
+            games[gameId].playerOrder.indexOf(userId),
+            1
+          );
+          // if a player quits the game leaving only one player in the room
+          if (games[gameId].playerOrder.length < 2) {
+            // last player leaves the room
+            console.log('you are only player left in game room, so you leave.');
+            socket.emit('leaveGame', gameId);
+          }
+          // if there are no players in the room delete the game
+          if (games[gameId].playerOrder.length < 1) {
+            delete games[gameId];
+          } else { // if there are still players in room, update game.players object
+            delete games[gameId].players[userId];
+          }
         }
-        // if there are no players in the room delete the game
-        if (games[gameId].playerOrder.length < 1) {
-          delete games[gameId];
-        } else { // if there are still players in room, update game.players object
-          delete games[gameId].players[userId];
-        }
+        this.setState({ games });
       }
-      this.setState({ games });
     });
     socket.on('err', err => {console.log(err)});
   }

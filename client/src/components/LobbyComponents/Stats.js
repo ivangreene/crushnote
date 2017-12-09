@@ -10,9 +10,9 @@ class Stats extends Component {
       <ul>
         <div className="player_info">
           <p id="player_name">{this.props.user && this.props.user.name}</p>
-          <p id="player_record">Wins: {
+          <p id="player_record">W: {
             this.props.user && this.props.user.stats.wins
-          } / Losses: {
+          } / L: {
             this.props.user && this.props.user.stats.losses
           }</p>
         <RaisedButton
@@ -20,10 +20,14 @@ class Stats extends Component {
             secondary = {true}
             onClick={() => {
               this.props.socket.emit('logOutUser');
-              window.location.href = '/';
+              let timeoutId;
+              if (timeoutId) clearInterval(timeoutId);
+              timeoutId = setTimeout(() => {
+                window.location.href = '/';
+              }, 600);
             }}
           />
-      
+
         </div>
         { this.props.activeUsers && this.props.activeUsers.map((player)=>{
             if (player._id !== this.props.user.id) return (

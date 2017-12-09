@@ -97,17 +97,37 @@ module.exports = (socket, io, userSockets) => {
   });
 
   socket.on('logOutUser', data => {
+    logOutUser(data);
+  });
+
+  const logOutUser = data => {
     delete userSockets[socket.request.session.userId.toString()];
     user = null;
     const sidCookie = "sid=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
     socket.emit('setCookie', sidCookie);
-    io.emit('userLoggedOut', [socket.request.session.userId, Object.keys(userSockets)]);
+    let timeoutId;
+    if (timeoutId) clearInterval(timeoutId);
+    timeoutId = setTimeout(() => {
+      io.emit('userLoggedOut',
+        [socket.request.session.userId,
+        Object.keys(userSockets)]);
+    }, 1000);
     socket.leave(socket.request.session.userId);
     socket.disconnect(true);
-  });
+  };
 
   socket.on(`abandonGame`, data => {
     // then score game as a loss for leaving player
     //User.update(userID, $inc: { stats.losses : 1 });
+  });
+
+  socket.on('disconnect', (reason) => {
+    console.log(`user session ended because:`, reason);
+    console.log(`socket.request.session.userId info:`, socket.request.session.userId);
+    if (socket.request.session.userId) {
+      delete userSockets[socket.request.session.userId.toString()];
+      user = null;
+      io.emit('userLoggedOut');
+    }
   });
 }
