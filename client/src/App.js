@@ -67,9 +67,7 @@ class App extends Component {
     });
     socket.on('setCookie', data => document.cookie = data);
     socket.on('userLoggedIn', () => socket.emit('getActiveUsers'));
-    socket.on('userLoggedOut', data => {
-      socket.emit('getActiveUsers');
-    });
+    socket.on('userLoggedOut', () => socket.emit('getActiveUsers'));
     socket.on('recieveActiveUsers', users => {
       this.setState({activeUsers: users})
     });
