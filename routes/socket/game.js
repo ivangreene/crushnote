@@ -87,7 +87,6 @@ module.exports = (socket, io, userSockets) => {
   });
 
   socket.on('joinGame', gameID => {
-
     if (!socket.request.session.userId)
       return socket.emit('err', { message: 'Not authenticated' });
     Game.joinGame(gameID, socket.request.session.userId)

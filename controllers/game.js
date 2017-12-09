@@ -170,6 +170,7 @@ module.exports = {
               seeded.playerOrder.map(p => {
                 seeded.players[p].eliminated = false;
                 seeded.players[p].active = false;
+                seeded.players[p].discarded = [];
               });
               seeded.roundWinner = newState.roundWinner;
               newState = seeded;
