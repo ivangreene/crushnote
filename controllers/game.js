@@ -1,7 +1,7 @@
 const db = require("../models");
 const shuffle = require('lodash/shuffle');
-const gameSeed = () => require('../lib/seeds/game');
-const playerSeed = () => require('../lib/seeds/player');
+const gameSeed = () => JSON.parse(JSON.stringify(require('../lib/seeds/game')));
+const playerSeed = () => JSON.parse(JSON.stringify(require('../lib/seeds/player')));
 const moveEngine = require('../lib/engine/move');
 
 const ROUNDS = [5, 5, 5, 4, 3];
