@@ -109,16 +109,16 @@ class GameLog extends Component {
     if ((handmaid && this.state.alerts.length > 0
         && this.state.alerts[this.state.alerts.length-1] !== handmaid)
       || (handmaid && this.state.alerts.length < 1)) alerts.push(handmaid);
-    // Player won round: {user} won a heart with {card} in their hand
-    // This displays in the gameStart popup in GameView.js
-    // if (nextProps.game.roundWinner
-    //   && nextProps.game.roundWinner.id
-    //   && nextProps.game.roundWinner.card) {
-    //   const wonRoundName = nextProps.game.players[nextProps.game.roundWinner.id].name;
-    //   const wonRoundCard = nextProps.game.roundWinner.card;
-    //   const winMessage = `${wonRoundName} won a heart with ${wonRoundCard} in their hand`;
-    //   alerts.push(winMessage);
-    // }
+    const players = this.props.playerList;
+    for (let i = 0; i < players.length; i++) {
+      if (nextProps.game && nextProps.game.players[players[i]].eliminated !== this.props.game.players[players[i]].eliminated) {
+          console.log(`\n\n\nPLAYER ${this.props.game.players[players[i]].name} WAS KNOCKED OUT OF THE ROUND!!!\n\n\n`);
+          const lostMessage = `${this.props.game.players[players[i]].name} is `
+          + `out of the round with a `
+          + `${this.props.game.players[players[i]].discarded[0]} in their hand`;
+          alerts.push(lostMessage);
+        }
+    }
     this.setState({ alerts: alerts });
   }
 
