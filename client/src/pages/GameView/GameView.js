@@ -207,6 +207,7 @@ handleClick = () => {
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[2]]
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[2]].discarded
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[2]].discarded[0] === 4
+                  && !this.props.game.players[this.playerOrderCurrentUserFirst()[2]].eliminated
                 ? null : this.addToMove('chosenPlayer')}
               userId={this.playerOrderCurrentUserFirst()[2]}
               player={this.props.game.players[this.playerOrderCurrentUserFirst()[2]]}
@@ -223,6 +224,7 @@ handleClick = () => {
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[3]]
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[3]].discarded
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[3]].discarded[0] === 4
+                  && !this.props.game.players[this.playerOrderCurrentUserFirst()[3]].eliminated
                 ? null : this.addToMove('chosenPlayer')}
               userId={this.playerOrderCurrentUserFirst()[3]}
               player={this.props.game.players[this.playerOrderCurrentUserFirst()[3]]}
@@ -262,7 +264,9 @@ handleClick = () => {
           <div id="player_cards">
           <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('deck')}} onClick={() => this.addToMove('cardSelect')('deck')} ready={this.readyToPlay} card={ this.props.game.cards.deck[0] } selected={this.state.move.cardSelect === 'deck'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />
 
-          <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('hand')}} onClick={() => this.addToMove('cardSelect')('hand')} ready={this.readyToPlay} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />
+          {this.props.game.players[this.props.user.id]
+            && !this.props.game.players[this.props.user.id].eliminated
+            && <Card playCard={(e) => {e.stopPropagation(); this.addToMove('cardSelect', true)('hand')}} onClick={() => this.addToMove('cardSelect')('hand')} ready={this.readyToPlay} card={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].hand} selected={this.state.move.cardSelect === 'hand'} isHeld={this.props.game.players[this.props.user.id] && this.props.game.players[this.props.user.id].active} />}
         </div>
         </div>
 
@@ -286,6 +290,7 @@ handleClick = () => {
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[1]]
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[1]].discarded
                   && this.props.game.players[this.playerOrderCurrentUserFirst()[1]].discarded[0] === 4
+                  && !this.props.game.players[this.playerOrderCurrentUserFirst()[1]].eliminated
                   ? '' : this.addToMove('chosenPlayer')}
                 userId={this.playerOrderCurrentUserFirst()[1]}
                 player={this.props.game.players[this.playerOrderCurrentUserFirst()[1]]}
@@ -303,7 +308,7 @@ handleClick = () => {
               <RaisedButton primary={true} label="Lobby" href="/main" target="blank"/>
             </div>
               <p className="card_view_titles">Cards remaining in deck: </p>
-              <p className="card_view_titles">{15 - this.props.game.cards.played.length}</p>
+              <p className="card_view_titles">{(15 - this.props.game.playerOrder.length) - this.props.game.cards.played.length}</p>
           </div>
 
           <div className="player-mount pure-u-1-3">
