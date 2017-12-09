@@ -189,7 +189,11 @@ class GameView extends Component {
           {this.playerOrderCurrentUserFirst()[2] &&
             <PlayerMount
               count={this.props.game.playerOrder.length}
-              onClick={this.addToMove('chosenPlayer')}
+              onClick={this.props.game
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[2]]
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[2]].discarded
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[2]].discarded[0] === 4
+                ? null : this.addToMove('chosenPlayer')}
               userId={this.playerOrderCurrentUserFirst()[2]}
               player={this.props.game.players[this.playerOrderCurrentUserFirst()[2]]}
               selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[2]}
@@ -201,7 +205,11 @@ class GameView extends Component {
           {this.playerOrderCurrentUserFirst()[3] &&
             <PlayerMount
               count={this.props.game.playerOrder.length}
-              onClick={this.addToMove('chosenPlayer')}
+              onClick={this.props.game
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[3]]
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[3]].discarded
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[3]].discarded[0] === 4
+                ? null : this.addToMove('chosenPlayer')}
               userId={this.playerOrderCurrentUserFirst()[3]}
               player={this.props.game.players[this.playerOrderCurrentUserFirst()[3]]}
               selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[3]}
@@ -255,7 +263,11 @@ class GameView extends Component {
             {this.playerOrderCurrentUserFirst()[1] &&
               <PlayerMount
                 count={this.props.game.playerOrder.length}
-                onClick={this.addToMove('chosenPlayer')}
+                onClick={this.props.game
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[1]]
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[1]].discarded
+                  && this.props.game.players[this.playerOrderCurrentUserFirst()[1]].discarded[0] === 4
+                  ? '' : this.addToMove('chosenPlayer')}
                 userId={this.playerOrderCurrentUserFirst()[1]}
                 player={this.props.game.players[this.playerOrderCurrentUserFirst()[1]]}
                 selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[1]}
@@ -289,7 +301,8 @@ class GameView extends Component {
                 : (this.playerOrderCurrentUserFirst()[0] &&
                   <PlayerMount
                     count={this.props.game.playerOrder.length}
-                    onClick={this.addToMove('chosenPlayer')}
+                    onClick={!this.props.game.players[this.playerOrderCurrentUserFirst()[3]].discarded[0] === 4
+                      && this.addToMove('chosenPlayer')}
                     userId={this.playerOrderCurrentUserFirst()[0]}
                     player={this.props.game.players[this.playerOrderCurrentUserFirst()[0]]}
                     selected={this.state.move.chosenPlayer === this.playerOrderCurrentUserFirst()[0]}

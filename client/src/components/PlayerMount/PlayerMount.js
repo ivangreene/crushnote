@@ -15,7 +15,9 @@ class PlayerMount extends Component {
 
   render() {
     // console.log(this.props)
-    return (<a onClick={() => this.props.onClick(this.props.userId)} id="opponent_mount" className={(
+    return (<a onClick={() => {
+      if (typeof this.props.onClick === 'function') this.props.onClick(this.props.userId)
+    }} id="opponent_mount" className={(
         this.props.player.active
         ? 'activePlayer'
         : '') + (
